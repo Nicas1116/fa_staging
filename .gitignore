@@ -3,4 +3,6 @@ admin/config-dist.php
 admin/config.php
 index.php
 php.ini
+config-dist.php
+config.php
 system/
