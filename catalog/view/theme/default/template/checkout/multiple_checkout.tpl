@@ -32,6 +32,9 @@
       <div id="collapse-shipping-address">
             <div class="panel-body"></div>
           </div>
+          <div id="collapse-shipping-method">
+            <div class="panel-body"></div>
+          </div>
         </div>
         <div class="securedpayment">
           <div id="collapse-payment-method">
@@ -416,60 +419,30 @@ $(document).delegate('#button-payment-address', 'click', function() {
 $(document).delegate('#collapse-shipping-address #shipping-existing select, #input-shipping-postcode', 'change', function() {
      $.ajax({
         url: 'index.php?route=checkout/shipping_method',
-        type: 'post',
-        data: $('#collapse-shipping-address input[type=\'text\'], #collapse-shipping-address input[type=\'date\'], #collapse-shipping-address input[type=\'datetime-local\'], #collapse-shipping-address input[type=\'time\'], #collapse-shipping-address input[type=\'password\'], #collapse-shipping-address input[type=\'checkbox\']:checked, #collapse-shipping-address input[type=\'radio\']:checked, #collapse-shipping-address textarea, #collapse-shipping-address select'),
-        dataType: 'json',
-        beforeSend: function() {
-            $('#button-shipping-address').button('loading');
-        },
+        dataType: 'html',
         complete: function() {
             $('#button-shipping-address').button('reset');
         },
-        success: function(json) {
-            if (json['redirect']) {
-                location = json['redirect'];
-            } else if (json['error']) {
-                $('#button-shipping-address').button('reset');
-
-                if (json['error']['warning']) {
-                    $('#collapse-shipping-address .panel-body').prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+        success: function(html) {
+            $('#collapse-shipping-method .panel-body').html(html);
+            /*$.ajax({
+                url: 'index.php?route=checkout/shipping_address',
+                dataType: 'html',
+                success: function(html) {
+                    $('#collapse-shipping-address .panel-body').html(html);
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                 }
-
-                for (i in json['error']) {
-                    var element = $('#input-shipping-' + i.replace('_', '-'));
-
-                    if ($(element).parent().hasClass('input-group')) {
-                        $(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
-                    } else {
-                        $(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
-                    }
-                }
-
-                // Highlight any found errors
-                $('.text-danger').parent().parent().addClass('has-error');
-            } else {
-                if(!json.pricetext){
-                    $(".overall_shippingcost_text").show();
-                    $(".overall_shippingcost").hide();
-                    $(".overall_shippingcost .can_shipping").val("false");
-
-                }else{
-                     $(".overall_shippingcost_text").hide();
-                    $(".overall_shippingcost").show();
-                    $(".overall_shippingcost .can_shipping").val("true");
-                    $(".overall_shippingcost .shipping_cost").html(json.pricetext);
-                }
-        }
+            });*/
         },
         error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
 });
 // Shipping Address
 $(document).delegate('#button-shipping-address', 'click', function() {
-    console.log($(".overall_shippingcost .can_shipping").val()=="false");
-    if($(".overall_shippingcost .can_shipping").val()=="false"){return;}
     $.ajax({
         url: 'index.php?route=checkout/shipping_address/save',
         type: 'post',

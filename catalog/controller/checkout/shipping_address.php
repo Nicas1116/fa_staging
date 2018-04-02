@@ -65,6 +65,36 @@ class ControllerCheckoutShippingAddress extends Controller {
 			$data['shipping_address_custom_field'] = array();
 		}
 
+		$data['text_shipping_method'] = $this->language->get('text_shipping_method');
+		$data['text_comments'] = $this->language->get('text_comments');
+		$data['text_loading'] = $this->language->get('text_loading');
+
+		$data['button_continue'] = $this->language->get('button_continue');
+
+		if (empty($this->session->data['shipping_methods'])) {
+			$data['error_warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('information/contact'));
+		} else {
+			$data['error_warning'] = '';
+		}
+
+		if (isset($this->session->data['shipping_methods'])) {
+			$data['shipping_methods'] = $this->session->data['shipping_methods'];
+		} else {
+			$data['shipping_methods'] = array();
+		}
+
+		if (isset($this->session->data['shipping_method']['code'])) {
+			$data['code'] = $this->session->data['shipping_method']['code'];
+		} else {
+			$data['code'] = '';
+		}
+
+		if (isset($this->session->data['comment'])) {
+			$data['comment'] = $this->session->data['comment'];
+		} else {
+			$data['comment'] = '';
+		}
+
 		$this->response->setOutput($this->load->view('checkout/shipping_address', $data));
 	}
 

@@ -899,6 +899,16 @@ class ControllerCommonColumnLeft extends Controller {
 			$data['text_other_status'] = $this->language->get('text_other_status');
 	
 			$this->load->model('sale/order');
+			$mulflatshpzip_token = (substr(VERSION,0,3)>='3.0') ? 'user_token=' . $this->session->data['user_token'] : 'token=' . $this->session->data['token'];
+			if($this->user->hasPermission('access', 'extension/mulflatshpzip') && $this->config->get((substr(VERSION,0,3)>='3.0' ? 'module_mulflatshpzip_status' : 'mulflatshpzip_status'))) { 
+				$data['menus'][] = array(
+					'id'       => 'menu-mulflatshpzip',
+					'icon'	   => 'fa-arrow-right', 
+					'name'	   => 'Zipcode Based Multi Flat Rate Shipping',
+					'href'     => $this->url->link('extension/mulflatshpzip', $mulflatshpzip_token, true),
+					'children' => array()
+				);	
+			}
 	
 			$order_total = $this->model_sale_order->getTotalOrders();
 	
