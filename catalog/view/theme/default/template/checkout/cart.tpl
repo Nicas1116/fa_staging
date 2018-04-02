@@ -195,9 +195,12 @@
 <script type="text/javascript">
   var clearTimeoutId;
   function checkout(){
-
-      //return;
-      window.top.location = '<?php echo $checkout; ?>';
+      if( $(".btnsingledelivery").hasClass("active")){
+        window.top.location = '<?php echo $checkout; ?>';
+      }else{
+         window.top.location = '<?php echo $multiplecheckout; ?>';
+      }
+      
   }
 
   $(document).ready(function(){

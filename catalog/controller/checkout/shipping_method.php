@@ -109,9 +109,9 @@ class ControllerCheckoutShippingMethod extends Controller {
 					// Default Shipping Address
 					$this->load->model('account/address');
 
-					$address_id = $this->model_account_address->addAddress($this->request->post);
+					//$address_id = $this->model_account_address->addAddress($this->request->post);
 
-					$this->session->data['shipping_address'] = $this->model_account_address->getAddress($address_id);
+					$this->session->data['shipping_address'] = $this->request->post;
 
 					unset($this->session->data['shipping_method']);
 					unset($this->session->data['shipping_methods']);
@@ -124,7 +124,7 @@ class ControllerCheckoutShippingMethod extends Controller {
 							'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
 						);
 
-						$this->model_account_activity->addActivity('address_add', $activity_data);
+						//$this->model_account_activity->addActivity('address_add', $activity_data);
 					}
 				}
 			}

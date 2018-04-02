@@ -38,7 +38,7 @@
 				</div>			
   			</div>
   			<div class="col-lg-4 col-md-4 col-sm-9 col-xs-8">
-  				<img class="logo" src="/fa/staging/image/others/logo.png"/>
+  				<a href="<?php echo $home; ?>"><img class="logo" src="/fa/staging/image/others/logo.png"/></a>
   			</div>
   			<div class="col-lg-4 col-md-4 col-sm-9 col-xs-8">
   				<div class="pull-right">
