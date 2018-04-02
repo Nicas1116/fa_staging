@@ -70,11 +70,12 @@ class ControllerCheckoutCart extends Controller {
 
 			$this->load->model('tool/image');
 			$this->load->model('tool/upload');
+			$this->load->model('catalog/product');
 
 			$data['products'] = array();
 
 			$products = $this->cart->getProducts();
-
+			
 			foreach ($products as $product) {
 				$product_total = 0;
 
@@ -111,7 +112,9 @@ class ControllerCheckoutCart extends Controller {
 
 					$option_data[] = array(
 						'name'  => $option['name'],
-						'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+						'value' => $value,
+						'value_id' =>$option['product_option_value_id'],
+						'type' => $option['type'] 
 					);
 				}
 
@@ -147,8 +150,23 @@ class ControllerCheckoutCart extends Controller {
 						$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
 					}
 				}
-
+				$fullproduct_options = array();
+				foreach ($this->model_catalog_product->getProductOptions($product["product_id"]) as $option) {
+					if(is_array($option["product_option_value"])){
+						foreach ($option["product_option_value"] as $value) {
+							$value_id = $value["product_option_value_id"];
+						}
+					}
+					$fullproduct_options[] = array(
+						'id' => $option["product_option_id"],
+						'name' => $option["name"],
+						'value' => $value_id,
+						'type' => $option["type"]
+					);
+				}
 				$data['products'][] = array(
+					'product_id'   => $product["product_id"],
+					'fullproduct_options'   => $fullproduct_options,
 					'cart_id'   => $product['cart_id'],
 					'thumb'     => $image,
 					'name'      => $product['name'],
@@ -239,7 +257,7 @@ class ControllerCheckoutCart extends Controller {
 
 			$data['modules'] = array();
 			
-			$files = glob(DIR_APPLICATION . '/controller/extension/total/*.php');
+			/*$files = glob(DIR_APPLICATION . '/controller/extension/total/*.php');
 
 			if ($files) {
 				foreach ($files as $file) {
@@ -249,6 +267,10 @@ class ControllerCheckoutCart extends Controller {
 						$data['modules'][] = $result;
 					}
 				}
+			}*/
+			$result = $this->load->controller('extension/total/' . basename('coupon.php',".php"));
+			if ($result) {
+				$data['modules'][] = $result;
 			}
 
 			$data['column_left'] = $this->load->controller('common/column_left');
@@ -402,13 +424,40 @@ class ControllerCheckoutCart extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	public function editoption() {
+		$this->load->language('checkout/cart');
+		$json = array();
+		if (!empty($this->request->post['option'])) {
+			$key = $this->request->post['key'];
+			$option = htmlspecialchars_decode($this->request->post['option']);
+			$this->cart->updateoption($key, $option);
+			//var_dump($key,$option);
+			//$this->response->redirect($this->url->link('checkout/cart'));
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
 	public function edit() {
 		$this->load->language('checkout/cart');
 
 		$json = array();
 
-		// Update
-		if (!empty($this->request->post['quantity'])) {
+		if (!empty($this->request->post['key'])) {
+			$key = $this->request->post['key'];
+			$quantity = $this->request->post['quantity'];
+			$this->cart->update($key, $quantity);
+			$this->session->data['success'] = $this->language->get('text_remove');
+
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
+			unset($this->session->data['reward']);
+
+			//$this->response->redirect($this->url->link('checkout/cart'));
+		}else if (!empty($this->request->post['quantity'])) {
 			foreach ($this->request->post['quantity'] as $key => $value) {
 				$this->cart->update($key, $value);
 			}

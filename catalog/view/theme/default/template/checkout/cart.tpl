@@ -29,37 +29,42 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h1><?php echo $heading_title; ?>
-        <?php if ($weight) { ?>
-        &nbsp;(<?php echo $weight; ?>)
-        <?php } ?>
-      </h1>
+      
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <td class="text-center"><?php echo $column_image; ?></td>
-                <td class="text-left"><?php echo $column_name; ?></td>
-                <td class="text-left"><?php echo $column_model; ?></td>
-                <td class="text-left"><?php echo $column_quantity; ?></td>
-                <td class="text-right"><?php echo $column_price; ?></td>
-                <td class="text-right"><?php echo $column_total; ?></td>
-              </tr>
-            </thead>
-            <tbody>
+        <div class="row">
+          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+            <h2>Delivery Options</h2>
+      <ul class="deliverymethods row">
+        <li><input type="radio" name="deliverymethod" class="radio_dm" checked="checked"><a class="btnsingledelivery active"><strong>Single Address Delivery</strong>
+          <span>Available with purchase of 1 or more products for 1 delivery address only</span></a></li>
+        <?php 
+          $disabletext ="";
+        if(sizeof($products)>1){
+          $disabletext="disabled";
+        }
+      ?>
+        <li><input type="radio" name="deliverymethod" class="radio_dm" <?php echo $disabletext ?>><a class="btnmultipledelivery <?php echo $disabletext ?>"><strong>Multiple Address Delivery</strong>
+          <span>Only available with purchase of 1 product in multiple quantities</span></a></li>
+      </ul>
+      <h2>My Bag <span class="itemsbag"><?php echo sizeof($products) ?> items</span></h2>
+          <div class="cart_products_list">
               <?php foreach ($products as $product) { ?>
-              <tr>
-                <td class="text-center"><?php if ($product['thumb']) { ?>
+              <?php
+                    //echo json_encode($product);
+                   ?>
+              <div class="row cart-id-<?php echo $product['cart_id'] ?>">
+                <div class="col-xs-1 text-center"><button type="button" onclick="cart.remove('<?php echo $product['cart_id']; ?>');" title="<?php echo $button_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></div>
+                <div class="col-xs-2 text-left"><?php if ($product['thumb']) { ?>
                   <a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-thumbnail" /></a>
-                  <?php } ?></td>
-                <td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
+                  <?php } ?></div>
+                <div class="col-xs-4 text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
                   <?php if (!$product['stock']) { ?>
                   <span class="text-danger">***</span>
                   <?php } ?>
                   <?php if ($product['option']) { ?>
                   <?php foreach ($product['option'] as $option) { ?>
                   <br />
+
                   <small><?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
                   <?php } ?>
                   <?php } ?>
@@ -70,63 +75,180 @@
                   <?php if ($product['recurring']) { ?>
                   <br />
                   <span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>
-                  <?php } ?></td>
-                <td class="text-left"><?php echo $product['model']; ?></td>
-                <td class="text-left"><div class="input-group btn-block" style="max-width: 200px;">
-                    <input type="text" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" class="form-control" />
-                    <span class="input-group-btn">
-                    <button type="submit" data-toggle="tooltip" title="<?php echo $button_update; ?>" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
-                    <button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger" onclick="cart.remove('<?php echo $product['cart_id']; ?>');"><i class="fa fa-times-circle"></i></button>
-                    </span></div></td>
-                <td class="text-right"><?php echo $product['price']; ?></td>
-                <td class="text-right"><?php echo $product['total']; ?></td>
-              </tr>
+                  <?php } ?></div>
+                  <div class="col-xs-2 text-left">Price<br/><?php echo $product['price']; ?></div>
+               <div class="col-xs-1 text-left"><div class="boxq"><a class="btn_minproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']-1; ?>);">-</a><span><?php echo $product['quantity']; ?></span><a class="btn_addproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']+1; ?>);">+</a></div></div>
+                  
+                <div class="col-xs-2 text-left"><div class="subtotal_box">Subtotal<br/><p class="oriprice"><?php echo str_replace("RM","",$product['total']); ?></p><p class="item_subtotalprice"><?php echo $product['total']; ?></p></div></div>
+                <p class="clearfix"></p>
+                 <div class="col-xs-12 text-left">
+                  <?php 
+                  $fullproduct_options = $product["fullproduct_options"];
+                  $product_options = $product["option"];
+                  foreach ($fullproduct_options as $fullproduct_option) {
+                      if($fullproduct_option["name"] == "Send As Gift"){
+                        $fullproduct_option_name = $fullproduct_option;
+                      }
+                      if($fullproduct_option["name"] == "Giftbox Message"){
+                        $fullproduct_option_giftboxmessage = $fullproduct_option;
+                      }
+                  }
+                  $ison = false;
+                  $hasmessage = false;
+                   foreach ($product_options as $option) {
+                      if($option["name"] == "Send As Gift"){
+                        $ison = true;
+                        $product_option_name = $option;
+                      }
+                      if($option["name"] == "Giftbox Message"){
+                        $hasmessage=true;
+                        $product_option_giftboxmessage = $option;
+                      }
+                  }
+                  ?>
+                  <div class="allgiftbox"><label><input <?php if($ison){echo "checked='checked'";} ?> class="checkbox_sendasgift checkbox_sendasgift-<?php echo $product["cart_id"]  ?>" type="checkbox" /> Send as gift</label>
+                  <div class="sendgiftbox" <?php if($ison){echo "style='display:block;'";} ?>>
+                    <label><input <?php if($ison){echo "checked='checked'";} ?> class="checkbox_giftboxwithmessage" type="checkbox" /> Gift card with message Rm 3</label>
+                    <textarea placeholder="Insert your message here" class="giftboxmessage giftboxmessage-<?php echo $product['cart_id'] ?>" name="giftboxname-<?php echo $product['cart_id'] ?>" ><?php if($hasmessage){echo $product_option_giftboxmessage["value"];} ?></textarea>
+                    <span>Not more than 120 characters</span>
+                  </div>
+                  <script type="text/javascript">
+                      $(document).ready(function(){
+                        $(".checkbox_sendasgift-<?php echo $product["cart_id"]  ?>").click(function(){
+                          if($(this).is(':checked')==true){
+                            var a = '{"<?php echo $fullproduct_option_name["id"]; ?>":"<?php echo $fullproduct_option_name["value"]; ?>"}';
+                            var a = {"<?php echo $fullproduct_option_name["id"]; ?>":"<?php echo $fullproduct_option_name["value"]; ?>","<?php echo $fullproduct_option_giftboxmessage["id"]; ?>":""};
+                            var a_text = JSON.stringify(a);
+                            cart.updateoption("<?php echo $product["cart_id"]  ?>",a_text);   
+                         }else{
+                            var a = '[]';
+                            cart.updateoption("<?php echo $product["cart_id"]  ?>",a);   
+                         }
+                        });
+                        $(".giftboxmessage-<?php echo $product['cart_id'] ?>").change(function(i,a){
+                          clearTimeout(clearTimeoutId);
+                          clearTimeoutId = setTimeout(function(){
+                            var a = {"<?php echo $fullproduct_option_name["id"]; ?>":"<?php echo $fullproduct_option_name["value"]; ?>","<?php echo $fullproduct_option_giftboxmessage["id"]; ?>":$(".giftboxmessage-<?php echo $product['cart_id'] ?>").val()};
+                            var a_text = JSON.stringify(a);
+                            cart.updateoptiontext("<?php echo $product["cart_id"]  ?>",a_text);  
+                          },500);
+                        })
+                      })
+                  </script>
+                </div>
+                 </div>
+              </div>
               <?php } ?>
               <?php foreach ($vouchers as $voucher) { ?>
-              <tr>
-                <td></td>
-                <td class="text-left"><?php echo $voucher['description']; ?></td>
-                <td class="text-left"></td>
-                <td class="text-left"><div class="input-group btn-block" style="max-width: 200px;">
+              <div class="row">
+                <div></div>
+                <div class="text-left"><?php echo $voucher['description']; ?></div>
+                <div class="text-left"></div>
+                <div class="text-left"><div class="input-group btn-block" style="max-width: 200px;">
                     <input type="text" name="" value="1" size="1" disabled="disabled" class="form-control" />
                     <span class="input-group-btn">
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger" onclick="voucher.remove('<?php echo $voucher['key']; ?>');"><i class="fa fa-times-circle"></i></button>
-                    </span></div></td>
-                <td class="text-right"><?php echo $voucher['amount']; ?></td>
-                <td class="text-right"><?php echo $voucher['amount']; ?></td>
-              </tr>
+                    </span></div></div>
+                <div class="text-right"><?php echo $voucher['amount']; ?></div>
+                <div class="text-right"><?php echo $voucher['amount']; ?></div>
+              </div>
               <?php } ?>
-            </tbody>
-          </table>
-        </div>
-      </form>
-      <?php if ($modules) { ?>
-      <h2><?php echo $text_next; ?></h2>
-      <p><?php echo $text_next_choice; ?></p>
-      <div class="panel-group" id="accordion">
-        <?php foreach ($modules as $module) { ?>
-        <?php echo $module; ?>
-        <?php } ?>
+            </div>
       </div>
-      <?php } ?>
-      <br />
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+        <div id="cart_ordersummary">
+        <h2>Order Summary</h2>
+      
       <div class="row">
-        <div class="col-sm-4 col-sm-offset-8">
-          <table class="table table-bordered">
-            <?php foreach ($totals as $total) { ?>
-            <tr>
-              <td class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
-              <td class="text-right"><?php echo $total['text']; ?></td>
-            </tr>
-            <?php } ?>
-          </table>
+        <div class="col-sm-6">
+          <p class="text-left"><strong><?php echo $totals[0]['title']; ?>:</strong></p>
+        </div>
+        <div class="col-sm-6">
+          <p class="text-right"><strong class="subtotalprice"><?php echo $totals[0]['text']; ?></strong></p>
         </div>
       </div>
-      <div class="buttons clearfix">
-        <div class="pull-left"><a href="<?php echo $continue; ?>" class="btn btn-default"><?php echo $button_shopping; ?></a></div>
-        <div class="pull-right"><a href="<?php echo $checkout; ?>" class="btn btn-primary"><?php echo $button_checkout; ?></a></div>
+      <div class="row cartcoupon">
+        <div class="col-sm-12">
+        <?php foreach ($modules as $module) { ?>
+          <?php echo $module; ?>
+        <?php } ?>
+         </div>
       </div>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
+
+      <div class="row total">
+        <div class="col-sm-6">
+          <p class="text-left"><strong><?php echo $totals[1]['title']; ?>:</strong></p>
+        </div>
+        <div class="col-sm-6">
+          <p class="text-right"><strong class="totalprice"><?php echo $totals[1]['text']; ?></strong></p>
+        </div>
+      </div>
+      <p class="small">GST included, where applicable</p>
+      <div><a href="javascript:checkout();void(0);" class="btn btn-primary btn-checkout"><?php echo $button_checkout; ?></a></div>
+    </div>
+      </div>
+      </form>
+    </div>
+
+  </div>
 </div>
+<script type="text/javascript">
+  var clearTimeoutId;
+  function checkout(){
+
+      //return;
+      window.top.location = '<?php echo $checkout; ?>';
+  }
+
+  $(document).ready(function(){
+    $(".btnsingledelivery").click(function(){
+      $(".radio_dm").prop("checked",false)
+      $(this).parent().find("input").prop("checked",true);
+      $(".btnsingledelivery,.btnmultipledelivery").removeClass("active");
+      $(this).addClass("active");
+      $(".checkbox_sendasgift").removeAttr("disabled")
+      $(".checkbox_sendasgift").prop("checked",false);
+    });
+    $(".btnmultipledelivery").click(function(){
+      if(!$(this).hasClass("disabled")){
+      $(".radio_dm").prop("checked",false)
+      $(this).parent().find("input").prop("checked",true);
+      $(".btnsingledelivery,.btnmultipledelivery").removeClass("active");
+      $(this).addClass("active");
+      $(".checkbox_sendasgift").attr("disabled","disabled")
+      $(".checkbox_sendasgift").prop("checked",false);
+      $(".sendgiftbox").hide();
+      }
+    });
+    
+    $(".checkbox_giftboxwithmessage")
+    $(".checkbox_sendasgift").bind("change",function(){
+      if($(this).is(':checked')==true){
+        $(this).parent().parent().find(".sendgiftbox").show();
+      }else{
+        $(this).parent().parent().find(".sendgiftbox").hide();
+      }
+    })
+    $(".checkbox_giftboxwithmessage").bind("change",function(){
+      var addmoney = 0;
+      if($(this).is(':checked')==true){
+        addmoney = 3
+      }
+      var theproductrow = ($(this).parent().parent().parent().parent().parent());
+      var oriprice = parseFloat(theproductrow.find(".oriprice").html());
+      var subtotalprice = oriprice+addmoney;
+      theproductrow.find(".item_subtotalprice").html("RM"+subtotalprice.toFixed(2));
+      calculateTotalPrice();
+    })
+  })
+  function calculateTotalPrice()
+  {
+    var totalPrice = 0;
+    $.each($(".cart_products_list .row"),function(i,a){
+      totalPrice += parseFloat($(a).find(".item_subtotalprice").html().replace("RM",""))
+    })
+    $("#cart_ordersummary .subtotalprice").html("RM"+totalPrice.toFixed(2));
+    $("#cart_ordersummary .totalprice").html("RM"+totalPrice.toFixed(2));
+  }
+</script>
 <?php echo $footer; ?>

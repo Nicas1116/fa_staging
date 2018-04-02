@@ -1126,10 +1126,10 @@ body[class*="layout-boxed-"] .d-content:before {
   padding: 0;
   min-height: 80px;
   border-bottom: 1px solid #dcdcdc;
-  /* background-image: url(/fa/staging/image/others/logo.png); */
-  /* background-repeat:  no-repeat; */
-  /* background-position:  center; */
-  /* background-size:  auto 100%; */
+  background-image: url(/fa/staging/image/others/thbg.png);
+  background-repeat:  no-repeat;
+  background-position:  center;
+  background-size:  auto 100%;
 }
 /* line 129, D:\xampp\htdocs\demo\lexus_superstore_demo22\catalog\view\theme\lexus_superstore_first\development\less\opencart\layout.less */
 #topbar b,
@@ -7225,11 +7225,11 @@ body,
 .pavo-widget .box{margin-bottom:0px;}
 .thebox p{width:100%;float: left;}
 .thebox ul{width:50%;float: left;}
-#cart .thecarttext{line-height: 80px;color:#fff;}
+#cart .thecarttext{line-height: 80px;color:#fff;cursor:  pointer;}
 #cart .thecarttext span#cart-total{width:18px;height:18px;border-radius:50%;background:#faf163;color:#000000;line-height:  1;font-size:  12px;text-align:  center;line-height:  18px;margin-left: 3px;}
 #header-main .thebox ul li a{font-weight: bold;font-size: 16px;color: #4a4a4a;line-height: 30px;padding-right: 0px;}
 .pav-megamenu .dropdown-menu p{font-size:15px;padding-bottom:  0px;margin-bottom: 15px;}
-.shopping-cart #cart .dropdown-menu{position: fixed;background: #fd5700;top:0px;right: 0px;width:30%;height:  100%;color:  #fff;margin:  0px;}
+.shopping-cart #cart .thecartside{position: fixed;background: #fd5700;top:0px;right: 0px;width:30%;height:  100%;color:  #fff;margin:  0px;padding:  20px;border-radius:  0px;z-index: 9999;box-shadow: 0 0 5px #000;overflow:  auto;display:  none;}
 #topbar .links a span,#topbar .links li span{display:inline-block;margin-left:10px;font-size: 16px;font-weight:  bold;}
 #pavo-footer-top{background:#fff5e1;}
 .pavo-widget img{display: block;;width:auto;max-width: 100%;}
@@ -7280,3 +7280,58 @@ body,
 .panel.yellow_panel_box p a{font-size: 15px;line-height: 14px;color:#4a4a4a;margin-top:  10px;font-weight: bold;margin-top: 15px;display: inline-block;}
 .panel.yellow_panel_box1 h2{font-size: 24px;line-height: 30px;color:#4a4a4a;margin-top: 0px;font-weight: bold;}
 .panel.yellow_panel_box1 p{font-size: 15px;line-height: 22px;color:#4a4a4a;margin-top: 0px;font-weight:  normal;padding-right: 30%;}
+.cartcoupon {position: relative;}
+#cart_ordersummary{background: #FFDDA4;padding:20px;}
+#cart_ordersummary h2{font-size: 22px;line-height: 22px;margin-bottom: 20px;color: #000;font-style:italic;}
+#cart_ordersummary .small{font-size: 12px;color:#000;text-align: right;}
+#cart_ordersummary .row.total{margin-bottom: 0px;}
+#cart_ordersummary .row{margin-bottom: 10px;}
+#cart_ordersummary .row p{margin:0;padding:0;}
+#cart_ordersummary .row strong{font-weight: 600;font-style: italic;}
+.cartcoupon .btn-coupon{position: absolute;top:0px;right: 0px;width:150px;padding: 10px 20px;border-radius: 20px;font-size: 16px;line-height: 16px;color:#000;background: #4A90E2;border: none;}
+.cartcoupon .form-control{border-radius: 20px;padding: 7px 20px;border: solid 1px #D0D0D0;font-size: 16px;line-height: 16px;height:  auto;}
+.btn.btn-primary{background: #FF8D00;color:#000;font-size: 14px;border: none;line-height: 14px;border-radius: 0px;padding: 10px;}
+.btn.btn-primary.btn-checkout{display: block;;border: none;}
+.thecartside h2{font-size: 22px;line-height: 22px;color:#fff;font-weight: bold;margin-bottom: 10px;text-transform: capitalize;margin-top:  0px;}
+#topbar .thecartside .btnclosecart{position: absolute;top: 20px;right: 20px;font-size: 20px;line-height:  20px;color: #fd5700;text-align: center;background: #FFF;padding: 4px;border-radius:  50%;width: 30px;height: 30px;}
+#topbar .thecartside .btnclosecart i{font-size: 16px;line-height: 16px;margin:  0;color: #fd5700;}
+#topbar .links a.btnclosecart:hover .fa{color: #fb5a29;}
+#topbar .thecartside .product_list{margin-top:40px;}
+#topbar .links .thecartside .product_list a{color: #FFF;margin:  0px;text-align:  left;font-weight:  normal;font-size:  12px;line-height: 14px!important;}
+#topbar .thecartside .product_list button{background:none;border:none;padding: 5px;margin:0;color:#fff;}
+#topbar .thecartside .product_list .product_item{margin: 5px 0;}
+#topbar .thecartside .product_list .product_price{display: block;font-size: 14px;line-height: 14px;,margin-top: 5px;margin-left:  0px;margin-top:  5px;}
+#topbar .thecartside .product_list button i.fa{color:#fff;font-size: 16px;margin-right:  0px;}
+#topbar .thecartside .product_list button:hover i.fa{color:#fff;font-size: 16px;}
+#topbar .thecartside div.emptycart p{margin-top: 60px;}
+#topbar .links li.shopping-cart{margin-left:20px;}
+#topbar .thecartside .product_list .product_name{font-weight: normal;font-size: 16px;line-height: 16px;}
+#topbar .links .thecartside .product_list .boxq{border: solid 1px #fff;display:  inline-block;}
+#topbar .links .thecartside .product_list .boxq span,#topbar .links .thecartside .product_list .boxq a{padding: 6px;margin: 0px;display: inline-block;vertical-align: middle;font-size: 14px;font-weight:  normal;}
+.cart_products_list .boxq{border: solid 1px #000;display:  inline-block;min-width: 57px;}
+.cart_products_list .boxq span,.cart_products_list .boxq a{padding: 6px;margin: 0px;display: inline-block;vertical-align: middle;font-size: 14px;font-weight:  normal;}
+#topbar .rototal{border-top:1px solid #fff;color:#fff;}
+#topbar .rototal.rodSub-Total{color:#fff;font-size: 16px;line-height: 22px;}
+#topbar .rototal.rodTotal{color:#fff;font-size: 18px;line-height: 22px;}
+#topbar .rototal.rodTotal .text-right{font-weight: bold;}
+#topbar .rototal strong{color: #fff;padding: 10px 0;}
+#topbar .rototal {padding: 20px 0 10px;margin-top:  10px;}
+#topbar .links .btn-viewbag{background:#fff;color:#000;border-radius: 10px;font-size: 18px;line-height: 22px;font-weight: bold;display: block;padding: 15px;margin: 10px 0;}
+#topbar .links .btn-viewbag:hover{color:#000}
+.deliverymethods li{position: relative;float: left;width: 50%;list-style: none;}
+.deliverymethods li a{border: 1px solid #D0D0D0;background: #fff;padding: 10px 10px 10px 30px;display:  block;margin-right: 20px;border-radius: 10px;}
+.deliverymethods li a strong{font-size: 18px;line-height: 22px;color: #000;}
+.deliverymethods li a span{font-size: 13px;line-height: 18px;display: block;color: #000;}
+.deliverymethods li a.active{border-color: #FF8D00;}
+.deliverymethods li a.disabled{background: #EFEFEF;}
+.radio_dm{position: absolute;top: 10px;left: 10px;}
+#content h2{position: relative;}
+.itemsbag{position: absolute;right: 0px;top:0px;font-style: 14px;line-height: 22px;text-transform: capitalize;}
+.cart_products_list .row{border-radius: 10px;border: solid 1px #D0D0D0;padding:10px;margin-top: 20px;}
+.cart_products_list .subtotal_box{padding-left: 20px;}
+.giftboxmessage{resize: none;display: block;width: 50%;height: 60px;}
+.oriprice{display: none;}
+.allgiftbox{position: relative;padding-left: 8.3%;}
+.sendgiftbox{display:none;position: relative;width:100%;margin-left: -15px;padding:  0 15px;margin-right: -15px;}
+.sendgiftbox{border-top: 1px solid #000;padding-top:10px;}
+.sendgiftbox span{text-align: right;display: block;width:50%}

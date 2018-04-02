@@ -19,7 +19,14 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+        <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
       <h1><?php echo $heading_title; ?></h1>
+      <ul>
+        <li><p class="step1 active">Customer Info</p></li>
+        <li><p class="step2">Delivery Method</p></li>
+        <li><p class="step3">Secured Payment</p></li>
+        </ul>
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -83,6 +90,40 @@
           </div>
         </div>
       </div>
+  </div>
+       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+        <div id="cart_ordersummary">
+        <h2>Order Summary</h2>
+      
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="text-left"><strong><?php echo $totals[0]['title']; ?>:</strong></p>
+        </div>
+        <div class="col-sm-6">
+          <p class="text-right"><strong class="subtotalprice"><?php echo $totals[0]['text']; ?></strong></p>
+        </div>
+      </div>
+      <div class="row cartcoupon">
+        <div class="col-sm-12">
+        <?php foreach ($modules as $module) { ?>
+          <?php echo $module; ?>
+        <?php } ?>
+         </div>
+      </div>
+
+      <div class="row total">
+        <div class="col-sm-6">
+          <p class="text-left"><strong><?php echo $totals[1]['title']; ?>:</strong></p>
+        </div>
+        <div class="col-sm-6">
+          <p class="text-right"><strong class="totalprice"><?php echo $totals[1]['text']; ?></strong></p>
+        </div>
+      </div>
+      <p class="small">GST included, where applicable</p>
+      <div><a href="<?php echo $checkout; ?>" class="btn btn-primary btn-checkout"><?php echo $button_checkout; ?></a></div>
+    </div>
+      </div>
+  </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>

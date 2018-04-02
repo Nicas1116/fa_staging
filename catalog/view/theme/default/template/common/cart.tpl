@@ -1,8 +1,8 @@
 <div id="cart" class="btn-group btn-block">
   <button type="button" data-toggle="dropdown" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total"><?php echo $text_items; ?></span></button>
-  <ul class="dropdown-menu pull-right">
+  <div class="dropdown-menu pull-right">
     <?php if ($products || $vouchers) { ?>
-    <li>
+    <div>
       <table class="table table-striped">
         <?php foreach ($products as $product) { ?>
         <tr>
@@ -35,24 +35,22 @@
         </tr>
         <?php } ?>
       </table>
-    </li>
-    <li>
+    </div>
+    <div>
       <div>
-        <table class="table table-bordered">
+       <div class="row">
           <?php foreach ($totals as $total) { ?>
-          <tr>
-            <td class="text-right"><strong><?php echo $total['title']; ?></strong></td>
-            <td class="text-right"><?php echo $total['text']; ?></td>
-          </tr>
+            <div class="col-sm-6 text-left"><strong><?php echo $total['title']; ?></strong></div>
+            <div class="col-sm-6 text-right"><?php echo $total['text']; ?></div>
           <?php } ?>
-        </table>
-        <p class="text-right"><a href="<?php echo $cart; ?>"><strong><i class="fa fa-shopping-cart"></i> <?php echo $text_cart; ?></strong></a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $checkout; ?>"><strong><i class="fa fa-share"></i> <?php echo $text_checkout; ?></strong></a></p>
+        </div>
+        <p class="text-center"><a href="<?php echo $cart; ?>"><strong><i class="fa fa-shopping-cart"></i>VIEW BAG</strong></a></p>
       </div>
-    </li>
+    </div>
     <?php } else { ?>
-    <li>
+    <div>
       <p class="text-center"><?php echo $text_empty; ?></p>
-    </li>
+    </div>
     <?php } ?>
-  </ul>
+  </div>
 </div>

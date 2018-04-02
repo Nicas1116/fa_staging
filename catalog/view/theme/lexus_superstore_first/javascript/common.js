@@ -8,7 +8,7 @@ $(document.body).on('click', '.megamenu [data-toggle="dropdown"], .verticalmenu 
         }
     });
 
- 
+
     $('[data-toggle="offcanvas"]').click(function () {
         $('.row-offcanvas').toggleClass('active')
     });
@@ -62,7 +62,12 @@ $(document).ready(function() {
             return false;
         });
     });
-
+$("#cart .thecarttext").click(function(){
+            $(".shopping-cart #cart .thecartside").show();
+          })
+          $("#topbar .thecartside .btnclosecart").click(function(){
+             $(".shopping-cart #cart .thecartside").hide();
+          });
   // Currency
   $('.currency .currency-select').on('click', function(e) {
     e.preventDefault();
@@ -194,8 +199,67 @@ var cart = {
 
           $('html, body').animate({ scrollTop: 0 }, 'slow');
 
-          $('#cart > ul').load('index.php?route=common/cart/info ul li');
+          $('#topbar .shopping-cart #cart').load('index.php?route=common/cart/info #cart',function(){
+             $("#cart .thecarttext").click(function(){
+              $(".shopping-cart #cart .thecartside").show();
+            })
+            $("#topbar .thecartside .btnclosecart").click(function(){
+               $(".shopping-cart #cart .thecartside").hide();
+            });
+          });
+         
         }
+      }
+    });
+  },
+  'updateoption': function(key, option) {
+    $.ajax({
+      url: 'index.php?route=checkout/cart/editoption',
+      type: 'post',
+      data: {
+       key: key,
+       option: option
+      },
+      dataType: 'json',
+      beforeSend: function() {
+        $('#cart > button').button('loading');
+      },
+      success: function(json) {
+        $('#cart > button').button('reset');
+
+        $('#cart-total').html(json['total']);
+        if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
+          location = 'index.php?route=checkout/cart';
+        } else {
+          $('#topbar .shopping-cart #cart').load('index.php?route=common/cart/info #cart',function(){
+            $("#cart .thecarttext").click(function(){
+            $(".shopping-cart #cart .thecartside").show();
+          })
+          $("#topbar .thecartside .btnclosecart").click(function(){
+             $(".shopping-cart #cart .thecartside").hide();
+          });
+          $(".shopping-cart #cart .thecartside").show();
+          });
+
+        }
+        
+      }
+    });
+  },
+  'updateoptiontext': function(key, option) {
+    $.ajax({
+      url: 'index.php?route=checkout/cart/editoption',
+      type: 'post',
+      data: {
+       key: key,
+       option: option
+      },
+      dataType: 'json',
+      beforeSend: function() {
+        $('#cart > button').button('loading');
+      },
+      success: function(json) {
+      
       }
     });
   },
@@ -212,12 +276,21 @@ var cart = {
         $('#cart > button').button('reset');
 
         $('#cart-total').html(json['total']);
-
         if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
           location = 'index.php?route=checkout/cart';
         } else {
-          $('#cart > ul').load('index.php?route=common/cart/info ul li');
+          $('#topbar .shopping-cart #cart').load('index.php?route=common/cart/info #cart',function(){
+            $("#cart .thecarttext").click(function(){
+            $(".shopping-cart #cart .thecartside").show();
+          })
+          $("#topbar .thecartside .btnclosecart").click(function(){
+             $(".shopping-cart #cart .thecartside").hide();
+          });
+          $(".shopping-cart #cart .thecartside").show();
+          });
+
         }
+        
       }
     });
   },
@@ -238,8 +311,16 @@ var cart = {
         if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
           location = 'index.php?route=checkout/cart';
         } else {
-          $('#cart > ul').load('index.php?route=common/cart/info ul li');
+          $('#topbar .shopping-cart #cart').load('index.php?route=common/cart/info #cart',function(){
+             $("#cart .thecarttext").click(function(){
+            $(".shopping-cart #cart .thecartside").show();
+          })
+          $("#topbar .thecartside .btnclosecart").click(function(){
+             $(".shopping-cart #cart .thecartside").hide();
+          });
+          });
         }
+       
       }
     });
   }

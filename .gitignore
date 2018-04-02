@@ -1,8 +1,12 @@
-
 admin/config-dist.php
 admin/config.php
 index.php
 php.ini
 config-dist.php
 config.php
-system/
+system/storage/cache/
+system/storage/logs/
+image/cache/catalog/
+.htaccess
+*.DS_Store
+.DS_Store
