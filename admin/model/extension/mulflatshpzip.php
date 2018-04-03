@@ -5,7 +5,7 @@ class ModelExtensionmulflatshpzip extends Model {
 		$store = (isset($data['store']) && $data['store'] != '') ? implode(",",$data['store']) : ''; 
 		//print_r($store);exit;
  
-		$this->db->query("INSERT INTO " . DB_PREFIX . "mulflatshpzip SET name = '" . $this->db->escape($data['name']) . "', zipcode = '" . $this->db->escape($data['zipcode']) . "', customer_group = '" . $this->db->escape($customer_group) . "', store = '" . $this->db->escape($store) . "', status = '" . (int)$data['status'] . "', date_start = '" . $this->db->escape(date("Y-m-d",strtotime($data['date_start']))) . "', date_end = '" . $this->db->escape(date("Y-m-d",strtotime($data['date_end']))) . "' ");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "mulflatshpzip SET name = '" . $this->db->escape($data['name']) . "', zipcode = '" . $this->db->escape($data['zipcode']) . "', customer_group = '" . $this->db->escape($customer_group) . "', store = '" . $this->db->escape($store) . "', status = '" . (int)$data['status'] . "', date_start = '" . $this->db->escape($data['date_start']) . "', date_end = '" . $this->db->escape($data['date_end']) . "' ");
 
 		$mulflatshpzip_id = $this->db->getLastId();
 		
@@ -19,10 +19,11 @@ class ModelExtensionmulflatshpzip extends Model {
 	}
 
 	public function editmulflatshpzip($mulflatshpzip_id, $data) {
+
  		$customer_group = (isset($data['customer_group']) && $data['customer_group']) ? implode(",",$data['customer_group']) : '';
 		$store = (isset($data['store']) && $data['store'] != '') ? implode(",",$data['store']) : ''; 
 		
-		$this->db->query("UPDATE " . DB_PREFIX . "mulflatshpzip SET name = '" . $this->db->escape($data['name']) . "', zipcode = '" . $this->db->escape($data['zipcode']) . "', customer_group = '" . $this->db->escape($customer_group) . "', store = '" . $this->db->escape($store) . "', status = '" . (int)$data['status'] . "', date_start = '" . $this->db->escape(date("Y-m-d",strtotime($data['date_start']))) . "', date_end = '" . $this->db->escape(date("Y-m-d",strtotime($data['date_end']))) . "' WHERE mulflatshpzip_id = '" . (int)$mulflatshpzip_id . "'");
+		$this->db->query("UPDATE " . DB_PREFIX . "mulflatshpzip SET name = '" . $this->db->escape($data['name']) . "', zipcode = '" . $this->db->escape($data['zipcode']) . "', customer_group = '" . $this->db->escape($customer_group) . "', store = '" . $this->db->escape($store) . "', status = '" . (int)$data['status'] . "', date_start = '" . $this->db->escape($data['date_start']) . "', date_end = '" . $this->db->escape($data['date_end']) . "' WHERE mulflatshpzip_id = '" . (int)$mulflatshpzip_id . "'");
 		
 		$this->db->query("DELETE FROM " . DB_PREFIX . "mulflatshpzip_cost WHERE mulflatshpzip_id = '" . (int)$mulflatshpzip_id . "'");
 

@@ -1,27 +1,34 @@
-<form class="form-horizontal">
+<form class="form-horizontal ">
+   <h2>Billing Infomation</h2>
+   <div class="row pa_address_p">
   <div class="radio">
     <label>
       <input type="radio" name="payment_address" value="new" checked="checked" />New Address</label>
   </div>
-  <?php if ($addresses) { ?>
   <div class="radio">
     <label>
-      <input type="radio" name="payment_address" value="existing" />From Address Book</label>
+      <input type="radio" name="payment_address" value="existing" <?php echo ($addresses) ? '' : 'disabled'; ?> />From Address Book</label>
   </div>
-   
+   </div>
   <div id="payment-existing" style="display: <?php echo ($addresses ? 'none' : 'block'); ?>;">
-    <select name="address_id" class="form-control">
       <?php foreach ($addresses as $address) { ?>
       <?php if ($address['address_id'] == $address_id) { ?>
-      <option value="<?php echo $address['address_id']; ?>" selected="selected"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
-      <?php } else { ?>
-      <option value="<?php echo $address['address_id']; ?>"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
+       <?php  $address_selected = $address; ?>
+       <?php } ?>
       <?php } ?>
-      <?php } ?>
-    </select>
+
+
+    <div class="address_box address_selected">
+      <input type="hidden" name="address_id" class="form-control" value=" <?php echo $address_selected["address_id"]; ?>" >
+      <p><b ><?php echo $address_selected["firstname"]." ".$address_selected["lastname"]; ?></b>
+          <?php echo $address_selected["company"]; ?><br/>
+          <?php echo $address_selected["address_1"]; ?><br/>
+          <?php echo $address_selected["address_2"]." ".$address_selected["postcode"] ; ?><br/>
+          <?php echo $address_selected["custom_field"][1]; ?><br/>
+      </p>
+      <a class="btn_openpagefix">Change</a>
+    </div>
   </div>
-  <?php } ?>
-  <br />
   <div id="payment-new" style="display: <?php echo ($addresses ? 'block' : 'none'); ?>;">
     <div class="form-group required">
       <div class="col-sm-6">
@@ -176,10 +183,46 @@
   </div>
   <div class="buttons clearfix">
     <div class="pull-right">
-      <input type="button" value="<?php echo $button_continue; ?>" id="button-payment-address" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
+      <input type="button" value="NEXT" id="button-payment-address" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-next" />
     </div>
   </div>
 </form>
+<?php if($addresses){ ?>
+<div id="payment_addresschange" class="pagefix" style="display: none;">
+  <div class="pagefix_insidebox">
+     
+      <div class="row"> <h1 class="pull-left">Address Book (<?php echo sizeof($addresses); ?>)</h1><p class="pull-right"><input type="text" name="searchbox" clsas="d_searchbox" placeholder="Search.."></p></div>
+      <a class="btn_closepagefix">Close <span><i class="fa fa-close"></i></span></a>
+      <div class="address_box_list">
+        <?php foreach ($addresses as $address) { ?>
+          <a data-id="<?php echo $address["address_id"]; ?>" class="address_box ">
+          <span><b ><?php echo $address["firstname"]." ".$address["lastname"]; ?></b>
+              <?php echo $address["company"]; ?><br/>
+              <?php echo $address["address_1"]; ?><br/>
+              <?php echo $address["address_2"]." ".$address["postcode"] ; ?><br/>
+              <?php echo $address["custom_field"][1]; ?><br/>
+          </span>
+        </a>
+        <?php } ?>
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#payment_addresschange .btn_closepagefix").click(function(){
+      $("#payment_addresschange").hide();
+    });
+     $("#payment-existing .btn_openpagefix").click(function(){
+      $("#payment_addresschange").show();
+    });
+     $("#payment_addresschange .address_box_list .address_box").click(function(){
+       $("#payment-existing .address_selected input").val($(this).attr("data-id"));
+       $("#payment_addresschange").hide();
+       $("#payment-existing .address_selected p").html($(this).find("span").html());
+    });
+  })
+</script>
+<?php } ?>
 <script type="text/javascript"><!--
 $('input[name=\'payment_address\']').on('change', function() {
 	if (this.value == 'new') {

@@ -22,7 +22,8 @@ class ControllerCheckoutLogin extends Controller {
 		$data['button_login'] = $this->language->get('button_login');
 
 		$data['checkout_guest'] = ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload());
-
+		$data['signup'] = $this->url->link('account/register');
+		
 		if (isset($this->session->data['account'])) {
 			$data['account'] = $this->session->data['account'];
 		} else {

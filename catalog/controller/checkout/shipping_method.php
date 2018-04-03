@@ -41,7 +41,6 @@ class ControllerCheckoutShippingMethod extends Controller {
 
 		if (!$json) {
 			if (isset($this->request->post['shipping_address']) && $this->request->post['shipping_address'] == 'existing') {
-
 				$this->load->model('account/address');
 
 				if (empty($this->request->post['address_id'])) {
@@ -59,7 +58,7 @@ class ControllerCheckoutShippingMethod extends Controller {
 					unset($this->session->data['shipping_methods']);
 				}
 			} else {
-
+				var_dump($this->request->post['shipping_address']);
 				if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
 					$json['error']['firstname'] = $this->language->get('error_firstname');
 				}
@@ -129,7 +128,7 @@ class ControllerCheckoutShippingMethod extends Controller {
 				}
 			}
 		}
-		$json["pricetext"] = false;
+		$data["pricetext"] = false;
 		if (isset($this->session->data['shipping_address'])) {
 			// Shipping Methods
 			$method_data = array();
@@ -151,7 +150,8 @@ class ControllerCheckoutShippingMethod extends Controller {
 							'error'      => $quote['error']
 						);
 						foreach ($quote['quote'] as $quote_quote) {
-							$json["pricetext"] =$quote_quote["text"];
+							$data["pricetext"] =$quote_quote["text"];
+							$data["dcode"] = $quote_quote['code'];
 						}
 						
 					}
@@ -169,11 +169,6 @@ class ControllerCheckoutShippingMethod extends Controller {
 			$this->session->data['shipping_methods'] = $method_data;
 			
 		}
-		$data['text_shipping_method'] = $this->language->get('text_shipping_method');
-		$data['text_comments'] = $this->language->get('text_comments');
-		$data['text_loading'] = $this->language->get('text_loading');
-
-		$data['button_continue'] = $this->language->get('button_continue');
 
 		if (empty($this->session->data['shipping_methods'])) {
 			$data['error_warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('information/contact'));
@@ -199,7 +194,7 @@ class ControllerCheckoutShippingMethod extends Controller {
 			$data['comment'] = '';
 		}
 
-		$this->response->setOutput(json_encode($json));
+		$this->response->setOutput(json_encode($data));
 		//$this->response->setOutput($this->load->view('checkout/shipping_method', $data));
 	}
 
@@ -246,7 +241,6 @@ class ControllerCheckoutShippingMethod extends Controller {
 			$json['error']['warning'] = $this->language->get('error_shipping');
 		} else {
 			$shipping = explode('.', $this->request->post['shipping_method']);
-
 			if (!isset($shipping[0]) || !isset($shipping[1]) || !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
 				$json['error']['warning'] = $this->language->get('error_shipping');
 			}

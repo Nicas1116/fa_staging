@@ -1,30 +1,36 @@
 <form class="form-horizontal">
-  <?php if ($addresses) { ?>
+  <h2>Delivery Infomation</h2>
+    <div class="row pa_address_p">
   <div class="radio">
     <label>
-      <input type="radio" name="shipping_address" value="new" />
-      <?php echo $text_address_new; ?></label>
+      <input type="radio" name="shipping_address" value="new" checked="checked" />New Address</label>
   </div>
   <div class="radio">
     <label>
-      <input type="radio" name="shipping_address" value="existing" checked="checked" />
-      <?php echo $text_address_existing; ?></label>
+      <input type="radio" name="shipping_address" value="existing" <?php echo ($addresses) ? '' : 'disabled'; ?> />From Address Book</label>
   </div>
-  <div id="shipping-existing">
-    <select name="address_id" class="form-control">
-      <?php foreach ($addresses as $address) { ?>
+   </div>
+  <div id="shipping-existing" style="display: none;">
+    <?php foreach ($addresses as $address) { ?>
       <?php if ($address['address_id'] == $address_id) { ?>
-      <option value="<?php echo $address['address_id']; ?>" selected="selected"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
-      <?php } else { ?>
-      <option value="<?php echo $address['address_id']; ?>"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
+       <?php  $address_selected = $address; ?>
+       <?php } ?>
       <?php } ?>
-      <?php } ?>
-    </select>
+
+
+    <div class="address_box address_selected">
+      <input type="hidden" name="address_id" class="form-control" value=" <?php echo $address_selected["address_id"]; ?>" >
+      <p><b ><?php echo $address_selected["firstname"]." ".$address_selected["lastname"]; ?></b>
+          <?php echo $address_selected["company"]; ?><br/>
+          <?php echo $address_selected["address_1"]; ?><br/>
+          <?php echo $address_selected["address_2"]." ".$address_selected["postcode"] ; ?><br/>
+          <?php echo $address_selected["custom_field"][1]; ?><br/>
+      </p>
+      <a class="btn_openpagefix">Change</a>
+    </div>
   </div>
-  
-  <?php } ?>
   <br />
-  <div id="shipping-new" style="display: <?php echo ($addresses ? 'none' : 'block'); ?>;">
+  <div id="shipping-new">
     <div class="form-group required">
       <div class="col-sm-6">
         <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-shipping-firstname" class="form-control" />
@@ -177,13 +183,14 @@
     <?php } ?>
     <?php } ?>
   </div>
- <div class="form-group">
+
+ <div id="shipping-method">
+   <div class="form-group">
     <div class="col-sm-12">
       <textarea name="comment" rows="8" class="form-control"><?php echo $comment; ?></textarea>
     </div>
   </div>
- <div id="shipping-method">
-
+<input type="hidden" name="shipping_method" class="ishipping_method" value="" />
 <div class="row"> <div class="col-xs-12">
   <p>Fill in the delivery address above to get the delivery fee</p>
    </div></div>
@@ -202,6 +209,43 @@
     </div>
   </div>
 </form>
+<?php if($addresses){ ?>
+<div id="shipping_addresschange" class="pagefix" style="display: none;">
+  <div class="pagefix_insidebox">
+     
+      <div class="row"> <h1 class="pull-left">Address Book (<?php echo sizeof($addresses); ?>)</h1><p class="pull-right"><input type="text" name="searchbox" clsas="d_searchbox" placeholder="Search.."></p></div>
+      <a class="btn_closepagefix">Close <span><i class="fa fa-close"></i></span></a>
+      <div class="address_box_list">
+        <?php foreach ($addresses as $address) { ?>
+          <a data-id="<?php echo $address["address_id"]; ?>" class="address_box ">
+          <span><b ><?php echo $address["firstname"]." ".$address["lastname"]; ?></b>
+              <?php echo $address["company"]; ?><br/>
+              <?php echo $address["address_1"]; ?><br/>
+              <?php echo $address["address_2"]." ".$address["postcode"] ; ?><br/>
+              <?php echo $address["custom_field"][1]; ?><br/>
+          </span>
+        </a>
+        <?php } ?>
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#shipping_addresschange .btn_closepagefix").click(function(){
+      $("#shipping_addresschange").hide();
+    });
+     $("#shipping-existing .btn_openpagefix").click(function(){
+      $("#shipping_addresschange").show();
+    });
+     $("#shipping_addresschange .address_box_list .address_box").click(function(){
+       $("#shipping-existing .address_selected input").val($(this).attr("data-id"));
+       $("#shipping_addresschange").hide();
+       $("#shipping-existing .address_selected p").html($(this).find("span").html());
+       postcodechange();
+    });
+  })
+</script>
+<?php } ?>
 <script type="text/javascript"><!--
 $('input[name=\'shipping_address\']').on('change', function() {
 	if (this.value == 'new') {
@@ -210,6 +254,7 @@ $('input[name=\'shipping_address\']').on('change', function() {
 	} else {
 		$('#shipping-existing').show();
 		$('#shipping-new').hide();
+    postcodechange();
 	}
 });
 //--></script>
