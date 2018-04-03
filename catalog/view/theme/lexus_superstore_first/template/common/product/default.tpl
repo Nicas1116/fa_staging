@@ -1,7 +1,5 @@
 <?php 
-	$button_compare = $objlang->get("button_compare");
-	$button_wishlist = $objlang->get("button_wishlist");
-	$button_cart = $objlang->get("button_cart");
+
 ?>
 <div class="product-block item-default" itemtype="http://schema.org/Product" itemscope>
 

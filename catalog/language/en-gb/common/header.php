@@ -8,6 +8,7 @@ $_['text_category']      = 'Categories';
 $_['text_account']       = 'My Account';
 $_['text_register']      = 'Register';
 $_['text_login']         = 'LOG IN';
+$_['text_signup']        = 'SIGN UP';
 $_['text_order']         = 'Order History';
 $_['text_transaction']   = 'Transactions';
 $_['text_download']      = 'Downloads';

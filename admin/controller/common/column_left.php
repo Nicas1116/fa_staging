@@ -701,13 +701,7 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => $system
 				);
 			}
-			$data['menus'][] = array(
-					'id'       => 'menu-store',
-					'icon'	   => 'fa-store', 
-					'name'	   => 'Store Locator',
-					'href'     => $this->url->link('stores/store', 'token=' . $this->session->data['token'], true),
-					'children' => null
-				);
+			
 			// Report
 			$report = array();
 			
@@ -892,12 +886,18 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => $report
 				);	
 			}		
-			
+			$data['menus'][] = array(
+				'id'       => 'menu-store',
+				'icon'	   => 'fa-paper-plane', 
+				'name'	   => 'Store Locator',
+				'href'     => $this->url->link('stores/store', 'token=' . $this->session->data['token'], true),
+				'children' => null
+			);
 			// Stats
 			$data['text_complete_status'] = $this->language->get('text_complete_status');
 			$data['text_processing_status'] = $this->language->get('text_processing_status');
 			$data['text_other_status'] = $this->language->get('text_other_status');
-	
+		
 			$this->load->model('sale/order');
 	
 			$order_total = $this->model_sale_order->getTotalOrders();

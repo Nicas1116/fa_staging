@@ -46,13 +46,7 @@
         
         <?php require( PAVO_THEME_DIR."/template/product/product_detail_default.tpl" );  ?>
 
-         <?php if ($products) {  
-            $heading_title = $text_related;
-        ?>
-        <div class="box products-related clearfix product-grid"> <?php require( PAVO_THEME_DIR."/template/product/products_related.tpl" );  ?> </div>
         
-          <?php } ?>
-
 
           <?php if ($tags) { ?>
           <p><?php echo $text_tags; ?>
@@ -70,6 +64,13 @@
    </div> 	
 		<?php echo $column_right; ?></div>
 </div>
+ <?php if ($products) {  
+            $heading_title = $text_related;
+        ?>
+        <div class="box products-related clearfix product-grid"> <?php require( PAVO_THEME_DIR."/template/product/products_related.tpl" );  ?> </div>
+        
+          <?php } ?>
+
 <script type="text/javascript"><!--
 $('select[name=\'recurring_id\'], input[name="quantity"]').change(function(){
 	$.ajax({

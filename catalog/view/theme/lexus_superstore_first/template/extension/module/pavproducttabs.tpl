@@ -40,6 +40,7 @@
 	$id = rand(0,9);
 	$span = 12/$cols;
 ?>
+<h2>Popular Gifts</h2>
 <div class="box producttabs">
   <div class="tab-nav">
 	<ul class="nav nav-tabs" id="producttabs<?php echo $id;?>">

@@ -31,7 +31,7 @@
     if( isset($_COOKIE[$theme.'_productlayout']) && $listingConfig['enable_paneltool'] && $_COOKIE[$theme.'_productlayout'] ){
         $listingConfig['product_layout'] = trim($_COOKIE[$theme.'_productlayout']);
     }
-    
+    $button_cart = $button_ordernow;
     $productLayout = DIR_TEMPLATE.$theme.'/template/common/product/'.$listingConfig['product_layout'].'.tpl';   
     if( !is_file($productLayout) ){
         $listingConfig['product_layout'] = 'default';
@@ -41,9 +41,12 @@
 	$button_wishlist = $objlang->get("button_wishlist");
 	$button_compare = $objlang->get("button_compare");
 ?>
-<div class="box-heading">
-	<span><?php echo $heading_title; ?>(<?php echo count($products); ?>)</span>
-	<em class="line"></em>
+<div  id="product-related-box">
+	<div class="container">
+<div class="row">
+	<div class="col-xs-12">
+<div class="text-center">
+	<p>You might be interested in these…</p>
 </div>
 <?php if(!empty($products)){ ?>
 <div class="box-content">
@@ -72,3 +75,7 @@
 	</div>
 </div>
 <?php } ?>
+</div>
+</div>
+</div>
+</div>

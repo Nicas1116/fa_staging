@@ -263,6 +263,7 @@ class ControllerProductProduct extends Controller {
 			$data['entry_bad'] = $this->language->get('entry_bad');
 
 			$data['button_cart'] = $this->language->get('button_cart');
+			$data['button_ordernow'] = "ORDER NOW";
 			$data['button_wishlist'] = $this->language->get('button_wishlist');
 			$data['button_compare'] = $this->language->get('button_compare');
 			$data['button_upload'] = $this->language->get('button_upload');
@@ -367,16 +368,19 @@ class ControllerProductProduct extends Controller {
 						);
 					}
 				}
+				if($option["option_id"] == 14 || $option["option_id"] == 13){
 
-				$data['options'][] = array(
-					'product_option_id'    => $option['product_option_id'],
-					'product_option_value' => $product_option_value_data,
-					'option_id'            => $option['option_id'],
-					'name'                 => $option['name'],
-					'type'                 => $option['type'],
-					'value'                => $option['value'],
-					'required'             => $option['required']
-				);
+				}else{
+					$data['options'][] = array(
+						'product_option_id'    => $option['product_option_id'],
+						'product_option_value' => $product_option_value_data,
+						'option_id'            => $option['option_id'],
+						'name'                 => $option['name'],
+						'type'                 => $option['type'],
+						'value'                => $option['value'],
+						'required'             => $option['required']
+					);
+				}
 			}
 
 			if ($product_info['minimum']) {

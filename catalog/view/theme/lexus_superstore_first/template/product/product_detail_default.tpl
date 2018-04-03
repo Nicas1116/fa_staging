@@ -13,7 +13,8 @@
    
     <div class="product-view col-xs-12 col-sm-12 col-md-<?php echo $cols[1]; ?> col-lg-<?php echo $cols[1]; ?>">
         <h1 class="title-product"><?php echo $heading_title; ?></h1>
-
+        <p><i><?php echo $model; ?></i></p>
+        <p><?php echo $description; ?></p>
         <?php if ($review_status) { ?>
             <div class="rating">
                 <p>
@@ -28,49 +29,25 @@
                 <hr>
 
             </div>
+            <ul class="list-unstyled description">
+                <?php if ($manufacturer) { ?>
+                    <li><i class="fa fa-chevron-down"></i><b><?php echo $text_manufacturer; ?></b> <a href="<?php echo $manufacturers; ?>"><?php echo $manufacturer; ?></a></li>
+                <?php } ?>
+                <li><i class="fa fa-chevron-down"></i><b><?php echo $text_model; ?></b> <?php echo $model; ?></li>
+                <?php if ($reward) { ?>
+                    <li><i class="fa fa-chevron-down"></i><b><?php echo $text_reward; ?></b> <?php echo $reward; ?></li>
+                <?php } ?>
+                <?php if ($points) { ?>
+                    <li><i class="fa fa-chevron-down"></i><b><?php echo $text_points; ?></b> <?php echo $points; ?></li>
+                <?php } ?>
+                <li><i class="fa fa-chevron-down"></i><b class="availability"><?php echo $text_stock; ?></b> <?php echo $stock; ?></li>
+            </ul>
+
         <?php } ?>
-        <ul class="list-unstyled description">
-            <?php if ($manufacturer) { ?>
-                <li><i class="fa fa-chevron-down"></i><b><?php echo $text_manufacturer; ?></b> <a href="<?php echo $manufacturers; ?>"><?php echo $manufacturer; ?></a></li>
-            <?php } ?>
-            <li><i class="fa fa-chevron-down"></i><b><?php echo $text_model; ?></b> <?php echo $model; ?></li>
-            <?php if ($reward) { ?>
-                <li><i class="fa fa-chevron-down"></i><b><?php echo $text_reward; ?></b> <?php echo $reward; ?></li>
-            <?php } ?>
-            <?php if ($points) { ?>
-                <li><i class="fa fa-chevron-down"></i><b><?php echo $text_points; ?></b> <?php echo $points; ?></li>
-            <?php } ?>
-            <li><i class="fa fa-chevron-down"></i><b class="availability"><?php echo $text_stock; ?></b> <?php echo $stock; ?></li>
-        </ul>
-
-        <?php if ($price) { ?>
-            <div class="price">
-                <ul class="list-unstyled">
-                    <?php if (!$special) { ?>
-                        <li class="price-gruop">
-                            <span class="text-price"> <?php echo $price; ?> </span>
-                        </li>
-                    <?php } else { ?>
-
-                        <li> <span class="text-price"> <?php echo $special; ?> </span> <span style="text-decoration: line-through;"><?php echo $price; ?></span> </li>
-                    <?php } ?>
-                    <?php if ($tax) { ?>
-                        <li class="other-price"><?php echo $text_tax; ?> <?php echo $tax; ?></li>
-                    <?php } ?>
-
-                    <?php if ($discounts) { ?>
-                        <li>
-                        </li>
-                        <?php foreach ($discounts as $discount) { ?>
-                            <li><?php echo $discount['quantity']; ?><?php echo $text_discount; ?><?php echo $discount['price']; ?></li>
-                        <?php } ?>
-                    <?php } ?>
-                </ul>
-            </div>
-        <?php } ?>        
+        
+             
         <div id="product" class="product-extra ">
             <?php if ($options) { ?>
-                <h3><?php echo $text_option; ?></h3>
                 <?php foreach ($options as $option) { ?>
                     <?php if ($option['type'] == 'select') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
@@ -207,27 +184,55 @@
             <?php } ?>
 
 
-            <div class="quantity-adder pull-left">
-                <div class="quantity-number pull-left">
+            <div class="quantity-adder">
+                  
+                <div class="quantity-number">
                     <span><?php echo $entry_qty; ?></span> 
-                    <input type="text" name="quantity" id="input-quantity" size="2" value="<?php echo $minimum; ?>" />
-                </div>
-                <div class="quantity-wrapper pull-left">
+                    <div class="quantity-wrapper pull-right">
                     <span class="add-up add-action fa fa-plus"></span> 
+                     <input type="text" name="quantity" id="input-quantity" size="2" value="<?php echo $minimum; ?>" />
                     <span class="add-down add-action fa fa-minus"></span>
-                </div>                                    
+                </div>  
+                   
+                </div>
+                                         
             </div>
+            <?php if ($price) { ?>
+            <div class="price">
+                <ul class="list-unstyled">
+                    <?php if (!$special) { ?>
+                        <li class="price-gruop">
+                            <span class="text-price"> <?php echo $price; ?> </span>
+                        </li>
+                    <?php } else { ?>
+
+                        <li> <span class="text-price"> <?php echo $special; ?> </span> <span style="text-decoration: line-through;"><?php echo $price; ?></span> </li>
+                    <?php } ?>
+                    <?php if ($tax) { ?>
+                        <li class="other-price"><?php echo $text_tax; ?> <?php echo $tax; ?></li>
+                    <?php } ?>
+
+                    <?php if ($discounts) { ?>
+                        <li>
+                        </li>
+                        <?php foreach ($discounts as $discount) { ?>
+                            <li><?php echo $discount['quantity']; ?><?php echo $text_discount; ?><?php echo $discount['price']; ?></li>
+                        <?php } ?>
+                    <?php } ?>
+                </ul>
+            </div>
+        <?php } ?>   
             <input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />  
-            <div class="action pull-left">
+            <div class="action">
                 <div class="cart">
                     <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-shopping-cart"><?php echo $button_cart; ?></button>
                 </div>
                 <div class="wishlist">  
                     <a class="btn btn-theme-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><?php echo $button_wishlist; ?></a>
                 </div>
-                <div class="compare">
+                <!--<div class="compare">
                     <a class="btn btn-theme-default" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><?php echo $button_compare; ?></a>
-                </div>
+                </div>-->
             </div>
 
 
@@ -236,10 +241,7 @@
             <div class="alert alert-info"><i class="fa fa-info-circle"></i> <?php echo $text_minimum; ?></div>
         <?php } ?>
 
-        <!-- AddThis Button BEGIN -->
-        <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
-        <!-- AddThis Button END --> 
+        
     </div>
 </div>
 

@@ -30,7 +30,7 @@
 									<li><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a></li>
 									<li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
 								<?php } else { ?>
-				    				<li><a href="<?php echo $login; ?>"><span class="fa fa-unlock"></span><?php echo $text_login; ?></a></li> 			
+				    				<li><a href="<?php echo $login; ?>"><span class="fa fa-unlock"></span><?php echo $text_login; ?></a> | <a href="<?php echo $signup; ?>"><span class="fa fa-unlock"></span><?php echo $text_signup; ?></a></li> 			
 			    				<?php } ?>		
 							</ul>
 						</div>						
@@ -47,9 +47,9 @@
 
 	  					
 	  					<?php if ($logged) { ?>
-	  						<li><a href="<?php echo $account; ?>"><span class="title-setting"><?php echo $text_account; ?></span></a></li>
+	  						<li><a href="<?php echo $account; ?>"><span class="title-setting"><?php echo $text_account; ?></span></a> | <a href="<?php echo $logout; ?>"><span><?php echo $text_logout; ?></span></a></li>
 	  					<?php } else { ?>
-		    				<li><a href="<?php echo $login; ?>"></span><?php echo $text_login; ?></a></li> 			
+		    				<li><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a> | <a href="<?php echo $signup; ?>"><?php echo $text_signup; ?></a></li> 			
 	    				<?php } ?>		
 	  					<li class="shopping-cart"><?php echo $cart; ?></li>
 	  				</ul>  				

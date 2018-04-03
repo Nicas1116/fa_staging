@@ -226,6 +226,15 @@ class ModelCatalogProduct extends Model {
 				case 4:
 					$sql .= "AND p.price >= 101";
 					break;
+				case 11:
+					$sql .= "AND p.price <= 30";
+					break;
+				case 12:
+					$sql .= "AND p.price >= 31 AND p.price <50 ";
+					break;
+				case 13:
+					$sql .= "AND p.price >= 51";
+					break;
 				default:
 					$sql .= "AND p.price >= 0";
 					break;

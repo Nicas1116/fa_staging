@@ -31,6 +31,21 @@ class ControllerAccountAccount extends Controller {
 			$data['success'] = '';
 		} 
 
+			
+		
+		
+		$data['column_left'] = $this->load->controller('account/account/account_left');
+		$data['column_right'] = $this->load->controller('common/column_right');
+		$data['content_top'] = $this->load->controller('common/content_top');
+		$data['content_bottom'] = $this->load->controller('common/content_bottom');
+		$data['footer'] = $this->load->controller('common/footer');
+		$data['header'] = $this->load->controller('common/header');
+		$this->response->setOutput($this->load->view('account/account', $data));
+	}
+
+	public function account_left() {
+		$this->load->language('account/account');
+
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_my_account'] = $this->language->get('text_my_account');
@@ -78,21 +93,14 @@ class ControllerAccountAccount extends Controller {
 			$data['reward'] = $this->url->link('account/reward', '', true);
 		} else {
 			$data['reward'] = '';
-		}		
-		
+		}	
+
 		$data['return'] = $this->url->link('account/return', '', true);
 		$data['transaction'] = $this->url->link('account/transaction', '', true);
 		$data['newsletter'] = $this->url->link('account/newsletter', '', true);
 		$data['recurring'] = $this->url->link('account/recurring', '', true);
 		
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['column_right'] = $this->load->controller('common/column_right');
-		$data['content_top'] = $this->load->controller('common/content_top');
-		$data['content_bottom'] = $this->load->controller('common/content_bottom');
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
-		
-		$this->response->setOutput($this->load->view('account/account', $data));
+		return $this->load->view('account/account_left', $data);
 	}
 
 	public function country() {

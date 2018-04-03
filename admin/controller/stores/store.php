@@ -19,11 +19,16 @@ class ControllerStoresStore extends Controller {
 			'text' => "Stores",
 			'href' => $this->url->link('stores/store', 'token=' . $this->session->data['token'] . $url, true)
 		);
+		$data['add'] = $this->url->link('stores/store/add', 'token=' . $this->session->data['token'] . $url, true);
 		$data["heading_title"] = "Stores";
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 		$this->response->setOutput($this->load->view('stores/store', $data));
+	}
+
+	public function add() {
+		$this->getForm();
 	}
 }
 ?>

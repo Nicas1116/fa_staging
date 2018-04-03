@@ -19,7 +19,8 @@
         </a>
 
     </div>
-    <?php } ?>  
+    <?php } ?>
+
      <div class="thumbs-preview">
         <?php if ($images) { ?>
          <div class="image-additional slide carousel horical" id="image-additional">
@@ -54,13 +55,21 @@
                 <i class="fa fa-angle-left"></i>
             </a>
             <?php } ?>
-        </div>          
+        </div>     
+
         <script type="text/javascript">
             $('#image-additional .item:first').addClass('active');
             $('#image-additional').carousel({interval:false})
         </script>
         <?php } ?> 
-    </div>    
+    </div>
+    <div>
+        <p>FREE DELIVERY ABOVE RM100</p>  
+    </div>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
+        <!-- AddThis Button END --> 
 </div>          
 <?php } ?>
 

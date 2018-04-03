@@ -83,6 +83,7 @@ class ControllerCommonHeader extends Controller {
         $data['text_account'] = $this->language->get('text_account');
         $data['text_register'] = $this->language->get('text_register');
         $data['text_login'] = $this->language->get('text_login');
+        $data['text_signup'] = $this->language->get('text_signup');
         $data['text_order'] = $this->language->get('text_order');
         $data['text_transaction'] = $this->language->get('text_transaction');
         $data['text_download'] = $this->language->get('text_download');
@@ -93,6 +94,7 @@ class ControllerCommonHeader extends Controller {
         $data['text_stores'] = $this->language->get('text_stores');
         
         $data['home'] = $this->url->link('common/home');
+        $data['signup'] = $this->url->link('account/register');
         $data['wishlist'] = $this->url->link('account/wishlist', '', true);
         $data['logged'] = $this->customer->isLogged();
         $data['account'] = $this->url->link('account/account', '', true);
