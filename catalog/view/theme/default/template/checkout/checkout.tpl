@@ -11,7 +11,7 @@
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
       <ul class="step_title row">
         <li><p class="step1 active">Customer Info</p></li>
-        <li><p class="step2 ">Delivery Method</p></li>
+        <li><p class="step2 <?php if($logged) { echo "active"; } ?>">Delivery Method</p></li>
         <li><p class="step3">Secured Payment</p></li>
         </ul>
       <div id="collapse-checkout-option" class="customer_info">
@@ -469,7 +469,7 @@ $(document).delegate('#button-shipping-address', 'click', function() {
     $.ajax({
         url: 'index.php?route=checkout/shipping_address/save',
         type: 'post',
-        data: $('#collapse-shipping-address input[type=\'hidden\'],#collapse-shipping-address input[type=\'text\'], #collapse-shipping-address input[type=\'date\'], #collapse-shipping-address input[type=\'datetime-local\'], #collapse-shipping-address input[type=\'time\'], #collapse-shipping-address input[type=\'password\'], #collapse-shipping-address input[type=\'checkbox\']:checked, #collapse-shipping-address input[type=\'radio\']:checked, #collapse-shipping-address textarea, #collapse-shipping-address select'),
+        data: $('#collapse-shipping-address input[type=\'checkbox\']:checked,#collapse-shipping-address input[type=\'hidden\'],#collapse-shipping-address input[type=\'text\'], #collapse-shipping-address input[type=\'date\'], #collapse-shipping-address input[type=\'datetime-local\'], #collapse-shipping-address input[type=\'time\'], #collapse-shipping-address input[type=\'password\'], #collapse-shipping-address input[type=\'checkbox\']:checked, #collapse-shipping-address input[type=\'radio\']:checked, #collapse-shipping-address textarea, #collapse-shipping-address select'),
         dataType: 'json',
         beforeSend: function() {
 			$('#button-shipping-address').button('loading');
@@ -512,7 +512,7 @@ function callsaveshipmethod(){
     $.ajax({
         url: 'index.php?route=checkout/shipping_method/save',
         type: 'post',
-        data: $('#shipping-method input[type=\'hidden\'], #shipping-method textarea'),
+        data: $('#shipping-method input[type=\'checkbox\']:checked,#shipping-method input[type=\'hidden\'], #shipping-method textarea'),
         dataType: 'json',
         beforeSend: function() {
         	$('#button-shipping-method').button('loading');
@@ -537,9 +537,11 @@ function callsaveshipmethod(){
                     },
                     success: function(html) {
                         $('#collapse-payment-method .panel-body').html(html);
-
+                        savepaymentmethod();
+                        $(".securedpayment").addClass("active");
 						$(".securedpayment").show();
                         $(".delivery_method").hide();
+                        
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -553,7 +555,26 @@ function callsaveshipmethod(){
     });
 }
 
-$(document).delegate('#button-payment-method', 'click', function() {
+function finishpayment(){
+    $.ajax({
+        type: 'get',
+        url: 'index.php?route=extension/payment/cod/confirm',
+        cache: false,
+        beforeSend: function() {
+            $('#button-confirm').button('loading');
+        },
+        complete: function() {
+            $('#button-confirm').button('reset');
+        },
+        success: function(json) {
+            console.log(json);
+
+            location = json["payment_link"]+"&order_id="+json["order_id"];
+        }
+    });
+}
+
+function savepaymentmethod() {
     $.ajax({
         url: 'index.php?route=checkout/payment_method/save',
         type: 'post',
@@ -581,11 +602,7 @@ $(document).delegate('#button-payment-method', 'click', function() {
                         $('#button-payment-method').button('reset');
                     },
                     success: function(html) {
-                        $('#collapse-checkout-confirm .panel-body').html(html);
-                        $("#button-confirm").click();
-						//$('#collapse-checkout-confirm').parent().find('.panel-heading .panel-title').html('<a href="#collapse-checkout-confirm" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle"><?php echo $text_checkout_confirm; ?> <i class="fa fa-caret-down"></i></a>');
-
-						//$('a[href=\'#collapse-checkout-confirm\']').trigger('click');
+                        finishpayment();
 					},
                     error: function(xhr, ajaxOptions, thrownError) {
                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -597,6 +614,6 @@ $(document).delegate('#button-payment-method', 'click', function() {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
-});
+}
 //--></script>
 <?php echo $footer; ?>

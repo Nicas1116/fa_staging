@@ -138,7 +138,15 @@ $('#button-cart').on('click', function() {
 				
 				$('html, body').animate({ scrollTop: 0 }, 'slow');
 				
-				$('#cart > ul').load('index.php?route=common/cart/info ul li');
+				$('#topbar .shopping-cart #cart').load('index.php?route=common/cart/info #cart',function(){
+		             $("#cart .thecarttext").click(function(){
+		              $(".shopping-cart #cart .thecartside").show();
+		            })
+		            $("#topbar .thecartside .btnclosecart").click(function(){
+		               $(".shopping-cart #cart .thecartside").hide();
+		            });
+		          });
+				
 			}
 		},
         error: function(xhr, ajaxOptions, thrownError) {

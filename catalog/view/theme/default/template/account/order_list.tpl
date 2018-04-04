@@ -30,7 +30,7 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($orders as $order) { ?>
+            <?php foreach ($orders as $order) { var_dump($order);?>
             <tr>
               <td class="text-right">#<?php echo $order['order_id']; ?></td>
               <td class="text-left"><?php echo $order['name']; ?></td>

@@ -198,7 +198,7 @@ var cart = {
           $('#cart-total', window.parent.document).html(json['total']);
 
           $('html, body').animate({ scrollTop: 0 }, 'slow');
-
+      
           $('#topbar .shopping-cart #cart').load('index.php?route=common/cart/info #cart',function(){
              $("#cart .thecarttext").click(function(){
               $(".shopping-cart #cart .thecartside").show();
