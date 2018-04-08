@@ -15,7 +15,11 @@
       <?php if ($address['address_id'] == $address_id) { ?>
        <?php  $address_selected = $address; ?>
        <?php } ?>
-      <?php } ?>
+      <?php } 
+      if(!isset($address_selected)){
+         $address_selected = $address;
+      }
+      ?>
 
 
     <div class="address_box address_selected">

@@ -253,7 +253,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getOrderOptions($order_id, $order_product_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$order_product_id . "'");
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option oo LEFT JOIN ".DB_PREFIX."product_option_value pov ON oo.product_option_value_id = pov.product_option_value_id  WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$order_product_id . "'");
 
 		return $query->rows;
 	}

@@ -17,7 +17,18 @@ class ControllerExtensionPaymentCod extends Controller {
 			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
 			$json["order_id"] =  $this->session->data['order_id'];
 			$json["payment_link"] = $this->url->link('maybankcc/payment');
-
+			if (isset($this->session->data['order_id'])) {
+				$this->cart->clear();
+			}
+			if (isset($this->session->data['shipping_products'])) {
+				unset($this->session->data['shipping_products']);
+			}
+			if (isset($this->session->data['shipping_address'])) {
+				unset($this->session->data['shipping_address']);
+			}
+			if (isset($this->session->data['shipping_method'])) {
+				unset($this->session->data['shipping_method']);
+			}
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
 		}

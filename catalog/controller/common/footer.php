@@ -49,14 +49,13 @@ class ControllerCommonFooter extends Controller {
         $data['text_instagram'] = $this->language->get('text_instagram');
 
         $data['aboutus'] = $this->url->link('information/aboutus');
-        $data['contact'] = $this->url->link('information/contact');
-        $data['faq'] = $this->url->link('information/faq');
+        $data['faq'] = $this->url->link('information/faqs');
         $data['shipping'] = $this->url->link('information/shipping');
-        $data['storelocator'] = $this->url->link('information/storelocator');
-        $data['career'] = $this->url->link('information/career');
+        $data['storelocator'] = $this->url->link('information/stores');
+        $data['career'] = $this->url->link('information/careers');
         $data['facebooklink'] = "http://www.facebook.com/";
         $data['instagramlink'] = "http://www.instagram.com/";
-        $data['contact'] = $this->url->link('information/contact');
+        $data['contact'] = $this->url->link('information/contactus');
         $data['return'] = $this->url->link('account/return/add', '', true);
         $data['sitemap'] = $this->url->link('information/sitemap');
         $data['manufacturer'] = $this->url->link('product/manufacturer');
@@ -66,8 +65,24 @@ class ControllerCommonFooter extends Controller {
         $data['account'] = $this->url->link('account/account', '', true);
         $data['order'] = $this->url->link('account/order', '', true);
         $data['wishlist'] = $this->url->link('account/wishlist', '', true);
-        $data['newsletter'] = $this->url->link('account/newsletter', '', true);
-
+        $data['newsletter'] = $this->url->link('information/newsletter', '', true);
+        $data['privacy'] = $this->url->link('information/privacy');
+        $data['terms'] = $this->url->link('information/terms');
+        $data['forms']=array();
+        $this->load->model('extension/forumbuilder');
+        /*$forms = $this->model_extension_forumbuilder->getFormlink();
+        if($forms){
+            foreach($forms as $form){
+                if($form['bottom']){
+                    $data['forms'][] = array(
+                        'name'     => $form['name'],
+                        'children' => array(),
+                        'column'   => 1,
+                        'href'     => $form['href']
+                    );
+                }
+            }
+        }*/
         $data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
 
         // Whos Online

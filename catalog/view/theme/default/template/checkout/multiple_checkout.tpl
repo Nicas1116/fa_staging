@@ -1,14 +1,14 @@
 <?php echo $header; ?>
-<div class="container">
+<div class="container" data-sticky-container>
   <?php if ($error_warning) { ?>
   <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
     <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
   <?php } ?>
-  <div class="checkoutpage row">
+  <div class="checkoutpage row" >
     <div id="content" class="<?php //echo $class; ?>"><?php echo $content_top; ?>
         <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 ">
       <ul class="step_title row">
         <li><p class="step1 active">Customer Info</p></li>
         <li><p class="step2 <?php if($logged) { echo "active"; } ?>">Delivery Method</p></li>
@@ -36,36 +36,13 @@
 
         </div>
   </div>
-       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-        <div id="cart_ordersummary">
-        <h2>Order Summary</h2>
-      <div class="row">
-        <div class="col-sm-6">
-          <p class="text-left"><strong><?php echo $totals[0]['title']; ?>:</strong></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="text-right"><strong class="subtotalprice"><?php echo $totals[0]['text']; ?></strong></p>
-        </div>
-      </div>
-      <div class="row cartcoupon">
-        <div class="col-sm-12">
-        <?php foreach ($modules as $module) { ?>
-          <?php echo $module; ?>
-        <?php } ?>
-         </div>
-      </div>
+   <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 ">&nbsp;</div>
+       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 " >
+        <div id="cart_ordersummary" data-margin-top="20">
+            <?php echo $order_summary; ?>
+                </div>
+            </div>
 
-      <div class="row total">
-        <div class="col-sm-6">
-          <p class="text-left"><strong><?php echo $totals[1]['title']; ?>:</strong></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="text-right"><strong class="totalprice"><?php echo $totals[1]['text']; ?></strong></p>
-        </div>
-      </div>
-      <p class="small">GST included, where applicable</p>
-    </div>
-      </div>
   </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
@@ -86,9 +63,10 @@ $(document).on('change', 'input[name=\'account\']', function() {
         }
     }
 });
-
+ var sticky = new Sticky('#cart_ordersummary');
 <?php if (!$logged) { ?>
 $(document).ready(function() {
+
     $.ajax({
         url: 'index.php?route=checkout/login',
         dataType: 'html',
@@ -105,6 +83,8 @@ $(document).ready(function() {
 });
 <?php } else { ?>
 $(document).ready(function() {
+    getordersummary();
+   
     $(".delivery_method").show();
     $.ajax({
         url: 'index.php?route=checkout/payment_address',
@@ -273,156 +253,14 @@ $(document).delegate('#button-payment-address', 'click', function() {
     });
 });
 
-$(document).delegate('#input-shipping-postcode', 'change', postcodechange);
-// Shipping Address
-$(document).delegate('#button-shipping-address', 'click', function() {
-    if($(".overall_shippingcost .can_shipping").val()=="false"){return;}
+function getordersummary(){
     $.ajax({
-        url: 'index.php?route=checkout/shipping_address/save',
+        url: 'index.php?route=checkout/multiple_shipping_address/getordersummary',
         type: 'post',
-        data: $('#collapse-shipping-address input[type=\'checkbox\']:checked,#collapse-shipping-address input[type=\'hidden\'],#collapse-shipping-address input[type=\'text\'], #collapse-shipping-address input[type=\'date\'], #collapse-shipping-address input[type=\'datetime-local\'], #collapse-shipping-address input[type=\'time\'], #collapse-shipping-address input[type=\'password\'], #collapse-shipping-address input[type=\'checkbox\']:checked, #collapse-shipping-address input[type=\'radio\']:checked, #collapse-shipping-address textarea, #collapse-shipping-address select'),
-        dataType: 'json',
-        beforeSend: function() {
-            $('#button-shipping-address').button('loading');
-        },
-        success: function(json) {
-            $('.alert, .text-danger').remove();
-
-            if (json['redirect']) {
-                location = json['redirect'];
-            } else if (json['error']) {
-                $('#button-shipping-address').button('reset');
-
-                if (json['error']['warning']) {
-                    $('#collapse-shipping-address .panel-body').prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                }
-
-                for (i in json['error']) {
-                    var element = $('#input-shipping-' + i.replace('_', '-'));
-
-                    if ($(element).parent().hasClass('input-group')) {
-                        $(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
-                    } else {
-                        $(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
-                    }
-                }
-
-                // Highlight any found errors
-                $('.text-danger').parent().parent().addClass('has-error');
-            } else {
-                callsaveshipmethod();
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-});
-
-function callsaveshipmethod(){
-    $.ajax({
-        url: 'index.php?route=checkout/shipping_method/save',
-        type: 'post',
-        data: $('#shipping-method input[type=\'checkbox\']:checked,#shipping-method input[type=\'hidden\'], #shipping-method textarea'),
-        dataType: 'json',
-        beforeSend: function() {
-            $('#button-shipping-method').button('loading');
-        },
-        success: function(json) {
-            $('.alert, .text-danger').remove();
-
-            if (json['redirect']) {
-                location = json['redirect'];
-            } else if (json['error']) {
-                $('#button-shipping-method').button('reset');
-
-                if (json['error']['warning']) {
-                    $('#collapse-shipping-method .panel-body').prepend('<div class="alert alert-danger">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                }
-            } else {
-                $.ajax({
-                    url: 'index.php?route=checkout/payment_method',
-                    dataType: 'html',
-                    complete: function() {
-                        $('#button-shipping-method').button('reset');
-                    },
-                    success: function(html) {
-                        $('#collapse-payment-method .panel-body').html(html);
-                        savepaymentmethod();
-                        $(".securedpayment").addClass("active");
-                        $(".securedpayment").show();
-                        $(".delivery_method").hide();
-                        
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                    }
-                });
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-}
-
-function finishpayment(){
-    $.ajax({
-        type: 'get',
-        url: 'index.php?route=extension/payment/cod/confirm',
-        cache: false,
-        beforeSend: function() {
-            $('#button-confirm').button('loading');
-        },
-        complete: function() {
-            $('#button-confirm').button('reset');
-        },
-        success: function(json) {
-            console.log(json);
-
-            location = json["payment_link"]+"&order_id="+json["order_id"];
-        }
-    });
-}
-
-function savepaymentmethod() {
-    $.ajax({
-        url: 'index.php?route=checkout/payment_method/save',
-        type: 'post',
-        data: $('#collapse-payment-method input[type=\'radio\']:checked, #collapse-payment-method input[type=\'checkbox\']:checked, #collapse-payment-method textarea'),
-        dataType: 'json',
-        beforeSend: function() {
-            $('#button-payment-method').button('loading');
-        },
-        success: function(json) {
-            $('.alert, .text-danger').remove();
-
-            if (json['redirect']) {
-                location = json['redirect'];
-            } else if (json['error']) {
-                $('#button-payment-method').button('reset');
-                
-                if (json['error']['warning']) {
-                    $('#collapse-payment-method .panel-body').prepend('<div class="alert alert-danger">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                }
-            } else {
-                $.ajax({
-                    url: 'index.php?route=checkout/confirm',
-                    dataType: 'html',
-                    complete: function() {
-                        $('#button-payment-method').button('reset');
-                    },
-                    success: function(html) {
-                        finishpayment();
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                    }
-                });
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        dataType: 'html',
+        data: {},
+        success: function(html) {
+            $("#cart_ordersummary").html(html);
         }
     });
 }

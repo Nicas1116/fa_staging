@@ -64,19 +64,27 @@
               <li><a href="<?php echo $aboutus; ?>"><?php echo $text_aboutus; ?></a></li>
               <li><a href="<?php echo $storelocator; ?>"><?php echo $text_storelocator; ?></a></li>
               <li><a href="<?php echo $career; ?>"><?php echo $text_career; ?></a></li>
-
+               <?php foreach($forms as $form){ ?>
+      <li><a href="<?php echo $form['href']; ?>"><?php echo $form['name']; ?></a></li>
+      <?php } ?>
               <!-- <li><a href="<?php echo $affiliate; ?>"><?php echo $text_affiliate; ?></a></li>
               <li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li> -->
             </ul>
           </div>
+
+
           <div class="col-md-3 col-sm-6 col-xs-12">
-              &nbsp;
+              <ul class="list-unstyled">
+               <li><a href="<?php echo $newsletter; ?>">SUBSCRIBE TO NEWSLETTER</a></li>
+                <li><a href="<?php echo $terms; ?>">TERMS & CONDITIONS</a></li>
+                <li><a href="<?php echo $privacy; ?>">PRIVACY POLICY</a></li>
+              </ul>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12 right-align">
             <h5><?php echo $text_connectwithus; ?></h5>
             <div>
-              <a class="buttonfooter" href="<?php echo $facebooklink; ?>"><?php echo $text_facebook; ?></a>
-              <a class="buttonfooter" href="<?php echo $instagramlink; ?>"><?php echo $text_instagram; ?></a>
+              <a class="buttonfooter" href="<?php echo $facebooklink; ?>"><img src="/fa/staging/image/others/btnfacebook.png" alt="facebook"/></a>
+              <a class="buttonfooter" href="<?php echo $instagramlink; ?>"><img src="/fa/staging/image/others/btninstagram.png" alt="instagram"/></a>
             </div>
           </div>
         </div>
@@ -109,7 +117,6 @@
       <?php } else { ?>
         <?php echo $powered; ?>. 
       <?php } ?>
-    <p class="ptext"><a href="#">Terms & Conditions</a><span>|</span><a href="#" >Privacy Policy</a></p>
     </div>
     <?php if( $content=$helper->getLangConfig('widget_paypal_data') ) {?>
       <div class="paypal pull-right">
@@ -133,6 +140,7 @@ echo $helper->renderAddon( 'offcanvas');
 echo $helper->renderAddon( 'offcanvas-category');
 }
 ?> 
+
 </div>
 
 </div>

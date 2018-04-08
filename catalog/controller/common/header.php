@@ -148,6 +148,20 @@ class ControllerCommonHeader extends Controller {
         }
 
         $data['language'] = $this->load->controller('common/language');
+        $this->load->model('extension/forumbuilder');
+        $forms = $this->model_extension_forumbuilder->getFormlink();
+        if($forms){
+            foreach($forms as $form){
+                if($form['top']){
+                    $data['categories'][] = array(
+                        'name'     => $form['name'],
+                        'children' => array(),
+                        'column'   => 1,
+                        'href'     => $form['href']
+                    );
+                }
+            }
+        }
         $data['currency'] = $this->load->controller('common/currency');
         $data['search'] = $this->load->controller('common/search');
         $data['cart'] = $this->load->controller('common/cart');

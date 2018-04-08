@@ -250,4 +250,141 @@ class ControllerCheckoutShippingAddress extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	public function getordersummary(){
+			$totals[1]['title'] = "Subtotal";
+			$totals[1]['text'] =  "RM 0.00";
+			$products = $this->cart->getProducts();
+			if(isset($products)){
+				if(is_array($products)){
+					$productcost =0;
+					$this->load->model('catalog/product');
+					foreach ($products as $key => $value) {
+						$productcost += $value["total"];
+					}
+					$this->load->model('tool/image');
+					$this->load->model('tool/upload');
+					$this->load->model('catalog/product');
+					foreach ($products as $pi => $product) {
+						$products[$pi]["link"] = $this->url->link("product/product");
+						
+						if ($product['image']) {
+							$image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+						} else {
+							$image = '';
+						}
+						$products[$pi]["thumb"] = $image;
+						$product = $this->model_catalog_product->getProduct($value["product_id"]);
+						$products[$pi]["price"] = $product["price"];
+					}
+					$totals[0]['title'] = "Subtotal";
+					$totals[0]['text'] =  "RM ".number_format($productcost, 2, '.', ',');
+					$this->load->model('catalog/product');
+					$data["products"] = $products;
+					
+				}
+			}
+			$totals[1]['title'] = "Delivery";
+			$totals[1]['text'] =  "RM 0.00";
+			$deliverycost =0;
+			if(isset($this->session->data['shipping_method'])){
+				if(is_array($this->session->data['shipping_method'])){
+					$deliverycost += $this->session->data['shipping_method']["cost"];
+					$totals[1]['title'] = "Delivery";
+					$totals[1]['text'] =  "RM ".number_format($deliverycost, 2, '.', ',');
+				}else{
+					
+				}
+			}
+			$totals[2]['title'] = "Total";
+			$totals[2]['text'] =  "RM ".number_format($productcost+$deliverycost, 2, '.', ',');
+			$data["totals"]=$totals;
+			 
+			$this->response->setOutput($this->load->view('checkout/order_summary', $data));
+		}
+
+		public function getordersummarybyorderid(){
+			$totals[1]['title'] = "Subtotal";
+			$totals[1]['text'] =  "RM 0.00";
+			if (isset($this->request->post['order_id'])) {
+				$order_id = $this->request->post['order_id'];
+			} else {
+				$order_id = 0;
+			}
+			if (!$this->customer->isLogged()) {
+				$this->session->data['redirect'] = $this->url->link('account/order/info', 'order_id=' . $order_id, true);
+
+				$this->response->redirect($this->url->link('account/login', '', true));
+			}
+
+			$this->load->model('account/order');
+
+			$order_info = $this->model_account_order->getOrder($order_id);
+			$data['products'] = array();
+
+			$products = $this->model_account_order->getOrderProducts($order_id);
+			if(isset($products)){
+				if(is_array($products)){
+					$productcost =0;
+					$this->load->model('catalog/product');
+					$this->load->model('tool/image');
+					$this->load->model('tool/upload');
+					$this->load->model('catalog/product');
+					foreach ($products as $pi => $product) {
+						$products[$pi]["link"] = $this->url->link("product/product");
+						$productdetail = $this->model_catalog_product->getProduct($product["product_id"]);
+						$option_data = array();
+
+						$options = $this->model_account_order->getOrderOptions($order_id, $product['order_product_id']);
+
+						foreach ($options as $option) {
+							if ($option['type'] != 'file') {
+								$value = $option['value'];
+							} else {
+								$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+
+								if ($upload_info) {
+									$value = $upload_info['name'];
+								} else {
+									$value = '';
+								}
+							}
+
+							$option_data[] = array(
+								'name'  => $option['name'],
+								'value' => $value,
+								'price'  => $option['price']
+							);
+						}
+						
+						if ($productdetail['image']) {
+							$image = $this->model_tool_image->resize($productdetail['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+						} else {
+							$image = '';
+						}
+						$products[$pi]["option"] =$option_data;
+						$products[$pi]["thumb"] = $image;
+						
+						$products[$pi]["price"] = $productdetail["price"];
+						$productcost += $product["price"];
+					}
+	
+					$data["products"] = $products;
+					
+				}
+			}
+	
+			 $data['totals'] = array();
+
+			$totals = $this->model_account_order->getOrderTotals($order_id);
+
+			foreach ($totals as $total) {
+				$data['totals'][] = array(
+					'title' => $total['title'],
+					'text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']),
+				);
+			}
+
+			$this->response->setOutput($this->load->view('checkout/order_summary', $data));
+		}
 }

@@ -253,7 +253,43 @@ class ControllerCommonColumnLeft extends Controller {
 			}
 
 			//End Pavo Theme Control Panel Edit
+			$formbuilder = array();
 			
+			if ($this->user->hasPermission('access', 'extension/module/formbuilder')) {
+				$formbuilder[] = array(
+					'name'	   => 'Create New Form',
+					'href'     => $this->url->link('extension/module/formbuilder', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);
+			}
+			
+			$this->load->language('extension/module/forumbuilder');
+			
+			if ($this->user->hasPermission('access', 'catalog/formlist')) {
+				$formbuilder[] = array(
+						'name'	   => 'Forms List',
+						'href'     => $this->url->link('catalog/formlist', 'token=' . $this->session->data['token'], true),
+						'children' => array()		
+				);
+			}
+			
+			if ($this->user->hasPermission('access', 'catalog/forumbuilder')){
+				$formbuilder[] = array(
+					'name'	   => 'Form Submission Report',
+					'href'     => $this->url->link('catalog/forumbuilder', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);
+			}
+			
+			if ($formbuilder) {
+				$data['menus'][] = array(
+					'id'       => 'menu-formbuilder',
+					'icon'	   => 'fa-file', 
+					'name'	   => 'Form Builder Pro',
+					'href'     => '',
+					'children' => $formbuilder
+				);	
+			}
 			// Design
 			$design = array();
 			

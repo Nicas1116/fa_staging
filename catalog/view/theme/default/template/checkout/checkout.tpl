@@ -38,33 +38,7 @@
   </div>
        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
         <div id="cart_ordersummary">
-        <h2>Order Summary</h2>
-      <div class="row">
-        <div class="col-sm-6">
-          <p class="text-left"><strong><?php echo $totals[0]['title']; ?>:</strong></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="text-right"><strong class="subtotalprice"><?php echo $totals[0]['text']; ?></strong></p>
-        </div>
-      </div>
-      <div class="row cartcoupon">
-        <div class="col-sm-12">
-        <?php foreach ($modules as $module) { ?>
-          <?php echo $module; ?>
-        <?php } ?>
-         </div>
-      </div>
 
-      <div class="row total">
-        <div class="col-sm-6">
-          <p class="text-left"><strong><?php echo $totals[1]['title']; ?>:</strong></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="text-right"><strong class="totalprice"><?php echo $totals[1]['text']; ?></strong></p>
-        </div>
-      </div>
-      <p class="small">GST included, where applicable</p>
-      <div><a href="<?php echo $checkout; ?>" class="btn btn-primary btn-checkout"><?php echo $button_checkout; ?></a></div>
     </div>
       </div>
   </div>
@@ -90,6 +64,7 @@ $(document).on('change', 'input[name=\'account\']', function() {
 
 <?php if (!$logged) { ?>
 $(document).ready(function() {
+    getordersummary()
     $.ajax({
         url: 'index.php?route=checkout/login',
         dataType: 'html',
@@ -106,6 +81,7 @@ $(document).ready(function() {
 });
 <?php } else { ?>
 $(document).ready(function() {
+    getordersummary()
     $(".delivery_method").show();
     $.ajax({
         url: 'index.php?route=checkout/payment_address',
@@ -454,7 +430,7 @@ function postcodechange() {
                     $(".overall_shippingcost .shipping_cost").html(json.pricetext);
                      $("#shipping-method .ishipping_method").val(json.dcode);
                 }
-
+                getordersummary();
         }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -612,6 +588,18 @@ function savepaymentmethod() {
         },
         error: function(xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+}
+
+function getordersummary(){
+    $.ajax({
+        url: 'index.php?route=checkout/shipping_address/getordersummary',
+        type: 'post',
+        dataType: 'html',
+        data: {},
+        success: function(html) {
+            $("#cart_ordersummary").html(html);
         }
     });
 }

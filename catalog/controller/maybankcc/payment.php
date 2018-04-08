@@ -43,6 +43,7 @@ class ControllerMaybankCCPayment extends Controller {
 				$data['header'] = $this->load->controller('common/header');
 				$this->session->data['total_amount'] = $totalamount;
 				$this->session->data['order_id'] = $order_id;
+				$data["multiple_delivery"] = $order_info["multiple_delivery"];
 				$this->response->setOutput($this->load->view('maybankcc/payment', $data));
 			}else{
 				$datad["order_id"] = $order_id; 
@@ -72,6 +73,7 @@ class ControllerMaybankCCPayment extends Controller {
 		}
 		$json["order_link"] = $this->url->link('account/order/info');
 		$json["order_id"] = $order_id;
+		
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
@@ -89,7 +91,6 @@ class ControllerMaybankCCPayment extends Controller {
 		}
 		if (!empty($_POST))
 		{
-			var_dump($_POST);
 			$totalamount = number_format($this->session->data['total_amount'], 2, '.', ',');
 			$mer_id = $_POST["MERCHANT_TRANID"];
 			$txn_sign2 = $_POST["TXN_SIGNATURE2"];
@@ -98,7 +99,6 @@ class ControllerMaybankCCPayment extends Controller {
 			$res_code = $_POST["RESPONSE_CODE"];
 			$tphash = strtoupper("J9jqR8Fh"."02700701128175000698".$mer_id.$totalamount.$tra_id.$tra_status.$res_code);
 			$this->load->model('account/order');
-			$order_info = $this->model_account_order->getOrder($order_id);
 			if(strtoupper(hash("sha512",$tphash,false)) == $txn_sign2){
 				if($res_code==0){
 					$this->load->model('maybankcc/payment');
@@ -106,7 +106,9 @@ class ControllerMaybankCCPayment extends Controller {
 					$this->model_maybankcc_payment->updateCompleteStatus($order_id);
 				}
 			}
+			
 		}
+		
 		echo "<script>window.close();</script>";
 	}
 }

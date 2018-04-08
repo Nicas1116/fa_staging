@@ -253,7 +253,43 @@ class ControllerCommonColumnLeft extends Controller {
 			}
 
 			//End Pavo Theme Control Panel Edit
+			$formbuilder = array();
 			
+			if ($this->user->hasPermission('access', 'extension/module/formbuilder')) {
+				$formbuilder[] = array(
+					'name'	   => 'Create New Form',
+					'href'     => $this->url->link('extension/module/formbuilder', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);
+			}
+			
+			$this->load->language('extension/module/forumbuilder');
+			
+			if ($this->user->hasPermission('access', 'catalog/formlist')) {
+				$formbuilder[] = array(
+						'name'	   => 'Forms List',
+						'href'     => $this->url->link('catalog/formlist', 'token=' . $this->session->data['token'], true),
+						'children' => array()		
+				);
+			}
+			
+			if ($this->user->hasPermission('access', 'catalog/forumbuilder')){
+				$formbuilder[] = array(
+					'name'	   => 'Form Submission Report',
+					'href'     => $this->url->link('catalog/forumbuilder', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);
+			}
+			
+			if ($formbuilder) {
+				$data['menus'][] = array(
+					'id'       => 'menu-formbuilder',
+					'icon'	   => 'fa-file', 
+					'name'	   => 'Form Builder Pro',
+					'href'     => '',
+					'children' => $formbuilder
+				);	
+			}
 			// Design
 			$design = array();
 			
@@ -887,17 +923,17 @@ class ControllerCommonColumnLeft extends Controller {
 				);	
 			}		
 			$data['menus'][] = array(
-					'id'       => 'menu-store',
-					'icon'	   => 'fa-paper-plane-o', 
-					'name'	   => 'Store Locator',
-					'href'     => $this->url->link('stores/store', 'token=' . $this->session->data['token'], true),
-					'children' => null
-				);
+				'id'       => 'menu-store',
+				'icon'	   => 'fa-paper-plane', 
+				'name'	   => 'Store Locator',
+				'href'     => $this->url->link('stores/store', 'token=' . $this->session->data['token'], true),
+				'children' => null
+			);
 			// Stats
 			$data['text_complete_status'] = $this->language->get('text_complete_status');
 			$data['text_processing_status'] = $this->language->get('text_processing_status');
 			$data['text_other_status'] = $this->language->get('text_other_status');
-	
+		
 			$this->load->model('sale/order');
 			$mulflatshpzip_token = (substr(VERSION,0,3)>='3.0') ? 'user_token=' . $this->session->data['user_token'] : 'token=' . $this->session->data['token'];
 			if($this->user->hasPermission('access', 'extension/mulflatshpzip') && $this->config->get((substr(VERSION,0,3)>='3.0' ? 'module_mulflatshpzip_status' : 'mulflatshpzip_status'))) { 

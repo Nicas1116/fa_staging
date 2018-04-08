@@ -12,10 +12,10 @@
 <div class="container">
     
   <?php require( ThemeControlHelper::getLayoutPath( 'common/mass-container.tpl' )  ); ?>
-  <div class="row">
-
+  <div class="row checkoutpage">
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 ">
 <style type="text/css">
-.theForm{text-align: center;padding: 30px 0;}
+.theForm{text-align: center;padding: 130px 0;}
 .theForm p{font-size: 15px;line-height: 22px;}
       .loader {
     border: 16px solid #f3f3f3; /* Light grey */
@@ -31,6 +31,11 @@
     100% { transform: rotate(360deg); }
 }
 </style>
+<ul class="step_title row">
+        <li><p class="step1 active">Customer Info</p></li>
+        <li><p class="step2 active">Delivery Method</p></li>
+        <li><p class="step3 active">Secured Payment</p></li>
+        </ul>
 <form name="theForm" class="theForm" action="https://ebpgcards.maybank.com/BPG/admin/payment/PaymentWindowSimulator.jsp" method="post" target="_blank">
                         <input name="MERCHANT_ACC_NO" type="hidden" value="02700701128175000698" size="50">
                         <input name="MERCHANT_TRANID" type="hidden" value="<?php echo $invoicecode; ?>" size="50">
@@ -49,9 +54,19 @@
                         <input class="theButton" type="submit" value="Submit"/>
                     </form>
                     </div>
+
+
+                    <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 ">&nbsp;</div>
+       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 " >
+        <div id="cart_ordersummary" data-margin-top="20">
+            <?php echo $order_summary; ?>
+                </div>
+            </div>
               </div>
+          </div>
 <script type="text/javascript">
       $(document).ready(function(){
+        getordersummary();
             $(".theForm").submit();
             setInterval(function(){
 
@@ -76,5 +91,16 @@
                 });
             },1000)
       })
+      function getordersummary(){
+    $.ajax({
+        url: 'index.php?route=checkout/shipping_address/getordersummarybyorderid',
+        type: 'post',
+        dataType: 'html',
+        data:{"order_id":<?php echo $order_id; ?>},
+        success: function(html) {
+            $("#cart_ordersummary").html(html);
+        }
+    });
+}
 </script>
 <?php echo $footer; ?>

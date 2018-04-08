@@ -1,6 +1,9 @@
 <?php
 class ControllerCheckoutMultipleCheckout extends Controller {
 	public function index() {
+		unset($this->session->data['shipping_products']);
+		unset($this->session->data['shipping_address']);
+		unset($this->session->data['shipping_method']);
 		// Validate cart has products and has stock.
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 			$this->response->redirect($this->url->link('checkout/cart'));
@@ -22,7 +25,12 @@ class ControllerCheckoutMultipleCheckout extends Controller {
 				$this->response->redirect($this->url->link('checkout/cart'));
 			}
 		}
-
+		foreach ($products as $product) {
+			$data["recipentno"] = $product["quantity"];
+			for($i=0;$i<$product["quantity"];$i++){
+				$this->session->data['shipping_products'][$i] = $product;
+			}
+		}
 		$this->load->language('checkout/checkout');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -92,6 +100,7 @@ class ControllerCheckoutMultipleCheckout extends Controller {
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
+		$data['order_summary'] = $this->load->controller('checkout/multiple_shipping_address/getordersummary');
 
 		$this->response->setOutput($this->load->view('checkout/multiple_checkout', $data));
 	}

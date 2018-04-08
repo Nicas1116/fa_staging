@@ -47,7 +47,7 @@ class ModelExtensionShippingmulflatshpzipshipping extends Controller {
 			
 			$sub_total = $this->cart->getSubTotal(); 
  			
-			$quote_data = $this->checkmulflatshpzipdiscount($sub_total); 
+			$quote_data = $this->checkmulflatshpzipdiscount($sub_total,$address); 
  			
 			//print_r($quote_data);
 			
@@ -66,18 +66,18 @@ class ModelExtensionShippingmulflatshpzipshipping extends Controller {
 		}
 	}
 	
-	public function checkmulflatshpzipdiscount($subtotal) {
+	public function checkmulflatshpzipdiscount($subtotal,$pass_address=null) {
 		if($this->config->get((substr(VERSION,0,3)>='3.0' ? 'module_mulflatshpzip_status' : 'mulflatshpzip_status'))) {
 			$data['mulflatshpzipshipping_tax_class_id'] = $this->setvalue($this->modname.'_tax_class_id');	
 			 
-			$mulflatshpzip_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "mulflatshpzip WHERE status = 1 and date_start <= curdate() and date_end >= curdate()");
-			
+			$mulflatshpzip_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "mulflatshpzip WHERE status = 1");
+			//echo "mulflatshpzip_query:".json_encode($mulflatshpzip_query)."<br/>";
 			if($mulflatshpzip_query->num_rows) {
 				$mulflatshpzip_cost_info = array();
 				
 				foreach($mulflatshpzip_query->rows as $result) {
-					$checkproduct = $this->validateproduct($result);
-					//var_dump($checkproduct);//exit;
+					$checkproduct = $this->validateproduct($result,$pass_address);
+					//echo "checkproduct:".json_encode($checkproduct)."<br/>";
 					if($checkproduct) {
 						
  						$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "mulflatshpzip_cost WHERE mulflatshpzip_id = '" . (int)$result['mulflatshpzip_id'] . "' and totfrom <= '".$subtotal."' and totto >= '".$subtotal."' ");
@@ -127,9 +127,14 @@ class ModelExtensionShippingmulflatshpzipshipping extends Controller {
 		}
 	}
 	
-	public function validateproduct($data) {
+	public function validateproduct($data,$pass_address=null) {
  		// check store and customer group 
-		$address = isset($this->session->data['shipping_address']) ? $this->session->data['shipping_address'] : array();
+ 		if($pass_address){
+ 			$address = $pass_address;
+ 		}else{
+ 			$address = isset($this->session->data['shipping_address']) ? $this->session->data['shipping_address'] : array();
+ 		}
+		
 		$data['zipcode'] = ($data['zipcode'] != '') ? explode(",",$data['zipcode']) : array();
 		$data['store'] = ($data['store'] != '') ? explode(",",$data['store']) : array();
 		$data['customer_group'] = ($data['customer_group']) ? explode(",",$data['customer_group']) : array();

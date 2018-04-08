@@ -166,7 +166,8 @@ class ControllerCheckoutShippingMethod extends Controller {
 			array_multisort($sort_order, SORT_ASC, $method_data);
 
 			$this->session->data['shipping_methods'] = $method_data;
-			
+			$shipping = explode('.',$data["dcode"]);
+			$this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
 		}
 
 		if (empty($this->session->data['shipping_methods'])) {

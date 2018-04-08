@@ -194,24 +194,20 @@
 <div class="row"> <div class="col-xs-12">
   <p>Fill in the delivery address above to get the delivery fee</p>
    </div></div>
-    <div class="overall_shippingcost" class="row" style="display: none;">
+    <div class="overall_shippingcost row" style="display: none;">
       <input type="hidden" name="can_shipping" class="can_shipping" value="false">
         <div class="col-xs-6">Delivery Fee</div>
         <div class="col-xs-6 text-right shipping_cost"></div>
     </div>
-     <div class="overall_shippingcost_text" class="row" style="display: block;">
+     <div class="overall_shippingcost_text row" style="display: block;">
         <div class="col-xs-12">Not Avaiable for Delivery</div>
+     </div>
+         <div class="row">
+        <div class="col-xs-12"><a href="#" class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
      </div>
 </div>
    <div class="buttons clearfix">
     <div class="pull-right">
-      <?php echo $text_agree; ?>
-      <?php if ($agree) { ?>
-      <input type="checkbox" name="agree" value="1" checked="checked" />
-      <?php } else { ?>
-      <input type="checkbox" name="agree" value="1" />
-      <?php } ?>
-      &nbsp;
       <input type="button" value="<?php echo $button_continue; ?>" id="button-shipping-address" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />
     </div>
   </div>
