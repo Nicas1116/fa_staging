@@ -3,11 +3,11 @@
 $_['heading_title']      = 'My Account';
 
 // Text
-$_['text_account']       = 'Account';
+$_['text_account']       = 'MY ACCOUNT';
 $_['text_my_account']    = 'My Account';
-$_['text_my_orders']     = 'My Orders';
+$_['text_my_orders']     = 'Orders';
 $_['text_my_newsletter'] = 'Newsletter';
-$_['text_edit']          = 'Edit your account information';
+$_['text_edit']          = 'Account Details';
 $_['text_password']      = 'Change your password';
 $_['text_address']       = 'Modify your address book entries';
 $_['text_credit_card']   = 'Manage Stored Credit Cards';

@@ -7536,3 +7536,22 @@ textarea.form-control{
         .g-signin2 .abcRioButtonIcon{float:none;display: inline-block;padding-top: 10px!important}
         .g-signin2 .abcRioButtonContents{line-height: 40px!important;display: inline-block;}
         .g-signin2 .abcRioButton{box-shadow: none!important;border:solid 1px #979797;}
+        .accountlefmenu h2{font-size: 16px;line-height: 22px;color:#000;font-weight: bold;}
+        .accountlefmenu ul li a{font-size: 16px;line-height: 22px;color:#4a4a4a;font-weight: 600;padding: 5px 0;display: block;}
+         .accountlefmenu ul li a.active{color:#ff8d00;}
+         .addresses{margin-top:20px;margin-bottom: 20px;}
+         .addresspage .orangebox{background: #fff5e1;color: #4a4a4a;border-radius: 20px;padding: 20px;}
+         .bline{background-color: #d3d3d3;width: 100%;height: 1px;margin: 15px 0 20px;}
+         .addresspage .orangebox .btn-info,
+         .addresspage .orangebox .btn-danger{
+    background: transparent;
+    color:#4a90e2;
+    font-size: 15px;
+    line-height: 22px;
+    border:none;
+    padding:0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin: 10px 10px;
+    }
+    .addresses .buttons{margin-left: -10px;}

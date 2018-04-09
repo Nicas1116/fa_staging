@@ -20,6 +20,10 @@ class ModelAccountAddress extends Model {
 		}
 	}
 
+	public function editDefaultAddress($address_id) {
+		$this->db->query("UPDATE " . DB_PREFIX . "customer SET address_id = '" . (int)$address_id . "' WHERE customer_id = '" . (int)$this->customer->getId() . "'");
+	}
+
 	public function deleteAddress($address_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "address WHERE address_id = '" . (int)$address_id . "' AND customer_id = '" . (int)$this->customer->getId() . "'");
 	}
@@ -80,7 +84,7 @@ class ModelAccountAddress extends Model {
 
 	public function getAddresses() {
 		$address_data = array();
-
+		$userquery = $this->db->query("SELECT address_id FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$this->customer->getId() . "'");
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE customer_id = '" . (int)$this->customer->getId() . "'");
 
 		foreach ($query->rows as $result) {
@@ -107,7 +111,12 @@ class ModelAccountAddress extends Model {
 				$zone = '';
 				$zone_code = '';
 			}
-
+			$isdefault=false;
+			if ($userquery->num_rows) {
+				if($userquery->row["address_id"] == $result['address_id']){
+					$isdefault=true;
+				}
+			}
 			$address_data[$result['address_id']] = array(
 				'address_id'     => $result['address_id'],
 				'firstname'      => $result['firstname'],
@@ -125,6 +134,7 @@ class ModelAccountAddress extends Model {
 				'iso_code_2'     => $iso_code_2,
 				'iso_code_3'     => $iso_code_3,
 				'address_format' => $address_format,
+				'is_default'	 => $isdefault,
 				'custom_field'   => json_decode($result['custom_field'], true)
 
 			);

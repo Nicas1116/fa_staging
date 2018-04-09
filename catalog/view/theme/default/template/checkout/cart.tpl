@@ -69,9 +69,7 @@
                   <?php } ?>
                   <?php if ($product['option']) { ?>
                   <?php foreach ($product['option'] as $option) { ?>
-                  <br />
-
-                  <small><?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
+                  <br/><small><?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
                   <?php } ?>
                   <?php } ?>
                   <?php if ($product['reward']) { ?>
@@ -101,15 +99,35 @@
                   }
                   $ison = false;
                   $hasmessage = false;
+                   $option_all =array();
+                   $mkinga=array();
+                   $mkingb=array();
                    foreach ($product_options as $option) {
+                      $dontsave =true;
                       if($option["name"] == "Send As Gift"){
                         $ison = true;
+                         $dontsave=false;
                         $product_option_name = $option;
                       }
                       if($option["name"] == "Giftbox Message"){
                         $hasmessage=true;
+                         $dontsave=false;
                         $product_option_giftboxmessage = $option;
                       }
+                     if( $dontsave){
+                      $mkingb[$option["product_option_id"]] = $option["product_option_value_id"];
+                    }else{
+                       $mkinga[$option["product_option_id"]] = $option["product_option_value_id"];
+                    }
+                  }
+                  foreach ($fullproduct_options as $fullproduct_option) {
+                      if($fullproduct_option["name"] == "Send As Gift"){
+                        $mkinga[$fullproduct_option["id"]] = $fullproduct_option["value"];
+                      }
+                      if($fullproduct_option["name"] == "Giftbox Message"){
+                        $mkinga[$fullproduct_option["id"]] = "";
+                      }
+
                   }
                   ?>
                   <div class="allgiftbox"><label><input <?php if($ison){echo "checked='checked'";} ?> class="checkbox_sendasgift checkbox_sendasgift-<?php echo $product["cart_id"]  ?>" type="checkbox" /> Send as gift</label>
@@ -122,12 +140,10 @@
                       $(document).ready(function(){
                         $(".checkbox_sendasgift-<?php echo $product["cart_id"]  ?>").click(function(){
                           if($(this).is(':checked')==true){
-                            var a = '{"<?php echo $fullproduct_option_name["id"]; ?>":"<?php echo $fullproduct_option_name["value"]; ?>"}';
-                            var a = {"<?php echo $fullproduct_option_name["id"]; ?>":"<?php echo $fullproduct_option_name["value"]; ?>","<?php echo $fullproduct_option_giftboxmessage["id"]; ?>":""};
-                            var a_text = JSON.stringify(a);
-                            cart.updateoption("<?php echo $product["cart_id"]  ?>",a_text);   
+                            var a = '<?php echo json_encode($mkinga); ?>';
+                            cart.updateoption("<?php echo $product["cart_id"]  ?>",a);   
                          }else{
-                            var a = '[]';
+                            var a = '<?php echo json_encode($mkingb); ?>';
                             cart.updateoption("<?php echo $product["cart_id"]  ?>",a);   
                          }
                         });
@@ -135,6 +151,9 @@
                           clearTimeout(clearTimeoutId);
                           clearTimeoutId = setTimeout(function(){
                             var a = {"<?php echo $fullproduct_option_name["id"]; ?>":"<?php echo $fullproduct_option_name["value"]; ?>","<?php echo $fullproduct_option_giftboxmessage["id"]; ?>":$(".giftboxmessage-<?php echo $product['cart_id'] ?>").val()};
+                             var a = '<?php echo json_encode($mkinga); ?>';
+                             var a = JSON.parse(a);
+                             a["<?php echo $fullproduct_option_giftboxmessage["id"]; ?>"] = $(".giftboxmessage-<?php echo $product['cart_id'] ?>").val();
                             var a_text = JSON.stringify(a);
                             cart.updateoptiontext("<?php echo $product["cart_id"]  ?>",a_text);  
                           },500);

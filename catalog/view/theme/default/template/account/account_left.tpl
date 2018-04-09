@@ -1,14 +1,16 @@
-<div class="col-sm-3">
-<h2><?php echo $text_my_account; ?></h2>
+<div class="col-sm-3 accountlefmenu">
+  <h2>MY BAG</h2>
   <ul class="list-unstyled">
-    <li><a href="<?php echo $edit; ?>"><?php echo $text_edit; ?></a></li>
-    <li><a href="<?php echo $password; ?>"><?php echo $text_password; ?></a></li>
-    <li><a href="<?php echo $address; ?>"><?php echo $text_address; ?></a></li>
+    <li><a href="<?php echo $order; ?>" class="<?php if($active==$order){echo "active"; } ?>">Orders</a></li>
+    <li><a href="<?php echo $purchased; ?>" class="<?php if($active==$purchased){echo "active"; } ?>">Purchased History</a></li>
+    <li><a href="<?php echo $wishlist; ?>" class="<?php if($active==$wishlist){echo "active"; } ?>">Wishlist</a></li>
+  </ul>
+<h2>MY ACCOUNT</h2>
+  <ul class="list-unstyled">
+    <li><a href="<?php echo $account; ?>" class="<?php if($active==$account){echo "active"; } ?>">My Account</a></li>
+    <li><a href="<?php echo $edit; ?>" class="<?php if($active==$edit){echo "active"; } ?>">Account Details</a></li>
+    <li><a href="<?php echo $address; ?>" class="<?php if($active==$address){echo "active"; } ?>">Address Book</a></li>
     
   </ul>
-  <h2><?php echo $text_my_orders; ?></h2>
-  <ul class="list-unstyled">
-    <li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
-    <li><a href="<?php echo $wishlist; ?>"><?php echo $text_wishlist; ?></a></li>
-  </ul>
+  
 </div>

@@ -109,15 +109,14 @@ class ControllerCheckoutCart extends Controller {
 							$value = '';
 						}
 					}
-
 					$option_data[] = array(
 						'name'  => $option['name'],
 						'value' => $value,
-						'value_id' =>$option['product_option_value_id'],
+						'product_option_id' => $option['product_option_id'],
+						'product_option_value_id' =>$option['product_option_value_id'],
 						'type' => $option['type'] 
 					);
 				}
-
 				// Display prices
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 					$unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));

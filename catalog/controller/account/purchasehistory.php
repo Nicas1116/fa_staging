@@ -1,5 +1,5 @@
 <?php
-class ControllerAccountOrder extends Controller {
+class ControllerAccountPurchaseHistory extends Controller {
 	public function index() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/order', '', true);
@@ -97,7 +97,7 @@ class ControllerAccountOrder extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
-		$data["active"] = $this->url->link('account/order', '', true);
+		$data["active"] = $this->url->link('account/purchasehistory', '', true);
 
 		$this->response->setOutput($this->load->view('account/order_list', $data));
 	}

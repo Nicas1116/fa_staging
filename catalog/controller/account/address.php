@@ -240,10 +240,11 @@ class ControllerAccountAddress extends Controller {
 				'zone_code' => $result['zone_code'],
 				'country'   => $result['country']
 			);
-
+			echo json_encode($result);
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
 				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
+				'is_default' =>  $result['is_default'],
 				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
 				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
 			);
@@ -260,6 +261,19 @@ class ControllerAccountAddress extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 
 		$this->response->setOutput($this->load->view('account/address_list', $data));
+	}
+
+	public function updateDefault(){
+		$json=array();
+		if (isset($this->request->post['address_id'])){
+			$this->load->model('account/address');
+			$this->model_account_address->editDefaultAddress($this->request->post['address_id']);
+			$json["success"] = 1;
+		}else{
+			$json["error"] = 1;
+		}
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 
 	protected function getForm() {

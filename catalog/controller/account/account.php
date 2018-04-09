@@ -63,11 +63,12 @@ class ControllerAccountAccount extends Controller {
 		$data['text_transaction'] = $this->language->get('text_transaction');
 		$data['text_newsletter'] = $this->language->get('text_newsletter');
 		$data['text_recurring'] = $this->language->get('text_recurring');
-
+		$data['purchased'] = $this->url->link('account/purchasehistory', '', true);
+		$data['account'] = $this->url->link('account/account', '', true);
 		$data['edit'] = $this->url->link('account/edit', '', true);
 		$data['password'] = $this->url->link('account/password', '', true);
 		$data['address'] = $this->url->link('account/address', '', true);
-		
+		$data['active'] = $this->url->link($this->request->get['route'], '', true);;
 		$data['credit_cards'] = array();
 		
 		$files = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
