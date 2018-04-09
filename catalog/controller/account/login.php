@@ -182,6 +182,89 @@ class ControllerAccountLogin extends Controller {
 		$this->response->setOutput($this->load->view('account/login', $data));
 	}
 
+
+	public function loginwithgoogle(){
+		$this->load->model('account/customer');
+		$json=array();
+		if (!empty($this->request->post['email'])) {
+			$this->customer->logout();
+			$this->cart->clear();
+
+			unset($this->session->data['order_id']);
+			unset($this->session->data['payment_address']);
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
+			unset($this->session->data['shipping_address']);
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['comment']);
+			unset($this->session->data['coupon']);
+			unset($this->session->data['reward']);
+			unset($this->session->data['voucher']);
+			unset($this->session->data['vouchers']);
+			if ($this->customer->loginwithgoogle($this->request->post['email'],$this->request->post['id'])) {
+				// Default Addresses
+				$this->load->model('account/address');
+
+				if ($this->config->get('config_tax_customer') == 'payment') {
+					$this->session->data['payment_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
+				}
+
+				if ($this->config->get('config_tax_customer') == 'shipping') {
+					$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
+				}
+				$json["redirect"] = ($this->url->link('account/account', '', true));
+			}else{
+				$this->session->data['googledata']=$this->request->post;
+				//echo json_encode($this->session->data['facebook']);
+				$json["redirect"] = ($this->url->link('account/register', '', true));
+			}
+		}
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function loginwithfacebook(){
+		$this->load->model('account/customer');
+		$json=array();
+		if (!empty($this->request->post['email'])) {
+			$this->customer->logout();
+			$this->cart->clear();
+
+			unset($this->session->data['order_id']);
+			unset($this->session->data['payment_address']);
+			unset($this->session->data['payment_method']);
+			unset($this->session->data['payment_methods']);
+			unset($this->session->data['shipping_address']);
+			unset($this->session->data['shipping_method']);
+			unset($this->session->data['shipping_methods']);
+			unset($this->session->data['comment']);
+			unset($this->session->data['coupon']);
+			unset($this->session->data['reward']);
+			unset($this->session->data['voucher']);
+			unset($this->session->data['vouchers']);
+			if ($this->customer->loginwithfacebook($this->request->post['email'],$this->request->post['id'])) {
+				// Default Addresses
+				$this->load->model('account/address');
+
+				if ($this->config->get('config_tax_customer') == 'payment') {
+					$this->session->data['payment_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
+				}
+
+				if ($this->config->get('config_tax_customer') == 'shipping') {
+					$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
+				}
+				$json["redirect"] = ($this->url->link('account/account', '', true));
+			}else{
+				$this->session->data['facebookdata']=$this->request->post;
+				//echo json_encode($this->session->data['facebook']);
+				$json["redirect"] = ($this->url->link('account/register', '', true));
+			}
+		}
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
 	protected function validate() {
 		// Check how many login attempts have been made.
 		$login_info = $this->model_account_customer->getLoginAttempts($this->request->post['email']);

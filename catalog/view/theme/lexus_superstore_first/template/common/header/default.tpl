@@ -17,7 +17,7 @@
   		<div class="row">
   			<div class="col-lg-4 col-md-4 col-sm-3 col-xs-4">
   				<div class="links hidden-sm hidden-xs">
-  					<a href="#"><?php echo $text_stores; ?></a>
+  					<a href="<?php echo $stores; ?>"><?php echo $text_stores; ?></a>
 				</div>	
 				<div class="show-mobile hidden-lg hidden-md">
 					<div class="quick-user pull-left">

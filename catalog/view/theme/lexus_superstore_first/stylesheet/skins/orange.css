@@ -626,6 +626,7 @@ h6,
 textarea.form-control,
 select.form-control {
   padding: 6px;
+  -webkit-appearance: none;
 }
 /* line 16, D:\xampp\htdocs\demo\lexus_superstore_demo22\catalog\view\theme\lexus_superstore_first\development\less\opencart\form.less */
 input[type="text"],
@@ -2291,6 +2292,8 @@ input#input-captcha {
   -o-border-radius: 0px;
   border-radius: 0px;
   /*swap image*/
+  margin:  15px;
+  background:  transparent;
 }
 /* line 406, D:\xampp\htdocs\demo\lexus_superstore_demo22\catalog\view\theme\lexus_superstore_first\development\less\opencart\opencart-modules.less */
 .product-block .image .hover-image {
@@ -7463,7 +7466,7 @@ textarea.form-control{
 .form-contactus p{font-size:15px;line-height:22px;}
 .form-contactus .form-horizontal{margin: 40px 0;}
 .form-contactus .form-horizontal .control-label{text-align: left;font-size: 15px;line-height: 22px;color:#9b9b9b;display: block;margin-bottom: 5px;padding-top:  0px;}
-.form-contactus .form-horizontal textarea,.form-contactus .form-horizontal input,.form-contactus .form-horizontal select{width:100%;padding: 10px;border-radius: 10px;height:  auto;width:  100%;}
+.form-contactus .form-horizontal textarea,.form-contactus .form-horizontal input,.form-contactus .form-horizontal select{width:100%;padding: 10px;border-radius: 10px;height:  auto;width:  100%;font-size:  15px;line-height: 20px;}
 .form-contactus .form-horizontal .btn.btn-primary{font-size:14px;line-height:18px;color:#fff;padding: 10px 100px;display: block;margin-top: 5px;}
 .form-contactus .contactinformationbox{background:#fff5e1;padding-top: 15px;margin-top: 30px;}
 .form-contactus .contactinformationbox .contact_header{font-size:19px;line-height:24px;font-weight:600;background:url(/fa/staging/image/others/othercontact.png) left center;margin:  0px;padding:20px;padding-left: 40px;background-repeat: no-repeat;margin-left: 20px;margin-bottom: 10px;}
@@ -7472,6 +7475,7 @@ textarea.form-control{
 .form-contactus .contactinformationbox .faqcontainer p{font-size: 15px;line-height: 20px;margin-bottom: 20px;font-weight: 600;}
 .form-contactus .contactinformationbox .faqcontainer p span{font-size: 15px;line-height: 20px;margin-bottom: 0px;font-weight: normal;display: block;}
 .form-contactus .contactinformationbox .faqcontainer p a{color:#4a90e2!important;}
+.form-contactus .form-horizontal textarea{height:100px;}
 .form-careers p.career_text{margin-top: 15px;}
 .contactinformationbox > p{padding: 10px 20px 0;font-size: 14px;line-height: 18px;}
 .form-careers h3{font-size: 15px;line-height: 18px;margin: 15px 0 5px;font-weight: bold;text-transform:  capitalize;}
@@ -7517,3 +7521,18 @@ textarea.form-control{
 .mapstores .optime{background:url(/fa/staging/image/others/doptime.png) left center no-repeat;padding: 10px;padding-left: 20px;font-size: 12px;line-height: 16px;}
 .mapstores button{background:#ffa000;border-radius: 10px;padding: 10px 30px;font-size: 12px;line-height: 16px;color:#fff;font-weight: bold;display: block;}
 .mapstores{position: relative;}
+.homepage_sidemenu{background:#FFFBED;padding: 20px 0}
+.homepage_sidemenu h2{font-size: 17px;line-height: 22px;font-style: italic;padding:10px 20px;text-align: left;margin:0px;}
+.homepage_sidemenu ul{list-style: none;}
+.homepage_sidemenu ul li a{font-size:15px;line-height:20px;padding:7px 20px;color:#000;font-weight: bold;display: block;}
+.step_title{margin-left: 0px;}
+.loginpage .btn-register, .loginpage .btn.btn-login{margin-bottom: 10px;}
+      .logintext_social{text-align: center;}
+        .loginpage{margin:40px;}
+        #collapse-checkout-option .loginpage{margin:0px;}
+        .button-facebook{color:#fff;font-size: 15px;line-height: 22px;padding: 9px 20px;display: block;background:#3557A2;text-align: center;}
+        .button-facebook i{margin-right: 20px;}
+        .g-signin2 .abcRioButtonLightBlue{width:100%!important;height: 40px!important;}
+        .g-signin2 .abcRioButtonIcon{float:none;display: inline-block;padding-top: 10px!important}
+        .g-signin2 .abcRioButtonContents{line-height: 40px!important;display: inline-block;}
+        .g-signin2 .abcRioButton{box-shadow: none!important;border:solid 1px #979797;}

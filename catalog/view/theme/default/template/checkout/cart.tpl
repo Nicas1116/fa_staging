@@ -40,7 +40,13 @@
         <?php 
           $disabletext ="";
         if(sizeof($products)>1){
-          $disabletext="disabled";
+          
+        }else{
+          if(sizeof($products)>0){
+            if($products[0]["quantity"]<=1){
+              $disabletext="disabled";
+            }
+          }
         }
       ?>
         <li><input type="radio" name="deliverymethod" class="radio_dm" <?php echo $disabletext ?>><a class="btnmultipledelivery <?php echo $disabletext ?>"><strong>Multiple Address Delivery</strong>

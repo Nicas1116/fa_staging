@@ -77,6 +77,7 @@ $logoType = $helper->getConfig('logo_type','logo-theme');
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="google-signin-client_id" content="766142792782-0efs3icb63a3b4f73fd7hdcfktaqk91j.apps.googleusercontent.com">
 <title><?php echo $title; ?></title>
 <base href="<?php echo $base; ?>" />
 <?php if ($description) { ?>

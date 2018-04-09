@@ -8,7 +8,7 @@
   <div class="checkoutpage row" >
     <div id="content" class="<?php //echo $class; ?>"><?php echo $content_top; ?>
         <div class="row">
-        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 ">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
       <ul class="step_title row">
         <li><p class="step1 active">Customer Info</p></li>
         <li><p class="step2 <?php if($logged) { echo "active"; } ?>">Delivery Method</p></li>
@@ -36,7 +36,7 @@
 
         </div>
   </div>
-   <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 ">&nbsp;</div>
+   <!--<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 ">&nbsp;</div>-->
        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 " >
         <div id="cart_ordersummary" data-margin-top="20">
             <?php echo $order_summary; ?>
@@ -66,7 +66,7 @@ $(document).on('change', 'input[name=\'account\']', function() {
  var sticky = new Sticky('#cart_ordersummary');
 <?php if (!$logged) { ?>
 $(document).ready(function() {
-
+     getordersummary();
     $.ajax({
         url: 'index.php?route=checkout/login',
         dataType: 'html',

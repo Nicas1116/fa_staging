@@ -18,6 +18,12 @@ class ControllerAccountRegister extends Controller {
 		$this->load->model('account/customer');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			if(isset($this->session->data['facebookdata'])){
+				unset($this->session->data['facebookdata']);
+			}
+			if(isset($this->session->data['googledata'])){
+				unset($this->session->data['googledata']);
+			}
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
 
 			// Clear any previous login attempts for unregistered accounts.
@@ -169,7 +175,14 @@ class ControllerAccountRegister extends Controller {
 				}
 			}
 		}
-
+		if(isset($this->session->data['facebookdata'])){
+			$data["facebookdata"] = $this->session->data['facebookdata'];
+			unset($this->session->data['facebookdata']);
+		}
+		if(isset($this->session->data['googledata'])){
+			$data["googledata"] = $this->session->data['googledata'];
+			unset($this->session->data['googledata']);
+		}
 		if (isset($this->request->post['customer_group_id'])) {
 			$data['customer_group_id'] = $this->request->post['customer_group_id'];
 		} else {

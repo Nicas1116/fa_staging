@@ -1,3 +1,35 @@
+<?php 
+$hasfacebook =false;
+$isgoogle =false;
+$facebookid ="";
+$googleid="";
+if(isset($facebookdata)){
+  $hasfacebook = true;
+  $googleid = "";
+  $facebookid = $facebookdata["id"];
+  $firstname = $facebookfirst = $facebookdata["first_name"];
+  $lastname = $facebooklast = $facebookdata["last_name"];
+  $email = $facebookemail = $facebookdata["email"];
+  $confirm = $password = $facebookpassword = substr($facebookid,0,15);
+  //echo $password;
+}else if(isset($googledata)){
+  $hasfacebook = true;
+  $isgoogle = true;
+  $facebookid = "";
+  $googleid = $googledata["id"];
+  $name = explode(" ",$googledata["name"]);
+  if(sizeof($name) >0  ){
+    $first = array_shift($name);
+    $last = join(" ",$name);
+  }
+  $firstname = $facebookfirst = $first;
+  $lastname = $facebooklast = $last;
+  $email = $facebookemail = $googledata["email"];
+  $confirm = $password = $facebookpassword = substr($googleid,0,15);
+  //echo $password;
+}
+?>
+
 <?php echo $header; ?>
 <div class="container">
   <?php if ($error_warning) { ?>
@@ -19,7 +51,7 @@
           <div class="col-sm-4"><span>Step 3</span>Complete</div>
       </div>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
-        <fieldset  id="account">
+        <fieldset  id="account" <?php //if($hasfacebook) {echo "style='display:none;'";} ?>>
           <div class="form-group required">
             <label class="col-sm-12 control-label" for="input-email"><?php echo $entry_email; ?></label>
             <div class="col-sm-12">
@@ -47,6 +79,14 @@
               <?php } ?>
             </div>
           </div>
+          <p class="logintext_social">or connect with your social media account</p>
+    <div class="row">
+      <div class="col-sm-6"><a class="button-facebook"><i class="fa fa-facebook"></i>Facebook</a></div>
+      <div class="col-sm-6">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
+    
+    </div>
         </fieldset>
         <fieldset id="personal">
           <div class="form-group required" style="display: <?php echo (count($customer_groups) > 1 ? 'block' : 'none'); ?>;">
@@ -67,6 +107,8 @@
               </div>
               <?php } ?>
               <?php } ?>
+              <input type="hidden" name="facebookid" value="<?php echo $facebookid; ?>" />
+               <input type="hidden" name="googleid" value="<?php echo $googleid; ?>" />
             </div>
           </div>
           <div class="row">
@@ -516,7 +558,9 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<style type="text/css">#page{background-color: #fff5e1;}#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
+<style type="text/css">
+        #page{background-color: #fff5e1;}#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}
+     </style>
 <script type="text/javascript"><!--
 // Sort the custom fields
 $('#account .form-group[data-sort]').detach().each(function() {
@@ -694,4 +738,98 @@ $('select[name=\'country_id\']').on('change', function() {
 
 $('select[name=\'country_id\']').trigger('change');
 //--></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript"></script>
+<script>
+  var gotclick = false;
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1774996859228146',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.12'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+ function onSignIn(googleUser) {
+  if(gotclick){
+    var profile = googleUser.getBasicProfile();
+    var gu = {id:profile.getId(), name:profile.getName(), email:profile.getEmail()};
+    logingoogle(gu);
+    gotclick=false;
+  }
+}
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   $(document).ready(function(){
+        $(".g-signin2").click(function(){
+          gotclick=true;
+        })
+        $(".button-facebook").click(function(){
+          FB.login(function(response){
+              if (response.status === 'connected') {
+                 FB.api('/me',{fields: 'email,first_name,last_name'}, function(response) {
+           
+                      loginfacebook(response);
+                    });
+              } else {
+                // The person is not logged into this app or we are unable to tell. 
+              }
+          }, {scope: 'public_profile,email'});
+        })
+    })
+
+   function logingoogle(response){
+      $.ajax({
+        url: 'index.php?route=account/login/loginwithgoogle',
+        type: 'post',
+        data: response,
+        dataType: 'json',
+        beforeSend: function() {
+          
+        },
+        complete: function() {
+            
+        },
+        success: function(json) {
+            if (json['redirect']) {
+                location = json['redirect'];
+            } 
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+   }
+
+   function loginfacebook(response){
+      $.ajax({
+        url: 'index.php?route=account/login/loginwithfacebook',
+        type: 'post',
+        data: response,
+        dataType: 'json',
+        beforeSend: function() {
+          
+        },
+        complete: function() {
+            
+        },
+        success: function(json) {
+            if (json['redirect']) {
+                location = json['redirect'];
+            } 
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+   }
+</script>
 <?php echo $footer; ?>
