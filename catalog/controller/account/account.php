@@ -8,7 +8,11 @@ class ControllerAccountAccount extends Controller {
 		}
 
 		$this->load->language('account/account');
-
+		$this->load->model('account/customer');
+		$this->load->model('account/order');
+		$this->load->model('account/wishlist');
+		$this->load->model('catalog/product');
+		$this->load->model('tool/image');
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$data['breadcrumbs'] = array();
@@ -30,10 +34,165 @@ class ControllerAccountAccount extends Controller {
 		} else {
 			$data['success'] = '';
 		} 
+		$data['editlink'] = $this->url->link('account/edit', '', true);
+		$data['wishlistlink'] = $this->url->link('account/wishlist', '', true);
+		$data['purchasedhistorylink'] = $this->url->link('account/purchasehistory', '', true);
+		$data['orderslink'] = $this->url->link('account/order', '', true);
 
+		$customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
+
+		$data['orders']=array();
+		$order_total = $this->model_account_order->getTotalOrders();
+		$products = array();
+		$results = $this->model_account_order->getOrders(0, 5);
+		foreach ($results as $result) {
+			$product_total = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
+			$voucher_total = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
+			$products_list = $this->model_account_order->getOrderProducts($result['order_id']);
+			foreach ($products_list  as $key => $value) {
+				$products[] = $value;
+			}
+			$comments = "";
+			$order_histories = $this->model_account_order->getOrderHistories($result['order_id']);
+			foreach ($order_histories as $key => $value) {
+				$comments = $value["comment"];
+			}
+			$comments_array =array();
+			if(strstr($comments, "\n")) {
+				$comments_a = explode("\n", $comments);
+				foreach ($comments_a as $key => $value) {
+					if(strstr($value, "|")) {
+						$comments_b = explode("|", $value);
+						$commentmessage = array(
+							"trackingno" => $comments_b[0],
+							"trackinglink" => $comments_b[1]
+						);
+						$comments_array[]=$commentmessage;
+					}
+				}
+			}else if(strstr($comments, "|")) {
+				$comments_b = explode("|", $comments);
+				$commentmessage = array(
+					"trackingno" => $comments_b[0],
+					"trackinglink" => $comments_b[1]
+				);
+				$comments_array[]=$commentmessage;
+			}
 			
+			$data['orders'][] = array(
+				'order_id'   => $result['order_id'],
+				'name'       => $result['firstname'] . ' ' . $result['lastname'],
+				'comments' => $comments_array,
+				'status'     => $result['status'],
+				'order_status_id'     => $result['order_status_id'],
+				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'products'   => ($product_total + $voucher_total),
+				'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+				'view'       => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true),
+				'payment'       => $this->url->link('maybankcc/payment', 'order_id=' . $result['order_id'], true)
+			);
+		}
+		$data["products"] = array();
+		foreach ($products as $product) {
+			$product_info = $this->model_catalog_product->getProduct($product['product_id']);
+			if ($product_info) {
+				if ($product_info['image']) {
+					$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+				} else {
+					$image = false;
+				}
+				$stock ="";
+				if ($product_info['quantity'] <= 0) {
+					$stock = $product_info['stock_status'];
+				} elseif ($this->config->get('config_stock_display')) {
+					$stock = $product_info['quantity'];
+				} else {
+					//$stock = $this->language->get('text_instock');
+				}
+
+				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+					$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				} else {
+					$price = false;
+				}
+
+				if ((float)$product_info['special']) {
+					$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				} else {
+					$special = false;
+				}
+
+				if ($product_info) {
+					$reorder = $this->url->link('account/order/reorder', 'order_id=' . $product["order_id"] . '&order_product_id=' . $product['order_product_id'].'&redirect=account/account', true);
+				} else {
+					$reorder = '';
+				}
+
+
+				$data['products'][] = array(
+					'product_id' => $product_info['product_id'],
+					'thumb'      => $image,
+					'name'       => $product_info['name'],
+					'model'      => $product_info['model'],
+					'stock'      => $stock,
+					'price'      => $price,
+					'special'    => $special,
+					'reorder'    => $reorder,
+					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
+					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
+				);
+			} 
+		}
+		$data["customer_info"] = $customer_info;
 		
-		
+		$results = $this->model_account_wishlist->getWishlist();
+		$data['wishlists'] = array();
+		foreach ($results as $result) {
+			$product_info = $this->model_catalog_product->getProduct($result['product_id']);
+
+			if ($product_info) {
+				if ($product_info['image']) {
+					$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+				} else {
+					$image = false;
+				}
+				$stock ="";
+				if ($product_info['quantity'] <= 0) {
+					$stock = $product_info['stock_status'];
+				} elseif ($this->config->get('config_stock_display')) {
+					$stock = $product_info['quantity'];
+				} else {
+					//$stock = $this->language->get('text_instock');
+				}
+
+				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+					$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				} else {
+					$price = false;
+				}
+
+				if ((float)$product_info['special']) {
+					$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				} else {
+					$special = false;
+				}
+				
+				$data['wishlists'][] = array(
+					'product_id' => $product_info['product_id'],
+					'thumb'      => $image,
+					'name'       => $product_info['name'],
+					'model'      => $product_info['model'],
+					'stock'      => $stock,
+					'price'      => $price,
+					'special'    => $special,
+					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
+					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
+				);
+			} else {
+				$this->model_account_wishlist->deleteWishlist($result['product_id']);
+			}
+		}
+		$data["customer_info"] = $customer_info;
 		$data['column_left'] = $this->load->controller('account/account/account_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');

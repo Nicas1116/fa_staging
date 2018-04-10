@@ -99,7 +99,7 @@ class ControllerAccountPurchaseHistory extends Controller {
 
 		$data["active"] = $this->url->link('account/purchasehistory', '', true);
 
-		$this->response->setOutput($this->load->view('account/order_list', $data));
+		$this->response->setOutput($this->load->view('account/purchasedhistory', $data));
 	}
 
 	public function info() {

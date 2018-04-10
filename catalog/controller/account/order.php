@@ -479,7 +479,12 @@ class ControllerAccountOrder extends Controller {
 				}
 			}
 		}
-
-		$this->response->redirect($this->url->link('account/order/info', 'order_id=' . $order_id));
+		if (isset($this->request->get['redirect'])) {
+			$redirect = $this->request->get['redirect'];
+			$this->response->redirect($this->url->link($redirect));
+		} else {
+			$this->response->redirect($this->url->link('account/order/info', 'order_id=' . $order_id));
+		}
+		
 	}
 }

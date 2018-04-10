@@ -9,7 +9,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="category_image_small"><p>Orders</p></div>
+      <div class="category_image_small"><p>Purchased History</p></div>
       <?php if ($orders) { ?>
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
