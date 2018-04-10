@@ -10,3 +10,4 @@ image/cache/catalog/
 .htaccess
 *.DS_Store
 .DS_Store
+config.php
