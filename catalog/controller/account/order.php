@@ -466,7 +466,7 @@ class ControllerAccountOrder extends Controller {
 						}
 					}
 
-					$this->cart->add($order_product_info['product_id'], $order_product_info['quantity'], $option_data);
+					$this->cart->add($order_product_info['product_id'], 1, $option_data);
 
 					$this->session->data['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $product_info['product_id']), $product_info['name'], $this->url->link('checkout/cart'));
 
