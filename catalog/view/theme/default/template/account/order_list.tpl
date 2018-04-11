@@ -11,33 +11,40 @@
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <div class="category_image_small"><p>Orders</p></div>
       <?php if ($orders) { ?>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <td class="text-right"><?php echo $column_order_id; ?></td>
-              <td class="text-left"><?php echo $column_customer; ?></td>
-              <td class="text-right"><?php echo $column_product; ?></td>
-              <td class="text-left"><?php echo $column_status; ?></td>
-              <td class="text-right"><?php echo $column_total; ?></td>
-              <td class="text-left"><?php echo $column_date_added; ?></td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($orders as $order) { ?>
-            <tr>
-              <td class="text-right">#<?php echo $order['order_id']; ?></td>
-              <td class="text-left"><?php echo $order['name']; ?></td>
-              <td class="text-right"><?php echo $order['products']; ?></td>
-              <td class="text-left"><?php echo $order['status']; ?></td>
-              <td class="text-right"><?php echo $order['total']; ?></td>
-              <td class="text-left"><?php echo $order['date_added']; ?></td>
-              <td class="text-right"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
-            </tr>
-            <?php } ?>
-          </tbody>
-        </table>
+      <div class="order_listing">
+      
+            <div class="row order_listing_title">
+              <div class="col-sm-2 text-left">Order No.</div>
+              <div class="col-sm-2 text-left">Order Date</div>
+              <div class="col-sm-4 text-left">Items</div>
+              <div class="col-sm-2 text-left">Total</div>
+              <div class="col-sm-2 text-left">Status</div>
+            </div>
+            <?php $m =0;foreach ($orders as $order) { ?>
+            <div id="<?php echo $m; ?>" class="row order_listing_detail <?php if($m%2==0){echo "oddbox";} ?>">
+              <div class="col-sm-2 text-left"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btnorder">#<?php echo $order['order_id']; ?></a></div>
+              <div class="col-sm-2 text-left"><p><?php echo $order['date_added']; ?></p></div>
+              <div class="col-sm-4 text-left order_listing_product">
+                <?php foreach ($order["products_list"] as $product) { ?>
+                  <div class="row">
+                    <div class="col-sm-5 text-left"><a href="<?php echo $product["href"]; ?>"><img src="<?php echo $product["thumb"]; ?>" alt="<?php echo $product["name"]; ?>" class="img-thumbnail"></a></div>
+                    <div class="col-sm-7 text-left"><p class="wishlitname"><a href="<?php echo $product["href"]; ?>"><?php echo $product["name"]; ?></a></p></div>
+                </div>
+                <?php } ?>
+            </div>
+              <div class="col-sm-2 text-left"><p><?php echo $order['total']; ?></p></div>
+              <div class="col-sm-2 text-left order_listing_status"><p><?php echo $order['status']; ?></p>
+                <?php if($order["order_status_id" ]==5){$i=0;foreach ($order["comments"] as $comment) { ?>
+                       <div class="row">
+                          <div class="col-sm-12">Tracking No. #<?php echo ++$i; ?></div>
+                          <div class="col-sm-12 comments"><?php echo $comment["trackingno"]; ?><a href="<?php echo $comment["trackinglink"]; ?>" class="trackinglink"><img src="/fa/staging/image/others/btntrackorder.png"/>&nbsp;Track Order</a></div>
+                       </div>
+                     <?php }}else if($order["order_status_id" ]==17){ ?>
+                     <a href="<?php echo $order["payment"]; ?>" class="btnvieworder">Make Payment</a>
+                     <?php } ?>
+              </div>
+            </div>
+            <?php $m++;} ?>
       </div>
       <div class="row">
         <div class="col-sm-6 text-left"><?php echo $pagination; ?></div>
@@ -52,4 +59,10 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
+<style type="text/css">#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
+<style type="text/css">.category_image_small{margin-bottom: 0px;}
+.account-order .order_listing{padding: 0 9px;}
+.account-order .order_listing > .row{background: #fff;margin-bottom: 0px;}
+.account-order .order_listing > .row.oddbox{background:#FFF3DA;}
+</style>
 <?php echo $footer; ?>

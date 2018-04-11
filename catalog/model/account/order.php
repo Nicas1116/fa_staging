@@ -1,7 +1,7 @@
 <?php
 class ModelAccountOrder extends Model {
 	public function getOrder($order_id) {
-		$order_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order` WHERE order_id = '" . (int)$order_id . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND order_status_id > '0'");
+		$order_query = $this->db->query("SELECT o.*, os.name as status FROM `" . DB_PREFIX . "order` o LEFT JOIN `".DB_PREFIX."order_status` os ON os.order_status_id = o.order_status_id WHERE o.order_id = '" . (int)$order_id . "' AND o.customer_id = '" . (int)$this->customer->getId() . "' AND o.order_status_id > '0'");
 
 		if ($order_query->num_rows) {
 			$country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE country_id = '" . (int)$order_query->row['payment_country_id'] . "'");
@@ -88,6 +88,7 @@ class ModelAccountOrder extends Model {
 				'comment'                 => $order_query->row['comment'],
 				'total'                   => $order_query->row['total'],
 				'order_status_id'         => $order_query->row['order_status_id'],
+				'order_status'       	  => $order_query->row['status'],
 				'language_id'             => $order_query->row['language_id'],
 				'currency_id'             => $order_query->row['currency_id'],
 				'currency_code'           => $order_query->row['currency_code'],

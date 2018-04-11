@@ -6,7 +6,7 @@ class ControllerAccountWishList extends Controller {
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
-
+		$data['heading_title'] = "Wishlist";
 		$this->load->language('account/wishlist');
 
 		$this->load->model('account/wishlist');
@@ -24,7 +24,7 @@ class ControllerAccountWishList extends Controller {
 			$this->response->redirect($this->url->link('account/wishlist'));
 		}
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($data['heading_title']);
 
 		$data['breadcrumbs'] = array();
 
@@ -64,6 +64,11 @@ class ControllerAccountWishList extends Controller {
 			unset($this->session->data['success']);
 		} else {
 			$data['success'] = '';
+		}
+		if (isset($this->request->get['page'])) {
+			$page = $this->request->get['page'];
+		} else {
+			$page = 1;
 		}
 
 		$data['products'] = array();
@@ -115,6 +120,20 @@ class ControllerAccountWishList extends Controller {
 				$this->model_account_wishlist->deleteWishlist($result['product_id']);
 			}
 		}
+
+		$order_total = sizeof($data['products']);
+		$p_list = array_chunk($data['products'],5);
+		$data['products'] = $p_list[$page-1];
+
+		$pagination = new Pagination();
+		$pagination->total = $order_total;
+		$pagination->page = $page;
+		$pagination->limit = 5;
+		$pagination->url = $this->url->link('account/purchasehistory', 'page={page}', true);
+
+		$data['pagination'] = $pagination->render();
+
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($order_total - 10)) ? $order_total : ((($page - 1) * 10) + 10), $order_total, ceil($order_total / 10));
 
 		$data['continue'] = $this->url->link('account/account', '', true);
 

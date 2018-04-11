@@ -7288,12 +7288,12 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 
 #header-bottom span.hasborderright {
     border-right: solid 1px #4a4a4a;
-    margin-right: 20px
+    padding-right: 20px;
 }
 
 #header-bottom span.hasborderleft {
     border-left: solid 1px #4a4a4a;
-    padding-left: 20px
+    padding-left:  20px;
 }
 
 #header-bottom span,.panel.yellow_panel_box p a {
@@ -7304,9 +7304,14 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 }
 
 #header-bottom span {
-    padding: 2px 0;
+    padding: 2px 20px;
     font-size: 14px;
-    margin-top: 10px
+    margin-top: 10px;
+}
+
+#header-bottom span span{
+    padding-right: 0px
+    
 }
 
 #header-bottom span a {
@@ -9190,3 +9195,50 @@ textarea.form-control {
 
 .accountaccountpage{margin-bottom: 40px;}
 .account-purchasehistory .purchased_container{border-bottom: none;background: #fff5e1;}
+#content > .row{margin-top: 20px;}
+.order_listing .order_listing_title > div{font-weight: bold;font-size: 14px;line-height: 20px;padding: 10px 20px}
+.order_listing .order_listing_detail > div{font-size: 14px;line-height: 20px;font-weight: 600;padding:10px 20px; }
+.order_listing .order_listing_detail > div a{color:#4A90E2;}
+.order_listing .order_listing_detail .order_listing_status{padding: 10px;}
+.order_listing .order_listing_detail .order_listing_status > div{padding: 0px 0px;margin-bottom: 5px;}
+.order_listing .order_listing_detail .order_listing_product > div{padding: 0px;margin-bottom: 5px;}
+.order_listing .order_listing_detail .order_listing_status > div a{display: block;margin: 5px 0;}
+.order_listing .order_listing_detail .order_listing_status > a.btnvieworder{color:#fff;text-align:center;padding: 10px}
+.order_listing .order_listing_detail .order_listing_product > div a{color:#000000;padding: 0px;margin-bottom: 5px;font-weight: normal;}
+
+#content.account_detail_content{margin-top: 30px;}
+.account_detail_content > a.btnreturn{color:#4A90E2;font-size: 14px;line-height: 20px;font-weight: bold;}
+.account_detail_content h2{font-size: 24px;line-height: 30px;color:#000;font-weight: bold;border-bottom: solid 1px #979797;padding-bottom: 10px;}
+.account_detail_content .topdetail{border-bottom: solid 1px #979797;padding-bottom: 10px;}
+.account_detail_content .topdetail div{font-size: 18px;line-height: 22px;font-weight: 600;color:#4A4A4A;}
+.account_detail_content .topdetail div b{font-size: 15px;line-height: 20px;font-weight: normal;display: block;margin-bottom: 5px;min-height: 20px;}
+.account_detail_content .topdetail div.trackinglinks div{font-size: 12px;line-height: 16px;}
+.account_detail_content .topdetail div.trackinglinks a.trackinglink{display: block;margin-bottom: 10px;color:#4A90E2;}
+.account_detail_content .topaddress{border-bottom: solid 1px #979797;padding-bottom: 10px;}
+.account_detail_content .topaddress b{font-size: 15px;line-height: 20px;color:#4A4A4A;font-weight: normal;margin-bottom: 10px;display: block;}
+.account_detail_content .topaddress p{font-size: 15px;line-height: 20px;color:#4A4A4A;font-weight: 600;margin-bottom: 0px;font-weight: 600;}
+.account_detail_content .topproducts{border-bottom: solid 1px #979797;padding-bottom: 10px;}
+.account_detail_content .topaddress .addressname{font-weight: 700;margin-bottom: 5px;}
+.account_detail_content h3{font-size: 15px;line-height: 20px;text-transform: capitalize;}
+.account_detail_content  .productinfo.oddbox{background:#FFF3DA;}
+.account_detail_content  .productinfo{padding: 20px 0;margin-left: 0px;margin-right: 0px;}
+.account_detail_content  .productinfo .productname{font-size: 15px;line-height: 20px;}
+.account_detail_content  .productinfo .productprice{font-size: 13px;line-height: 40px;font-weight: bold;}
+.account_detail_content .toptotal{width: 300px;margin:0 auto;font-size: 15px;line-height: 20px;font-weight: normal;text-transform: uppercase;margin-top:20px;color:#4A4A4A;}
+.account_detail_content .toptotal > .row{padding: 2px 0;}
+.account_detail_content .toptotal .tt_total{padding:10px 0;font-weight:bold;border-top:solid 1px #000000;border-bottom: solid 1px #000;margin-top:20px;color:#000;}
+.account_detail_content  .productinfo .productqty{font-size: 13px;line-height: 40px;font-weight: bold;}
+.account_detail_content  .productinfo .btnordersnow {
+    display: inline-block;
+    background: #ffa000;
+    padding: 10px 20px;
+    font-size: 15px;
+    line-height: 15px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 10px;
+    text-align: center
+}
+
+
+

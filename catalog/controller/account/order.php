@@ -7,34 +7,21 @@ class ControllerAccountOrder extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
 
+		$data["heading_title"] = "Orders";
 		$this->load->language('account/order');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($data["heading_title"]);
 		
 		$url = '';
 
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
 		}
-		
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home')
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
-		);
-		
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/order', $url, true)
-		);
-
-		$data['heading_title'] = $this->language->get('heading_title');
+		if (isset($this->request->get['page'])) {
+			$page = $this->request->get['page'];
+		} else {
+			$page = 1;
+		}
 
 		$data['text_empty'] = $this->language->get('text_empty');
 
@@ -48,33 +35,90 @@ class ControllerAccountOrder extends Controller {
 		$data['button_view'] = $this->language->get('button_view');
 		$data['button_continue'] = $this->language->get('button_continue');
 
-		if (isset($this->request->get['page'])) {
-			$page = $this->request->get['page'];
-		} else {
-			$page = 1;
-		}
+		
 
 		$data['orders'] = array();
 
+		$this->load->language('account/account');
+		$this->load->model('account/customer');
 		$this->load->model('account/order');
+		$this->load->model('catalog/product');
+		$this->load->model('tool/image');
 
 		$order_total = $this->model_account_order->getTotalOrders();
 
 		$results = $this->model_account_order->getOrders(($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
+			
 			$product_total = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
 			$voucher_total = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
+			
+			$comments = "";
+			$order_histories = $this->model_account_order->getOrderHistories($result['order_id']);
+			foreach ($order_histories as $key => $value) {
+				$comments = $value["comment"];
+			}
+			$comments_array =array();
+			if(strstr($comments, "\n")) {
+				$comments_a = explode("\n", $comments);
+				foreach ($comments_a as $key => $value) {
+					if(strstr($value, "|")) {
+						$comments_b = explode("|", $value);
+						$commentmessage = array(
+							"trackingno" => $comments_b[0],
+							"trackinglink" => $comments_b[1]
+						);
+						$comments_array[]=$commentmessage;
+					}
+				}
+			}else if(strstr($comments, "|")) {
+				$comments_b = explode("|", $comments);
+				$commentmessage = array(
+					"trackingno" => $comments_b[0],
+					"trackinglink" => $comments_b[1]
+				);
+				$comments_array[]=$commentmessage;
+			}
+			$products_all = array();
+			$products_list = $this->model_account_order->getOrderProducts($result['order_id']);
+			foreach ($products_list  as $product) {
+				$product_info = $this->model_catalog_product->getProduct($product['product_id']);
+				if ($product_info) {
+					if ($product_info['image']) {
+						$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+					} else {
+						$image = false;
+					}
+					if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+						$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					} else {
+						$price = false;
+					}
 
+					$products_all[] = array(
+						'product_id' => $product_info['product_id'],
+						'thumb'      => $image,
+						'name'       => $product_info['name'],
+						'model'      => $product_info['model'],
+						'price'      => $price,
+						'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
+						'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
+					);
+				} 
+			}
 			$data['orders'][] = array(
 				'order_id'   => $result['order_id'],
 				'name'       => $result['firstname'] . ' ' . $result['lastname'],
 				'status'     => $result['status'],
+				'comments' => $comments_array,
+				'products_list' => $products_all,
 				'order_status_id'     => $result['order_status_id'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'products'   => ($product_total + $voucher_total),
 				'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
 				'view'       => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true),
+				'payment'       => $this->url->link('maybankcc/payment', 'order_id=' . $result['order_id'], true),
 			);
 		}
 
@@ -119,7 +163,7 @@ class ControllerAccountOrder extends Controller {
 
 		$this->load->model('account/order');
 
-		$order_info = $this->model_account_order->getOrder($order_id);
+		$data["full_order_info"] = $order_info = $this->model_account_order->getOrder($order_id);
 
 		if ($order_info) {
 			$this->document->setTitle($this->language->get('text_order'));
@@ -129,28 +173,6 @@ class ControllerAccountOrder extends Controller {
 			if (isset($this->request->get['page'])) {
 				$url .= '&page=' . $this->request->get['page'];
 			}
-
-			$data['breadcrumbs'] = array();
-
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/home')
-			);
-
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('account/account', '', true)
-			);
-
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('account/order', $url, true)
-			);
-
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_order'),
-				'href' => $this->url->link('account/order/info', 'order_id=' . $this->request->get['order_id'] . $url, true)
-			);
 
 			$data['heading_title'] = $this->language->get('text_order');
 
@@ -179,7 +201,7 @@ class ControllerAccountOrder extends Controller {
 			$data['button_reorder'] = $this->language->get('button_reorder');
 			$data['button_return'] = $this->language->get('button_return');
 			$data['button_continue'] = $this->language->get('button_continue');
-
+			$data['orderlist_link'] = $this->url->link('account/order');
 			if (isset($this->session->data['error'])) {
 				$data['error_warning'] = $this->session->data['error'];
 
@@ -208,7 +230,7 @@ class ControllerAccountOrder extends Controller {
 			if ($order_info['payment_address_format']) {
 				$format = $order_info['payment_address_format'];
 			} else {
-				$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
+				$format = '<p class="addressname">{firstname} {lastname}</p>' . '<p class="companyname">{company}</p>' . '<p class="address">{address_1}' . ' {address_2}' .' {city} {postcode}' . ' {zone}' . ' {country}</p>';
 			}
 
 			$find = array(
@@ -244,7 +266,7 @@ class ControllerAccountOrder extends Controller {
 			if ($order_info['shipping_address_format']) {
 				$format = $order_info['shipping_address_format'];
 			} else {
-				$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
+				$format = '<p class="addressname">{firstname} {lastname}</p>' . '<p class="companyname">{company}</p>' . '<p class="address">{address_1}' . ' {address_2}' .' {city} {postcode}' . ' {zone}' . ' {country}</p>';
 			}
 
 			$find = array(
@@ -279,7 +301,34 @@ class ControllerAccountOrder extends Controller {
 
 			$this->load->model('catalog/product');
 			$this->load->model('tool/upload');
-
+			$this->load->model('tool/image');
+			$comments = "";
+			$order_histories = $this->model_account_order->getOrderHistories($this->request->get['order_id']);
+			foreach ($order_histories as $key => $value) {
+				$comments = $value["comment"];
+			}
+			$comments_array =array();
+			if(strstr($comments, "\n")) {
+				$comments_a = explode("\n", $comments);
+				foreach ($comments_a as $key => $value) {
+					if(strstr($value, "|")) {
+						$comments_b = explode("|", $value);
+						$commentmessage = array(
+							"trackingno" => $comments_b[0],
+							"trackinglink" => $comments_b[1]
+						);
+						$comments_array[]=$commentmessage;
+					}
+				}
+			}else if(strstr($comments, "|")) {
+				$comments_b = explode("|", $comments);
+				$commentmessage = array(
+					"trackingno" => $comments_b[0],
+					"trackinglink" => $comments_b[1]
+				);
+				$comments_array[]=$commentmessage;
+			}
+			$data["trackinglist"] = $comments_array;
 			// Products
 			$data['products'] = array();
 
@@ -316,12 +365,19 @@ class ControllerAccountOrder extends Controller {
 				} else {
 					$reorder = '';
 				}
-
+				if ($product_info) {
+					if ($product_info['image']) {
+						$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+					} else {
+						$image = false;
+					}
+				}
 				$data['products'][] = array(
 					'name'     => $product['name'],
 					'model'    => $product['model'],
 					'option'   => $option_data,
 					'quantity' => $product['quantity'],
+					'thumb' => $image,
 					'price'    => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
 					'total'    => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
 					'reorder'  => $reorder,
@@ -349,6 +405,7 @@ class ControllerAccountOrder extends Controller {
 			foreach ($totals as $total) {
 				$data['totals'][] = array(
 					'title' => $total['title'],
+					'code' => $total['code'],
 					'text'  => $this->currency->format($total['value'], $order_info['currency_code'], $order_info['currency_value']),
 				);
 			}
@@ -370,7 +427,7 @@ class ControllerAccountOrder extends Controller {
 
 			$data['continue'] = $this->url->link('account/order', '', true);
 
-			$data['column_left'] = $this->load->controller('common/column_left');
+			$data['column_left'] = $this->load->controller('account/account/account_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
 			$data['content_top'] = $this->load->controller('common/content_top');
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');

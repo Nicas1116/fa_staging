@@ -6,13 +6,13 @@ class ControllerAccountPurchaseHistory extends Controller {
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
-
+		$data['heading_title'] = "Purchased History";
 		$this->load->language('account/account');
 		$this->load->model('account/customer');
 		$this->load->model('account/order');
 		$this->load->model('catalog/product');
 		$this->load->model('tool/image');
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($data['heading_title']);
 		
 		$url = '';
 
@@ -20,7 +20,7 @@ class ControllerAccountPurchaseHistory extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 		
-		$data['heading_title'] = $this->language->get('heading_title');
+		
 
 		$data['text_empty'] = $this->language->get('text_empty');
 
