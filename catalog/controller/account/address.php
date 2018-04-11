@@ -212,7 +212,7 @@ class ControllerAccountAddress extends Controller {
 			if ($result['address_format']) {
 				$format = $result['address_format'];
 			} else {
-				$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
+				$format = '<p class="addressname">{firstname} {lastname}</p>' . '<p class="companyname">{company}</p>' . '<p class="address">{address_1}' . ' {address_2}' .' {city} {postcode}' . ' {zone}' . ' {country}</p>';
 			}
 
 			$find = array(
@@ -240,7 +240,6 @@ class ControllerAccountAddress extends Controller {
 				'zone_code' => $result['zone_code'],
 				'country'   => $result['country']
 			);
-			echo json_encode($result);
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
 				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),

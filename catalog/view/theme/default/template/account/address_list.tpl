@@ -28,7 +28,7 @@
          <a href="<?php echo $result['update']; ?>" class="btn btn-info"><?php echo $button_edit; ?></a> &nbsp;|&nbsp; <a href="<?php echo $result['delete']; ?>" class="btn btn-danger"><?php echo $button_delete; ?></a>
        </div>
        <div class="radio">
-          <input type="radio" name="primaryaddress" value="<?php echo $result['address_id']; ?>" <?php if($result["is_default"]){echo "checked='checked'";}?>/>Primary Address
+          <label><input type="radio" name="primaryaddress" value="<?php echo $result['address_id']; ?>" class="form-control" <?php if($result["is_default"]){echo "checked='checked'";}?>/>Primary Address</label>
        </div>
        </div>
         </div>
@@ -38,8 +38,8 @@
       <p><?php echo $text_empty; ?></p>
       <?php } ?>
       <div class="buttons clearfix">
-        <div class="pull-left"><a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a></div>
-        <div class="pull-right"><a href="<?php echo $add; ?>" class="btn btn-primary"><?php echo $button_new_address; ?></a></div>
+      
+        <div class="pull-left"><a href="<?php echo $add; ?>" class="btn btn-primary"><?php echo $button_new_address; ?></a></div>
       </div>
       <script type="text/javascript">
         $(document).ready(function () {
@@ -69,5 +69,5 @@
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<style type="text/css">#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
+<style type="text/css">#content{margin-bottom: 20px;}#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
 <?php echo $footer; ?>

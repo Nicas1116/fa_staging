@@ -46,35 +46,30 @@
           <b><?php echo $text_payment_address; ?></b>
           <p><?php echo $payment_address; ?></p>
         </div>
-        <?php if ($shipping_address) { ?>
-        <div class="col-sm-4">
-          <b><?php echo $text_shipping_address; ?></b>
-          <p><?php echo $shipping_address; ?></p>
-        </div>
-          <?php } ?>
-        
+       <div class="col-sm-4">&nbsp;</div>
         <div class="col-sm-4">
           <p><b><?php echo $text_payment_method; ?></b> <?php echo $payment_method; ?></p>
         </div>
       </div>
       <h3>Ordered Items</h3>
+
       <div class="row topproducts">
         <?php
             $m=0;
-             foreach ($products as $product) { ?>
-               
+             foreach ($shipping_addresses as $shipping_address) { 
+              $product = $shipping_address["product"];
+
+              ?>
+              
                 <div class="row productinfo <?php if($m%2==0){echo "oddbox";} ?>">
-                  <div class="col-sm-2"><img src="<?php echo $product["thumb"]; ?>" alt="<?php echo $product["name"]; ?>" class="img-thumbnail"></div>
+                  <div class="col-sm-12 shipping_address"><b>Shipping Address</b><p><?php echo $shipping_address["shipping_address"]; ?></p></div>
+                  <div class="col-sm-2"><img src="<?php echo $shipping_address["thumb"]; ?>" alt="<?php echo $product["name"]; ?>" class="img-thumbnail"></div>
                   <div class="col-sm-3"><p class="productname"><?php echo $product["name"]; ?></p></div>
-                  <div class="col-sm-2"><p class="productprice"><?php echo $product["price"]; ?></p></div>
-                  <div class="col-sm-2"><p class="productqty">QTY<?php echo $product["quantity"]; ?></p></div>
-                  <div class="col-sm-3"><a href="<?php echo $product["reorder"] ?>" class="btnordersnow">RE-ORDER</a></div>
+                  <div class="col-sm-2"><p class="productprice"><?php echo $shipping_address["price"]; ?></p></div>
+                  <div class="col-sm-2"><p class="productqty">QTY<?php echo $shipping_address["quantity"]; ?></p></div>
+                  <div class="col-sm-3"><a href="<?php echo $shipping_address["reorder"] ?>" class="btnordersnow">RE-ORDER</a></div>
                </div>
               <?php $m++;
-              if($m>=2){
-
-                break;
-              }
               } 
             ?>
       </div>

@@ -9217,10 +9217,10 @@ textarea.form-control {
 .account_detail_content .topaddress{border-bottom: solid 1px #979797;padding-bottom: 10px;}
 .account_detail_content .topaddress b{font-size: 15px;line-height: 20px;color:#4A4A4A;font-weight: normal;margin-bottom: 10px;display: block;}
 .account_detail_content .topaddress p{font-size: 15px;line-height: 20px;color:#4A4A4A;font-weight: 600;margin-bottom: 0px;font-weight: 600;}
-.account_detail_content .topproducts{border-bottom: solid 1px #979797;padding-bottom: 10px;}
+.account_detail_content .topproducts{border-bottom: solid 1px #979797;padding-bottom: 10px;border-bottom: none;}
 .account_detail_content .topaddress .addressname{font-weight: 700;margin-bottom: 5px;}
 .account_detail_content h3{font-size: 15px;line-height: 20px;text-transform: capitalize;}
-.account_detail_content  .productinfo.oddbox{background:#FFF3DA;}
+.account_detail_content  .productinfo.oddbox{background:#FFF3DA;border-bottom: none!important;}
 .account_detail_content  .productinfo{padding: 20px 0;margin-left: 0px;margin-right: 0px;}
 .account_detail_content  .productinfo .productname{font-size: 15px;line-height: 20px;}
 .account_detail_content  .productinfo .productprice{font-size: 13px;line-height: 40px;font-weight: bold;}
@@ -9228,6 +9228,7 @@ textarea.form-control {
 .account_detail_content .toptotal > .row{padding: 2px 0;}
 .account_detail_content .toptotal .tt_total{padding:10px 0;font-weight:bold;border-top:solid 1px #000000;border-bottom: solid 1px #000;margin-top:20px;color:#000;}
 .account_detail_content  .productinfo .productqty{font-size: 13px;line-height: 40px;font-weight: bold;}
+.topproducts .productinfo:last-child{border-bottom: solid 1px #979797;}
 .account_detail_content  .productinfo .btnordersnow {
     display: inline-block;
     background: #ffa000;
@@ -9240,5 +9241,54 @@ textarea.form-control {
     text-align: center
 }
 
-
-
+.shipping_address b{font-size: 15px;line-height: 20px;color:#4A4A4A;font-weight: normal;margin-bottom: 10px;display: block;}
+.shipping_address p{font-size: 15px;line-height: 20px;color:#4A4A4A;font-weight: 600;margin-bottom: 0px;font-weight: 600;}
+.shipping_address{margin-bottom: 20px;}
+.account_edit .buttons .btn.btn-primary,
+.address_edit .buttons .btn.btn-primary,
+.addresspage .buttons .btn.btn-primary{color:#fff;font-weight: bold;padding: 10px 20px;font-size: 14px;line-height: 20px;}
+.addresses .orangebox > p{margin-bottom: 0px;}
+.addresses .orangebox .addressname{font-size: 18px;line-height: 24px;color:#4a4a4a;font-weight: bold;}
+.addresses .orangebox .companyname{font-size: 18px;line-height: 24px;color:#4a4a4a;font-weight: 600;}
+.addresses .orangebox .address{font-size: 18px;line-height: 24px;color:#4a4a4a;font-weight: normal;}
+.addresses .orangebox .form-control{visibility: hidden;width:  25px;display: inline-block;}
+.addresses .orangebox .radio label{font-size: 15px;line-height: 20px;color:#4a4a4a;font-weight: 600;}
+.addresses .orangebox .form-control:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+.addresses .orangebox .form-control:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #4a90e2;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+    .address_edit{margin-top: 15px;}
+    .address_edit .bline{margin: 10px 0;}
+    .address_edit h2{font-size: 24px;line-height: 30px;font-weight: bold;color:#4a4a4a;margin-bottom: 10px;}
+     .address_edit h3{font-size: 16px;line-height: 24px;font-weight: 600;color:#000000;text-transform: capitalize;margin: 0px 0 20px;}
+     .address_edit .form-group label{text-align: left;font-size: 15px;line-height: 20px;color:#9b9b9b;font-weight: 600;margin-bottom: 10px;}
+     .form-horizontal .row .form-group{margin-left: 0px;margin-right: 0px;}
+         .account_edit{margin-top: 15px;}
+    .account_edit .bline{margin: 10px 0;}
+    .account_edit h2{font-size: 24px;line-height: 30px;font-weight: bold;color:#4a4a4a;margin-bottom: 10px;}
+     .account_edit h3{font-size: 16px;line-height: 24px;font-weight: 600;color:#000000;text-transform: capitalize;margin: 0px 0 20px;}
+      .account_edit h4{font-size: 15px;line-height:20px;font-weight: 200;color:#000000;text-transform: capitalize;margin: 10px 0 10px;font-style: italic;}
+     .account_edit .form-group label{text-align: left;font-size: 15px;line-height: 20px;color:#9b9b9b;font-weight: 600;margin-bottom: 10px;}
+     .form-horizontal .row .form-group{margin-left: 0px;margin-right: 0px;}

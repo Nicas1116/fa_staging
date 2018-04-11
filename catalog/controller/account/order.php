@@ -162,6 +162,11 @@ class ControllerAccountOrder extends Controller {
 		}
 
 		$this->load->model('account/order');
+		$this->load->language('account/account');
+		$this->load->model('account/customer');
+		$this->load->model('account/order');
+		$this->load->model('catalog/product');
+		$this->load->model('tool/image');
 
 		$data["full_order_info"] = $order_info = $this->model_account_order->getOrder($order_id);
 
@@ -303,9 +308,6 @@ class ControllerAccountOrder extends Controller {
 
 				$data['shipping_method'] = $order_info['shipping_method'];
 
-				$this->load->model('catalog/product');
-				$this->load->model('tool/upload');
-				$this->load->model('tool/image');
 				$comments = "";
 				$order_histories = $this->model_account_order->getOrderHistories($this->request->get['order_id']);
 				foreach ($order_histories as $key => $value) {
@@ -334,11 +336,76 @@ class ControllerAccountOrder extends Controller {
 				}
 				$data["trackinglist"] = $comments_array;
 				// Products
+				$data['shipping_addresses'] = array();
+				$shipping_addresses = $this->model_account_order->getOrderShippingAddress($this->request->get['order_id']);
+				if($shipping_addresses){
+				foreach ($shipping_addresses as $shipping_address) {
+					if ($order_info['shipping_address_format']) {
+						$format = $shipping_address['shipping_address_format'];
+					} else {
+						$format = '<p class="addressname">{firstname} {lastname}</p>' . '<p class="companyname">{company}</p>' . '<p class="address">{address_1}' . ' {address_2}' .' {city} {postcode}' . ' {zone}' . ' {country}</p>';
+					}
+
+					$find = array(
+						'{firstname}',
+						'{lastname}',
+						'{company}',
+						'{address_1}',
+						'{address_2}',
+						'{city}',
+						'{postcode}',
+						'{zone}',
+						'{zone_code}',
+						'{country}'
+					);
+
+					$replace = array(
+						'firstname' => $shipping_address['shipping_firstname'],
+						'lastname'  => $shipping_address['shipping_lastname'],
+						'company'   => $shipping_address['shipping_company'],
+						'address_1' => $shipping_address['shipping_address_1'],
+						'address_2' => $shipping_address['shipping_address_2'],
+						'city'      => $shipping_address['shipping_city'],
+						'postcode'  => $shipping_address['shipping_postcode'],
+						'zone'      => $shipping_address['shipping_zone'],
+						'zone_code' => $shipping_address['shipping_zone_code'],
+						'country'   => $shipping_address['shipping_country']
+					);
+
+					$shipping_address['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+					$product_info = $this->model_catalog_product->getProduct($shipping_address['product_id']);
+
+					if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+						$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					} else {
+						$price = false;
+					}
+
+					
+
+					if ($product_info) {
+						$reorder = $this->url->link('account/order/reorder', 'order_id=' . $this->request->get['order_id'] . '&order_product_id=' . $shipping_address['order_product_id'], true);
+					} else {
+						$reorder = '';
+					}
+					if ($product_info) {
+						if ($product_info['image']) {
+							$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+						} else {
+							$image = false;
+						}
+					}
+					$shipping_address["thumb"] = $image;
+					 $shipping_address["price"] = $price;
+					 $shipping_address["product"] = $product_info;
+					$data['shipping_addresses'][] = $shipping_address;
+				}
+				}
 				$data['products'] = array();
 
 				$products = $this->model_account_order->getOrderProducts($this->request->get['order_id']);
 
-				foreach ($products as $product) {
+				/*foreach ($products as $product) {
 					$option_data = array();
 
 					$options = $this->model_account_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
@@ -387,7 +454,7 @@ class ControllerAccountOrder extends Controller {
 						'reorder'  => $reorder,
 						'return'   => $this->url->link('account/return/add', 'order_id=' . $order_info['order_id'] . '&product_id=' . $product['product_id'], true)
 					);
-				}
+				}*/
 
 				// Voucher
 				$data['vouchers'] = array();

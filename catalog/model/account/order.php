@@ -103,6 +103,11 @@ class ModelAccountOrder extends Model {
 		}
 	}
 
+	public function getOrderShippingAddress($order_id){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_address` oa LEFT JOIN `" . DB_PREFIX . "order_product` op ON oa.order_product_id = op.order_product_id WHERE oa.order_id = '" . (int)$order_id . "'");
+		return $query->rows;
+	}
+
 	public function getOrders($start = 0, $limit = 20) {
 		if ($start < 0) {
 			$start = 0;

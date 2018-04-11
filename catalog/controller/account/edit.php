@@ -10,7 +10,7 @@ class ControllerAccountEdit extends Controller {
 		}
 
 		$this->load->language('account/edit');
-
+		$this->load->language('account/password');
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
@@ -34,6 +34,20 @@ class ControllerAccountEdit extends Controller {
 				);
 
 				$this->model_account_activity->addActivity('edit', $activity_data);
+			}
+
+			$this->model_account_customer->editPassword($this->customer->getEmail(), $this->request->post['password']);
+
+			// Add to activity log
+			if ($this->config->get('config_customer_activity')) {
+				$this->load->model('account/activity');
+
+				$activity_data = array(
+					'customer_id' => $this->customer->getId(),
+					'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+				);
+
+				$this->model_account_activity->addActivity('password', $activity_data);
 			}
 
 			$this->response->redirect($this->url->link('account/account', '', true));
@@ -68,6 +82,11 @@ class ControllerAccountEdit extends Controller {
 		$data['entry_email'] = $this->language->get('entry_email');
 		$data['entry_telephone'] = $this->language->get('entry_telephone');
 		$data['entry_fax'] = $this->language->get('entry_fax');
+
+		$data['text_password'] = $this->language->get('text_password');
+
+		$data['entry_password'] = $this->language->get('entry_password');
+		$data['entry_confirm'] = $this->language->get('entry_confirm');
 
 		$data['button_continue'] = $this->language->get('button_continue');
 		$data['button_back'] = $this->language->get('button_back');
@@ -153,6 +172,30 @@ class ControllerAccountEdit extends Controller {
 			$data['fax'] = $customer_info['fax'];
 		} else {
 			$data['fax'] = '';
+		}
+
+		if (isset($this->error['password'])) {
+			$data['error_password'] = $this->error['password'];
+		} else {
+			$data['error_password'] = '';
+		}
+
+		if (isset($this->error['confirm'])) {
+			$data['error_confirm'] = $this->error['confirm'];
+		} else {
+			$data['error_confirm'] = '';
+		}
+
+		if (isset($this->request->post['password'])) {
+			$data['password'] = $this->request->post['password'];
+		} else {
+			$data['password'] = '';
+		}
+
+		if (isset($this->request->post['confirm'])) {
+			$data['confirm'] = $this->request->post['confirm'];
+		} else {
+			$data['confirm'] = '';
 		}
 
 		// Custom Fields
