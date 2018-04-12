@@ -393,8 +393,13 @@ class ControllerProductCategory extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
-
-			$this->response->setOutput($this->load->view('product/category', $data));
+			
+			if($category_id == 60){
+				$this->response->setOutput($this->load->view('product/promtion', $data));
+				//$category_parent_id = $parts[0];)
+			}else{
+				$this->response->setOutput($this->load->view('product/category', $data));
+			}
 		} else {
 			$url = '';
 
@@ -547,7 +552,7 @@ class ControllerProductCategory extends Controller {
 		} else {
 			$category_id = 0;
 		}
-
+		
 		$category_info = $this->model_catalog_category->getCategory($category_id);
 
 		if ($category_info) {
@@ -555,7 +560,7 @@ class ControllerProductCategory extends Controller {
 			$this->document->setDescription($category_info['meta_description']);
 			$this->document->setKeywords($category_info['meta_keyword']);
 
-			$data['heading_title'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');
+			//$data['heading_title'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');
 
 			$data['text_refine'] = $this->language->get('text_refine');
 			$data['text_empty'] = $this->language->get('text_empty');
@@ -619,6 +624,12 @@ class ControllerProductCategory extends Controller {
 				$category_parent_id = $category_id = (int)array_pop($parts);
 				$data["category_t"] = $category_id;
 			}
+
+			$category_info = $this->model_catalog_category->getCategory($category_parent_id);
+			if ($category_info) {
+				$data['heading_title'] = html_entity_decode($category_info['name'], ENT_QUOTES, 'UTF-8');
+			}
+			$data["category_parent_id"] = $category_parent_id;
 
 			$results = $this->model_catalog_category->getCategories($category_parent_id);
 
@@ -685,6 +696,7 @@ class ControllerProductCategory extends Controller {
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
+					'date'       => $result["date_added"],
 					'name'        => $result['name'],
 					'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
 					'price'       => $price,
@@ -845,8 +857,12 @@ class ControllerProductCategory extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
-
-			$this->response->setOutput($this->load->view('product/category', $data));
+			if($category_id == 61){
+				$this->response->setOutput($this->load->view('product/promotion', $data));
+				//$category_parent_id = $parts[0];)
+			}else{
+				$this->response->setOutput($this->load->view('product/category', $data));
+			}
 		} else {
 			$url = '';
 

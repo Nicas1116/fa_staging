@@ -43,12 +43,13 @@ if(isset($facebookdata)){
     <?php } else { ?>
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+    <div id="content" class="<?php echo $class; ?> registerpage"><?php echo $content_top; ?>
+        <div class="register_content">
       <h1><?php echo $heading_title; ?></h1>
-      <div class="row">
-          <div class="col-sm-4"><span>Step 1</span>Create Account</div>
-          <div class="col-sm-4"><span>Step 2</span>Personal Information</div>
-          <div class="col-sm-4"><span>Step 3</span>Complete</div>
+      <div class="row titletab">
+          <div class="col-sm-4 step1 active"><span>Step 1</span>Create Account</div>
+          <div class="col-sm-5 step2"><span>Step 2</span>Personal Information</div>
+          <div class="col-sm-3 step3"><span>Step 3</span>Complete</div>
       </div>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset  id="account" <?php //if($hasfacebook) {echo "style='display:none;'";} ?>>
@@ -56,8 +57,11 @@ if(isset($facebookdata)){
             <label class="col-sm-12 control-label" for="input-email"><?php echo $entry_email; ?></label>
             <div class="col-sm-12">
               <input type="email" name="email" value="<?php echo $email; ?>" placeholder="<?php echo $entry_email; ?>" id="input-email" class="form-control" />
+              
               <?php if ($error_email) { ?>
               <div class="text-danger"><?php echo $error_email; ?></div>
+              <?php }else{ ?>
+              <div class="text-dangerd" style="display: none">Email is required</div>
               <?php } ?>
             </div>
           </div>
@@ -65,8 +69,11 @@ if(isset($facebookdata)){
             <label class="col-sm-12 control-label" for="input-password"><?php echo $entry_password; ?></label>
             <div class="col-sm-12">
               <input type="password" name="password" value="<?php echo $password; ?>" placeholder="<?php echo $entry_password; ?>" id="input-password" class="form-control" />
+              
               <?php if ($error_password) { ?>
               <div class="text-danger"><?php echo $error_password; ?></div>
+              <?php }else{ ?>
+                <div class="text-dangerd" style="display: none">Password is required</div>
               <?php } ?>
             </div>
           </div>
@@ -74,13 +81,19 @@ if(isset($facebookdata)){
             <label class="col-sm-12 control-label" for="input-confirm"><?php echo $entry_confirm; ?></label>
             <div class="col-sm-12">
               <input type="password" name="confirm" value="<?php echo $confirm; ?>" placeholder="<?php echo $entry_confirm; ?>" id="input-confirm" class="form-control" />
+              
               <?php if ($error_confirm) { ?>
               <div class="text-danger"><?php echo $error_confirm; ?></div>
+              <?php }else{ ?>
+              <div class="text-dangerd" style="display: none">Password must be matched</div>
               <?php } ?>
             </div>
           </div>
+          <div class="">
+            <a onclick="openpersonal()" class="btn btn-primary">SIGN UP</a>
+          </div>
           <p class="logintext_social">or connect with your social media account</p>
-    <div class="row">
+    <div class="row socialbuttons">
       <div class="col-sm-6"><a class="button-facebook"><i class="fa fa-facebook"></i>Facebook</a></div>
       <div class="col-sm-6">
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -88,7 +101,7 @@ if(isset($facebookdata)){
     
     </div>
         </fieldset>
-        <fieldset id="personal">
+        <fieldset id="personal" style="display: none;">
           <div class="form-group required" style="display: <?php echo (count($customer_groups) > 1 ? 'block' : 'none'); ?>;">
             <label class="col-sm-12 control-label"><?php echo $entry_customer_group; ?></label>
             <div class="col-sm-12">
@@ -295,12 +308,12 @@ if(isset($facebookdata)){
           <?php } ?>
           <?php } ?>
         </fieldset>
-        <fieldset id="address">
+        <fieldset id="address" style="display: none;">
           <legend>Billing Address</legend>
           <div class="row">
           <div class="form-group col-sm-4 required">
             <label class="col-sm-12 control-label" for="input-address-1"><?php echo $entry_address_1; ?></label>
-            <div class="col-sm-12">
+            <div class="">
               <input type="text" name="address_1" value="<?php echo $address_1; ?>" placeholder="<?php echo $entry_address_1; ?>" id="input-address-1" class="form-control" />
               <?php if ($error_address_1) { ?>
               <div class="text-danger"><?php echo $error_address_1; ?></div>
@@ -309,7 +322,7 @@ if(isset($facebookdata)){
           </div>
           <div class="form-group  col-sm-8 ">
             <label class="col-sm-12 control-label" for="input-address-2"><?php echo $entry_address_2; ?></label>
-            <div class="col-sm-12">
+            <div class="c">
               <input type="text" name="address_2" value="<?php echo $address_2; ?>" placeholder="<?php echo $entry_address_2; ?>" id="input-address-2" class="form-control" />
             </div>
           </div>
@@ -317,7 +330,7 @@ if(isset($facebookdata)){
         <div class="row">
           <div class="form-group col-sm-4 required">
             <label class="col-sm-12 control-label" for="input-city"><?php echo $entry_city; ?></label>
-            <div class="col-sm-12">
+            <div class="">
               <input type="text" name="city" value="<?php echo $city; ?>" placeholder="<?php echo $entry_city; ?>" id="input-city" class="form-control" />
               <?php if ($error_city) { ?>
               <div class="text-danger"><?php echo $error_city; ?></div>
@@ -326,7 +339,7 @@ if(isset($facebookdata)){
           </div>
           <div class="form-group col-sm-4 required" style="display: none;">
             <label class="col-sm-12 control-label" for="input-country"><?php echo $entry_country; ?></label>
-            <div class="col-sm-12">
+            <div class="">
               <select name="country_id" id="input-country" class="form-control">
                 <option value=""><?php echo $text_select; ?></option>
                 <?php foreach ($countries as $country) { ?>
@@ -344,7 +357,7 @@ if(isset($facebookdata)){
           </div>
           <div class="form-group col-sm-4 required">
             <label class="col-sm-12 control-label" for="input-zone"><?php echo $entry_zone; ?></label>
-            <div class="col-sm-12">
+            <div class="">
               <select name="zone_id" id="input-zone" class="form-control">
               </select>
               <?php if ($error_zone) { ?>
@@ -354,7 +367,7 @@ if(isset($facebookdata)){
           </div>
           <div class="form-group col-sm-4 required">
             <label class="col-sm-12 control-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
-            <div class="col-sm-12">
+            <div class="">
               <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-postcode" class="form-control" />
               <?php if ($error_postcode) { ?>
               <div class="text-danger"><?php echo $error_postcode; ?></div>
@@ -438,7 +451,7 @@ if(isset($facebookdata)){
           <div class="row">
           <div id="custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-group col-sm-12 custom-field">
             <label class="col-sm-12 control-label" for="input-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
-            <div class="col-sm-12">
+            <div class="">
               <input type="text" name="custom_field[<?php echo $custom_field['location']; ?>][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($register_custom_field[$custom_field['custom_field_id']]) ? $register_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
               <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
               <div class="text-danger"><?php echo $error_custom_field[$custom_field['custom_field_id']]; ?></div>
@@ -519,46 +532,48 @@ if(isset($facebookdata)){
           <?php } ?>
         </fieldset>
         
-        <fieldset>
+        <fieldset id="terms" style="display: none;">
           <div class="form-group">
-            <label class="col-sm-12 control-label"><?php echo $entry_newsletter; ?></label>
             <div class="col-sm-12">
 
               <label>
-                <?php if ($newsletter) { ?>
-            <input type="checkbox" name="newsletter" value="1" checked="checked" />
-            <?php } else { ?>
-            <input type="checkbox" name="newsletter" value="1" />
-            <?php } ?>Subscribe to our newsletter
-           </label>
             <?php if ($agree) { ?>
             <input type="checkbox" name="agree" value="1" checked="checked" />
             <?php } else { ?>
             <input type="checkbox" name="agree" value="1" />
             <?php } ?>I have read and accept the <a href="<?php echo $terms; ?>" target="_blank">Terms and Conditions</a> and <a href="<?php echo $privacy; ?>" target="_blank">Privacy Policy*</a>
            </label>
+           <label>
+                <?php if ($newsletter) { ?>
+            <input type="checkbox" name="newsletter" value="1" checked="checked" />
+            <?php } else { ?>
+            <input type="checkbox" name="newsletter" value="1" />
+            <?php } ?>Subscribe to our newsletter
+           </label>
             </div>
           </div>
         </fieldset>
         <?php echo $captcha; ?>
         <?php if ($text_agree) { ?>
-        <div class="buttons">
-          <div class="pull-right">
-            <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
+        <div class="buttons" id="buttonsall" style="display: none;">
+          <div class="">
+            <input type="submit" value="COMPLETE SIGN UP" class="btn btn-primary" />
           </div>
         </div>
         <?php } else { ?>
-        <div class="buttons">
-          <div class="pull-right">
-            <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
+        <div class="buttons" id="buttonsall" style="display: none;">
+          <div class="">
+            <input type="submit" value="COMPLETE SIGN UP" class="btn btn-primary" />
           </div>
         </div>
         <?php } ?>
       </form>
+    </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
 <style type="text/css">
+#content{margin-bottom: 40px; }
         #page{background-color: #fff5e1;}#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}
      </style>
 <script type="text/javascript"><!--
@@ -741,6 +756,12 @@ $('select[name=\'country_id\']').trigger('change');
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript"></script>
 <script>
+  $(document).ready(function(){
+    <?php if($hasfacebook) { ?>
+        openpersonal();
+    <?php } ?>
+
+  })
   var gotclick = false;
   window.fbAsyncInit = function() {
     FB.init({
@@ -785,6 +806,55 @@ $('select[name=\'country_id\']').trigger('change');
           }, {scope: 'public_profile,email'});
         })
     })
+   function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+   function openpersonal(){
+    var error=false;
+    var a =$("#account .form-group.required input#input-email");
+    var m = $(a).val()
+    $(a).parent().find(".text-dangerd").hide();;
+    if(m.length<=0){
+      $(a).focus();
+      $(a).parent().find(".text-dangerd").html("Email is required")
+      $(a).parent().find(".text-dangerd").show();;
+      error=true;
+    }else{
+      if (validateEmail(m)) {
+      }else{
+        $(a).focus();
+        $(a).parent().find(".text-dangerd").html("Email must matched with format")
+        $(a).parent().find(".text-dangerd").show();;
+        error=true;
+      }
+    }
+    var m1;
+    var a =$("#account .form-group.required input#input-password");
+    var m = m1 = $(a).val()
+    $(a).parent().find(".text-dangerd").hide();;
+    if(m.length<=0){
+      $(a).focus();
+      $(a).parent().find(".text-dangerd").show();;
+      error=true;
+    }
+    var a =$("#account .form-group.required input#input-confirm");
+    var m = $(a).val()
+    $(a).parent().find(".text-dangerd").hide();;
+    if(m != m1){
+      $(a).focus();
+      $(a).parent().find(".text-dangerd").show();;
+      error=true; 
+    }
+    if(error){
+      return;
+    }
+    $("#account").hide();
+    $("#personal").show();
+    $("#address").show();
+    $("#terms").show();
+    $("#buttonsall").show();
+   }
 
    function logingoogle(response){
       $.ajax({

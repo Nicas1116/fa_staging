@@ -2,7 +2,7 @@
 
  echo $header; ?> <?php require( ThemeControlHelper::getLayoutPath( 'common/mass-header.tpl' )  ); ?>
 <div class="container">
-<div class="category_image">
+<div class="category_image cop-<?php echo $category_parent_id ?>">
     <h2><?php echo $heading_title; ?></h2>
   </div>
   
