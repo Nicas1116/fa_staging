@@ -627,7 +627,11 @@ class ControllerProductCategory extends Controller {
 
 			$category_info = $this->model_catalog_category->getCategory($category_parent_id);
 			if ($category_info) {
-				$data['heading_title'] = html_entity_decode($category_info['name'], ENT_QUOTES, 'UTF-8');
+				if($category_info['description']!=""){
+					$data['heading_title'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');
+				}else{
+					$data['heading_title'] = html_entity_decode($category_info['name'], ENT_QUOTES, 'UTF-8');
+				}
 			}
 			$data["category_parent_id"] = $category_parent_id;
 

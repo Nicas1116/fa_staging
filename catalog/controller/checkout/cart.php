@@ -151,9 +151,12 @@ class ControllerCheckoutCart extends Controller {
 				}
 				$fullproduct_options = array();
 				foreach ($this->model_catalog_product->getProductOptions($product["product_id"]) as $option) {
+					$value_id=array();
 					if(is_array($option["product_option_value"])){
 						foreach ($option["product_option_value"] as $value) {
-							$value_id = $value["product_option_value_id"];
+							$ds["product_option_value_id"] =$value["product_option_value_id"];
+							$ds["name"] =$value["name"];
+							$value_id[] = $ds;
 						}
 					}
 					$fullproduct_options[] = array(

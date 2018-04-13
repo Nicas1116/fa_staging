@@ -20,7 +20,7 @@
             <?php if ($product['option']) { ?>
             <?php foreach ($product['option'] as $option) { ?>
             <br />
-            - <small><?php echo $option['name']; ?><br/><span><?php echo $option['value']; ?></span></small>
+            - <small><?php echo $option['name']; ?><span><?php echo $option['value']; ?></span></small>
             <?php } ?>
             <?php } ?>
             <?php if ($product['recurring']) { ?>

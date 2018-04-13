@@ -89,51 +89,51 @@
                   <?php 
                   $fullproduct_options = $product["fullproduct_options"];
                   $product_options = $product["option"];
-                  foreach ($fullproduct_options as $fullproduct_option) {
-                      if($fullproduct_option["name"] == "Send As Gift"){
-                        $fullproduct_option_name = $fullproduct_option;
-                      }
-                      if($fullproduct_option["name"] == "Giftbox Message"){
-                        $fullproduct_option_giftboxmessage = $fullproduct_option;
-                      }
-                  }
+                
                   $ison = false;
                   $hasmessage = false;
                    $option_all =array();
                    $mkinga=array();
                    $mkingb=array();
-                   foreach ($product_options as $option) {
+                   foreach ($fullproduct_options as $option) {
                       $dontsave =true;
                       if($option["name"] == "Send As Gift"){
-                        $ison = true;
-                         $dontsave=false;
-                        $product_option_name = $option;
-                      }
-                      if($option["name"] == "Giftbox Message"){
-                        $hasmessage=true;
-                         $dontsave=false;
-                        $product_option_giftboxmessage = $option;
-                      }
-                     if( $dontsave){
-                      $mkingb[$option["product_option_id"]] = $option["product_option_value_id"];
-                    }else{
-                       $mkinga[$option["product_option_id"]] = $option["product_option_value_id"];
-                    }
+                        foreach ($option["value"] as $suboption) {
+                          if($suboption["name"]=="Gift card with message"){
+                            $mkinga[$option["id"]] = $suboption["product_option_value_id"];
+                          }
+                        }
+                      }else if($option["name"] == "Giftbox Message"){
+                        $fullproduct_option_giftboxmessage_id  = $option["id"];
+                        $mkinga[$option["id"]] = "";
+                      }else{
+                        $mkinga[$option["id"]] = "";
+                        $mkingb[$option["id"]] = "";
+                      }                      
+                      
                   }
-                  foreach ($fullproduct_options as $fullproduct_option) {
-                      if($fullproduct_option["name"] == "Send As Gift"){
-                        $mkinga[$fullproduct_option["id"]] = $fullproduct_option["value"];
+                  foreach ($product_options as $option) {
+                      if($option["name"] == "Send As Gift"){
+                        //$mkinga[$option["product_option_id"]] = $option["value"];
+                        $ison = true;
+                      }else if($option["name"] == "Giftbox Message"){
+                        $hasmessage=true;
+                        if($option["value"]!=""){
+                          $product_option_giftboxmessage = $option["value"];
+                        }else{
+                          $product_option_giftboxmessage = "";
+                        }
+                        
+                      }else{
+                        $mkingb[$option["product_option_id"]] = $option["product_option_value_id"];
+                        $mkinga[$option["product_option_id"]] = $option["product_option_value_id"];
                       }
-                      if($fullproduct_option["name"] == "Giftbox Message"){
-                        $mkinga[$fullproduct_option["id"]] = "";
-                      }
-
                   }
                   ?>
                   <div class="allgiftbox"><label><input <?php if($ison){echo "checked='checked'";} ?> class="checkbox_sendasgift checkbox_sendasgift-<?php echo $product["cart_id"]  ?>" type="checkbox" /> Send as gift</label>
                   <div class="sendgiftbox" <?php if($ison){echo "style='display:block;'";} ?>>
                     <label><input <?php if($ison){echo "checked='checked'";} ?> class="checkbox_giftboxwithmessage" type="checkbox" /> Gift card with message Rm 3</label>
-                    <textarea placeholder="Insert your message here" class="giftboxmessage giftboxmessage-<?php echo $product['cart_id'] ?>" name="giftboxname-<?php echo $product['cart_id'] ?>" ><?php if($hasmessage){echo $product_option_giftboxmessage["value"];} ?></textarea>
+                    <textarea placeholder="Insert your message here" class="giftboxmessage giftboxmessage-<?php echo $product['cart_id'] ?>" name="giftboxname-<?php echo $product['cart_id'] ?>" ><?php if($hasmessage){echo $product_option_giftboxmessage;} ?></textarea>
                     <span>Not more than 120 characters</span>
                   </div>
                   <script type="text/javascript">
@@ -150,10 +150,9 @@
                         $(".giftboxmessage-<?php echo $product['cart_id'] ?>").change(function(i,a){
                           clearTimeout(clearTimeoutId);
                           clearTimeoutId = setTimeout(function(){
-                            var a = {"<?php echo $fullproduct_option_name["id"]; ?>":"<?php echo $fullproduct_option_name["value"]; ?>","<?php echo $fullproduct_option_giftboxmessage["id"]; ?>":$(".giftboxmessage-<?php echo $product['cart_id'] ?>").val()};
                              var a = '<?php echo json_encode($mkinga); ?>';
                              var a = JSON.parse(a);
-                             a["<?php echo $fullproduct_option_giftboxmessage["id"]; ?>"] = $(".giftboxmessage-<?php echo $product['cart_id'] ?>").val();
+                             a["<?php echo $fullproduct_option_giftboxmessage_id; ?>"] = $(".giftboxmessage-<?php echo $product['cart_id'] ?>").val();
                             var a_text = JSON.stringify(a);
                             cart.updateoptiontext("<?php echo $product["cart_id"]  ?>",a_text);  
                           },500);

@@ -30,7 +30,7 @@
         <?php } ?>
 
         <a href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>" class="imagezoom">
-            <img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" id="image"  data-zoom-image="<?php echo $popup; ?>" class="product-image-zoom img-responsive"/>
+            <img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" data-zoom-image="<?php echo $popup; ?>" class="product-image-zoom img-responsive"/>
         </a>
 
     </div>
