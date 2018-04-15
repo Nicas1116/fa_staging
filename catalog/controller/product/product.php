@@ -234,7 +234,10 @@ class ControllerProductProduct extends Controller {
 			$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
 			$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
 			$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
-
+			$this->document->addScript('catalog/view/javascript/jquery.radioImageSelect.js');
+			$this->document->addScript('catalog/view/javascript/jquery.bxslider.min.js');
+			$this->document->addStyle('catalog/view/javascript/jquery.bxslider.css');
+			
 			$data['heading_title'] = $product_info['name'];
 
 			$data['text_select'] = $this->language->get('text_select');
@@ -298,13 +301,38 @@ class ControllerProductProduct extends Controller {
 			} else {
 				$data['popup'] = '';
 			}
+			if(isset($category_id) && $category_id==61){
+			if ($product_info['image']) {
+				$data['popup'] = $this->model_tool_image->resize($product_info['image'], 370*2,289*2);
+			} else {
+				$data['popup'] = '';
+			}
+			if ($product_info['image']) {
+				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], 370*2,289*2);
+			} else {
+				$data['thumb'] = '';
+			}
+			$data['images'] = array();
 
+			$results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
+
+			foreach ($results as $result) {
+				$data['images'][] = array(
+					'popup' => $this->model_tool_image->resize($result['image'], 370*2,289*2),
+					'thumb' => $this->model_tool_image->resize($result['image'], 370*2,289*2)
+				);
+			}
+			}else{
+			if ($product_info['image']) {
+				$data['popup'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+			} else {
+				$data['popup'] = '';
+			}
 			if ($product_info['image']) {
 				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
 			} else {
 				$data['thumb'] = '';
 			}
-
 			$data['images'] = array();
 
 			$results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
@@ -315,6 +343,8 @@ class ControllerProductProduct extends Controller {
 					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
 				);
 			}
+			}
+			
 
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 				$data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
@@ -362,7 +392,7 @@ class ControllerProductProduct extends Controller {
 							'product_option_value_id' => $option_value['product_option_value_id'],
 							'option_value_id'         => $option_value['option_value_id'],
 							'name'                    => $option_value['name'],
-							'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
+							'image'                   => $this->model_tool_image->resize($option_value['image'], 25, 25),
 							'price'                   => $price,
 							'price_prefix'            => $option_value['price_prefix']
 						);
@@ -489,7 +519,7 @@ class ControllerProductProduct extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
-			if($category_id==61){
+			if(isset($category_id) && $category_id==61){
 				$this->response->setOutput($this->load->view('product/promotion_detail', $data));
 			}else{
 				$this->response->setOutput($this->load->view('product/product', $data));

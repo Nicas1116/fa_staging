@@ -14,7 +14,7 @@
    <div id="sidebar-main" class="col-md-<?php echo $SPAN[1];?>">
     <div id="content"><?php echo $content_top; ?>
       <div class="row">
-        <div class="col-xs-3">
+        <div class="col-lg-3 col-md-3 col-xs-12">
         <?php if ($categories) { ?>
 	   <div class="subcategories refine-search panel panel-default box white">
 			  <div class="panel-body category-list clearfix box-content">  
@@ -46,7 +46,7 @@
       </div>
       <?php } ?>
          <?php } ?>
-         </div><div class="col-xs-9">
+         </div><div class="col-lg-9 col-md-9 col-xs-12 ">
    
       <?php if ($products) { ?>
       <?php require( ThemeControlHelper::getLayoutPath( 'product/product_filter.tpl' ) );   ?>

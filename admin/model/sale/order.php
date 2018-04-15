@@ -157,6 +157,7 @@ class ModelSaleOrder extends Model {
 				'currency_id'             => $order_query->row['currency_id'],
 				'currency_code'           => $order_query->row['currency_code'],
 				'currency_value'          => $order_query->row['currency_value'],
+				'multiple_delivery'       => $order_query->row['multiple_delivery'],
 				'ip'                      => $order_query->row['ip'],
 				'forwarded_ip'            => $order_query->row['forwarded_ip'],
 				'user_agent'              => $order_query->row['user_agent'],
@@ -246,6 +247,17 @@ class ModelSaleOrder extends Model {
 		return $query->rows;
 	}
 
+	public function getOrderShippingAddress($order_id){
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_address` oa LEFT JOIN `" . DB_PREFIX . "order_product` op ON oa.order_product_id = op.order_product_id WHERE oa.order_id = '" . (int)$order_id . "'");
+		return $query->rows;
+	}
+
+	public function getOrderProduct($order_id, $order_product_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$order_product_id . "'");
+
+		return $query->row;
+	}
+	
 	public function getOrderProducts($order_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 

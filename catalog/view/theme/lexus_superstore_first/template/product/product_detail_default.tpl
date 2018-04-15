@@ -67,12 +67,12 @@
                     <?php if ($option['type'] == 'radio') { ?>
                         <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
                             <label class="control-label"><?php echo $option['name']; ?></label>
-                            <div id="input-option<?php echo $option['product_option_id']; ?>">
+                            <div id="input-option<?php echo $option['product_option_id']; ?>" class="row">
                                 <?php foreach ($option['product_option_value'] as $option_value) { ?>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" />
-                                            <?php echo $option_value['name']; ?>
+                                            <input class="radioImageSelect" data-image="<?php echo $option_value['image']; ?>" type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" />
+                                            <?php //echo $option_value['name']; ?>
                                             <?php if ($option_value['price']) { ?>
                                                 (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
                                             <?php } ?>
@@ -184,11 +184,11 @@
             <?php } ?>
 
 
-            <div class="quantity-adder">
-                  
-                <div class="quantity-number">
-                    <span><?php echo $entry_qty; ?></span> 
-                    <div class="quantity-wrapper pull-right">
+            <div class="quantity-adder form-group">
+                  <div class="control-label"><?php echo $entry_qty; ?></div> 
+                <div class="quantity-number form-control">
+                    
+                    <div class="quantity-wrapper">
                     <span class="add-up add-action fa fa-plus"></span> 
                      <input type="text" name="quantity" id="input-quantity" size="2" value="<?php echo $minimum; ?>" />
                     <span class="add-down add-action fa fa-minus"></span>
@@ -202,7 +202,7 @@
                 <ul class="list-unstyled">
                     <?php if (!$special) { ?>
                         <li class="price-gruop">
-                            <span class="text-price"> <?php echo $price; ?> </span>
+                            <span class="text-price"> <?php echo $price; ?><span>*GST Included</span> </span>
                         </li>
                     <?php } else { ?>
 
@@ -225,10 +225,10 @@
             <input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />  
             <div class="action">
                 <div class="cart">
-                    <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-shopping-cart"><?php echo $button_cart; ?></button>
+                    <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-shopping-cart">ADD TO BAG</button>
                 </div>
                 <div class="wishlist">  
-                    <a class="btn btn-theme-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><?php echo $button_wishlist; ?></a>
+                    <a class="btn btn-theme-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');">WISHLIST</a>
                 </div>
                 <!--<div class="compare">
                     <a class="btn btn-theme-default" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><?php echo $button_compare; ?></a>

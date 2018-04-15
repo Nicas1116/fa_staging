@@ -1,6 +1,7 @@
     <?php if ($thumb || $images) { ?>
 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 image-container">
     <?php if ($thumb) { ?>
+    <div class="oimage_list">
     <div id="img-detail" class="image thumbnail">
 
         <?php if( isset($date_available) && $date_available == date('Y-m-d')) {   ?>            
@@ -17,11 +18,20 @@
         <a href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>" class="imagezoom">
             <img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" id="image"  data-zoom-image="<?php echo $popup; ?>" class="product-image-zoom img-responsive"/>
         </a>
-
+        
+    </div>
+    <a href="javascript:ongoleft();void(0);" class="btnleft"><i class="fa fa-angle-left"></i></a>
+    <a href="javascript:ongoright();void(0);" class="btnright"><i class="fa fa-angle-right"></i></a>
+    <ul class="dotds row">
+        <li class="dot active"></li>
+        <?php foreach ($images as  $image) { ?>
+        <li class="dot"></li>
+        <?php } ?>
+    </ul>
     </div>
     <?php } ?>
-
-     <div class="thumbs-preview">
+    
+     <div class="thumbs-preview" style="display: none;">
         <?php if ($images) { ?>
          <div class="image-additional slide carousel horical" id="image-additional">
             <div id="image-additional-carousel" class="carousel-inner">
@@ -30,13 +40,13 @@
                     $eimages = array( 0=> array( 'popup'=>$popup,'thumb'=> $thumb )  ); 
                     $images = array_merge( $eimages, $images );
                 }
-                $icols = 4; $i= 0;
-                foreach ($images as  $image) { ?>
+                $icols = 4; $i= 0; ?>
+                <?php foreach ($images as  $image) { ?>
                     <?php if( (++$i)%$icols == 1 ) { ?>
                     <div class="item clearfix">
                     <?php } ?>
                         <a href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>" class="imagezoom" data-zoom-image="<?php echo $image['popup']; ?>" data-image="<?php echo $image['popup']; ?>">
-                            <img src="<?php echo $image['thumb']; ?>" style="max-width:<?php echo $config->get('theme_default_image_additional_width');?>px"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" data-zoom-image="<?php echo $image['popup']; ?>" class="product-image-zoom img-responsive" />
+                            <img src="<?php echo $image['thumb']; ?>"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" data-zoom-image="<?php echo $image['popup']; ?>" class="product-image-zoom img-responsive" />
                         </a>
                     <?php if( $i%$icols == 0 || $i==count($images) ) { ?>
                     </div>
@@ -63,13 +73,37 @@
         </script>
         <?php } ?> 
     </div>
-    <div>
-        <p>FREE DELIVERY ABOVE RM100</p>  
+    <div class="delivery_container">
+        <p class="delivery"><img src="/fa/staging/image/others/delivery.png"/>FREE DELIVERY ABOVE RM100</p>  
     </div>
+     <div class="share_container">
+        <p>Share this</p>
     <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+    <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook"><img src="/fa/staging/image/others/product_facebook.png" width="40" height="40" border="0" alt="Share to Facebook"></a><a class="addthis_button_email"><img src="/fa/staging/image/others/product_email.png" width="40" height="40" border="0" alt="Share Email"></a></div>
+    </div>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
         <!-- AddThis Button END --> 
+    <script type="text/javascript">
+        var sizeofm = <?php echo sizeof($images); ?>;
+        var m=0;
+        function ongoleft(){
+            m--;
+            var sm = m % sizeofm;
+            $(".dotds li").removeClass("active");
+            $($(".dotds li")[sm]).addClass("active");
+            $($(".thumbs-preview .item a")[sm]).click();
+        }
+
+        function ongoright(){
+           m++;
+            var sm = m % sizeofm;
+            $(".dotds li").removeClass("active");
+            $($(".dotds li")[sm]).addClass("active");
+            $($(".thumbs-preview .item a")[sm]).click();
+        }
+
+        
+    </script>
 </div>          
 <?php } ?>
 

@@ -84,7 +84,11 @@ class ControllerCommonFooter extends Controller {
             }
         }*/
         $data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
-
+        if ($this->customer->isLogged()) {
+            $data["logined"] = true;
+        }else{
+            $data["logined"] = false;
+        }
         // Whos Online
         if ($this->config->get('config_customer_online')) {
             $this->load->model('tool/online');

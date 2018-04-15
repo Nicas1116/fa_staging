@@ -222,6 +222,9 @@ $('button[id^=\'button-upload\']').on('click', function() {
 });
 //--></script> 
 <script type="text/javascript"><!--
+$(document).ready(function(){
+	 $('input.radioImageSelect').radioImageSelect();
+})
 $('#review').delegate('.pagination a', 'click', function(e) {
     e.preventDefault();
 

@@ -144,4 +144,30 @@ echo $helper->renderAddon( 'offcanvas-category');
 </div>
 
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    if($(window).width()<1000){
+    $("#header-bottom .container .inner ").bxSlider({pager:false,controls:false,auto:true});
+    $.each($(".tp-simpleresponsive >ul >li"),function(i,a){
+      $(a).css("background-image","url("+$(a).attr("data-thumb")+")")
+    });
+    $(".box.producttabs .product-items").bxSlider({pager:false,controls:true,auto:false});
+    <?php if ($logined==true) {?>
+    $(".islog a").html("MY ACCOUNT");
+    $(".islog a").attr("href","index.php?route=account/account");
+    $(".issig a").html("LOG OUT");
+    $(".issig a").attr("href","index.php?route=account/logout");
+    <?php }else{ ?>
+    $(".islog a").html("LOG IN");
+    $(".islog a").attr("href","index.php?route=account/login");
+    $(".issig a").html("SIGN UP");
+    $(".issig a").attr("href","index.php?route=account/register");
+    <?php } ?>
+    }
+  });
+
+  function resizeWin(){
+    
+  }
+</script>
 </body></html>

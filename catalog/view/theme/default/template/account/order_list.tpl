@@ -13,7 +13,7 @@
       <?php if ($orders) { ?>
       <div class="order_listing">
       
-            <div class="row order_listing_title">
+            <div class="row order_listing_title hidden-xs">
               <div class="col-sm-2 text-left">Order No.</div>
               <div class="col-sm-2 text-left">Order Date</div>
               <div class="col-sm-4 text-left">Items</div>
@@ -22,9 +22,10 @@
             </div>
             <?php $m =0;foreach ($orders as $order) { ?>
             <div id="<?php echo $m; ?>" class="row order_listing_detail <?php if($m%2==0){echo "oddbox";} ?>">
-              <div class="col-sm-2 text-left"><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btnorder">#<?php echo $order['order_id']; ?></a></div>
-              <div class="col-sm-2 text-left"><p><?php echo $order['date_added']; ?></p></div>
+              <div class="col-sm-2 text-left"><b class="hidden-lg hidden-md">Order No.</b><a href="<?php echo $order['view']; ?>" data-toggle="tooltip" title="<?php echo $button_view; ?>" class="btnorder">#<?php echo $order['order_id']; ?></a></div>
+              <div class="col-sm-2 text-left"><b class="hidden-lg hidden-md">Order Date</b><p><?php echo $order['date_added']; ?></p></div>
               <div class="col-sm-4 text-left order_listing_product">
+                <b class="hidden-lg hidden-md">Items</b>
                 <?php foreach ($order["products_list"] as $product) { ?>
                   <div class="row">
                     <div class="col-sm-5 text-left"><a href="<?php echo $product["href"]; ?>"><img src="<?php echo $product["thumb"]; ?>" alt="<?php echo $product["name"]; ?>" class="img-thumbnail"></a></div>
@@ -32,8 +33,8 @@
                 </div>
                 <?php } ?>
             </div>
-              <div class="col-sm-2 text-left"><p><?php echo $order['total']; ?></p></div>
-              <div class="col-sm-2 text-left order_listing_status"><p><?php echo $order['status']; ?></p>
+              <div class="col-sm-2 text-left"><b class="hidden-lg hidden-md">Total</b><p><?php echo $order['total']; ?></p></div>
+              <div class="col-sm-2 text-left order_listing_status"><b class="hidden-lg hidden-md">Status</b><p><?php echo $order['status']; ?></p>
                 <?php if($order["order_status_id" ]==5){$i=0;foreach ($order["comments"] as $comment) { ?>
                        <div class="row">
                           <div class="col-sm-12">Tracking No. #<?php echo ++$i; ?></div>

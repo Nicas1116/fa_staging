@@ -18,7 +18,7 @@
       <h1><?php echo $heading_title; ?></h1>
       <div class="wrapper">
         <div class="row borderlo">
-           <div class="col-xs-4">
+           <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="locateus_box">
              <h2>Locate us</h2>
              <p>By State 
@@ -60,7 +60,7 @@
               </div>
            </div>
            </div>
-          <div class="col-xs-8">
+          <div class="col-lg-8 col-md-8 col-xs-12">
       <div class="contact-location">
         <div id="contact-map"></div>
       </div></div>
@@ -78,8 +78,8 @@
     <script type="text/javascript" src="catalog/view/javascript/gmap/gmap3.infobox.js"></script>
     <script type="text/javascript">
         var mapDiv, map, infobox;
-        var lat = <?php echo isset($themeConfig['location_latitude'])?$themeConfig['location_latitude']:'40.705423'; ?>;
-        var lon = <?php echo isset($themeConfig['location_longitude'])?$themeConfig['location_longitude']:'-74.008616'; ?>;
+        var lat ='3.0726';
+        var lon ='101.6068';
         jQuery(document).ready(function($) {
             mapDiv = $("#contact-map");
             mapDiv.height(800).gmap3({
