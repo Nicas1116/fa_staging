@@ -166,7 +166,7 @@
             });
             </script>
             <?php }else{ ?>
-            <input id="field-<?php echo $module; ?>-<?php echo str_replace(' ','_', trim(strtolower($formbuilder_fields['name']))); ?>" type="<?php echo $formbuilder_fields['type']; ?>" name="field[<?php echo str_replace(' ','_', trim(strtolower($formbuilder_fields['name']))); ?>]" placeholder="<?php echo $formbuilder_fields['placeholder']; ?>" value="<?php echo $formbuilder_fields['value']; ?>" />
+            <input id="field-<?php echo $module; ?>-<?php echo str_replace(' ','_', trim(strtolower($formbuilder_fields['name']))); ?>" class="form-control" type="<?php echo $formbuilder_fields['type']; ?>" name="field[<?php echo str_replace(' ','_', trim(strtolower($formbuilder_fields['name']))); ?>]" placeholder="<?php echo $formbuilder_fields['placeholder']; ?>" value="<?php echo $formbuilder_fields['value']; ?>" />
             <?php } ?>
             <?php if($col){ ?>  </div> <?php } ?>
             <div class="help-block"></div>
