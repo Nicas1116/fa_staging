@@ -38,7 +38,7 @@
         <div class="col-sm-6 text-right"><?php echo $results; ?></div>
       </div>
       <?php } else { ?>
-      <p><?php echo $text_empty; ?></p>
+      <p class="emptytext">Your purchased history is empty.</p>
       <?php } ?>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>

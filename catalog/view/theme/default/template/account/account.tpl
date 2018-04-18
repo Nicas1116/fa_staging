@@ -18,7 +18,7 @@
             <h2>RECENT ORDER <a href="<?php echo $orderslink; ?>" class="btnorders">View All Orders »</a></h2>
             <div class="bline"></div>
             <div class="orders_content">
-              <?php foreach ($orders as $order) { ?>
+              <?php if($orders){foreach ($orders as $order) { ?>
                 <div class="order_content">
                     <div class="row">
                         <div class="col-sm-4">Order No.</div>
@@ -45,7 +45,9 @@
                         <?php } ?></div>
                       </div>
                 </div>
-              <?php break;} ?>
+              <?php break;}}else{ ?>
+                  <p class="emptytext">You have not made any previous orders!</p>
+              <?php } ?>
             </div>
           </div>
           <div class="col-sm-6 purchased_content">
@@ -53,6 +55,7 @@
             <div class="bline"></div>
             <div class="purchased_container">
             <?php
+            if($products){
             $m=0;
              foreach ($products as $product) { ?>
                
@@ -67,6 +70,9 @@
                 break;
               }
               } 
+            }else{ ?>
+              <p class="emptytext">Your purchased history is empty.</p>
+            <?php }
             ?>
           </div>
           </div>
@@ -99,6 +105,7 @@
             <div class="bline"></div>
             <div class="wishlists_container">
             <?php
+            if($wishlists){
             $m=0;
              foreach ($wishlists as $wishlist) { ?>
                
@@ -113,6 +120,9 @@
                 break;
               }
               } 
+            }else{ ?>
+            <p class="emptytext">Your wish list is empty.</p>
+            <?php }
             ?>
           </div>
           </div>

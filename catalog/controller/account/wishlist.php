@@ -122,8 +122,10 @@ class ControllerAccountWishList extends Controller {
 		}
 
 		$order_total = sizeof($data['products']);
-		$p_list = array_chunk($data['products'],5);
-		$data['products'] = $p_list[$page-1];
+		if($order_total > 0){
+			$p_list = array_chunk($data['products'],5);
+			$data['products'] = $p_list[$page-1];
+		}
 
 		$pagination = new Pagination();
 		$pagination->total = $order_total;

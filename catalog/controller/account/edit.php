@@ -243,7 +243,15 @@ class ControllerAccountEdit extends Controller {
 		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
+		if((utf8_strlen($this->request->post['password']))>1){
+			if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
+				$this->error['password'] = $this->language->get('error_password');
+			}
 
+			if ($this->request->post['confirm'] != $this->request->post['password']) {
+				$this->error['confirm'] = $this->language->get('error_confirm');
+			}
+		}
 		// Custom field validation
 		$this->load->model('account/custom_field');
 
@@ -254,9 +262,17 @@ class ControllerAccountEdit extends Controller {
 				$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
 			} elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
                 $this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+            } elseif (($custom_field['location'] == 'account') && ($custom_field['type'] == 'date') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+                $this->error['custom_field'][$custom_field['custom_field_id']] = $custom_field['name']." wrong format";
             }
 		}
-
+		//exit();
 		return !$this->error;
+	}
+
+	function validateDate($date, $format = 'Y-m-d')
+	{
+	    $d = DateTime::createFromFormat($format, $date);
+	    return $d && $d->format($format) == $date;
 	}
 }

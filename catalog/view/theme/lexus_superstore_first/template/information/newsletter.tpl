@@ -15,7 +15,7 @@
     <?php echo $column_left; ?>
    <section id="sidebar-main" class="col-md-<?php echo $block[0];?>"><div id="content"><?php echo $content_top; ?>
      
-     <form id="formNewLestter" method="post" action="http://localhost:81/fa/staging/index.php?route=extension/module/pavnewsletter/subscribe" class="formNewLestter test" _lpchecked="1">
+     <form id="formNewLestter" method="post" action="http://localhost:81/fa/staging/index.php?route=extension/module/pavnewsletter/subscribe" class="formNewLestter" _lpchecked="1">
                   
                   <div class="clearfix input-group">
                     <div class="box-heading">
@@ -27,7 +27,6 @@
                       <label>EMAIL</label>
                       <input type="text" placeholder="Enter Your Email" class="inputNew form-control email" size="18" name="email">
                       <button type="submit" name="submitNewsletter" class="button_mini btn">NEXT</button>
-                   
                       <input type="hidden" value="1" name="action">
                       <div class="valid"></div>                
                   </div>            

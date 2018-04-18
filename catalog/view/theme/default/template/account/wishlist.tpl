@@ -27,7 +27,8 @@
                     </div>
                   </div>
                   <div class="col-sm-5 text-right">
-                    <a href="<?php echo $product["reorder"] ?>" class="btnordersnow">RE-ORDER</a>
+                    <a href="<?php echo $product["href"] ?>" class="btnordersnow">RE-ORDER</a>
+                    <a href="<?php echo $product["remove"] ?>" class="btnordersnow">REMOVE</a>
                   </div>
                </div>
             <?php $m++;} ?>
@@ -38,7 +39,7 @@
         <div class="col-sm-6 text-right"><?php echo $results; ?></div>
       </div>
       <?php } else { ?>
-      <p><?php echo $text_empty; ?></p>
+      <p class="emptytext"><?php echo $text_empty; ?></p>
       <?php } ?>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>

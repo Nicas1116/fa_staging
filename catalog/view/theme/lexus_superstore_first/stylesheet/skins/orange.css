@@ -8755,7 +8755,7 @@ textarea.form-control {
     margin-bottom: 30px
 }
 
-.form-subscribe #formNewLestter button {
+.form-subscribe #formNewLestter .input-group > button {
     background: #ff8d00;
     color: #fff;
     font-size: 14px;

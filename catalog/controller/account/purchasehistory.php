@@ -39,7 +39,7 @@ class ControllerAccountPurchaseHistory extends Controller {
 		} else {
 			$page = 1;
 		}
-
+		$products = array();
 		$results = $this->model_account_order->getAllOrders();
 		foreach ($results as $result) {
 			$product_total = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
@@ -89,6 +89,7 @@ class ControllerAccountPurchaseHistory extends Controller {
 			);
 		}
 		$data["products"] = array();
+		if($products){
 		foreach ($products as $product) {
 			$product_info = $this->model_catalog_product->getProduct($product['product_id']);
 			if ($product_info) {
@@ -139,10 +140,12 @@ class ControllerAccountPurchaseHistory extends Controller {
 				);
 			} 
 		}
+		}
 		$order_total = sizeof($data['products']);
-		$p_list = array_chunk($data['products'],5);
-		$data['products'] = $p_list[$page-1];
-		
+		if($order_total > 0){
+			$p_list = array_chunk($data['products'],5);
+			$data['products'] = $p_list[$page-1];
+		}
 		$pagination = new Pagination();
 		$pagination->total = $order_total;
 		$pagination->page = $page;

@@ -258,7 +258,7 @@ class ControllerAccountLogin extends Controller {
 			}else{
 				$this->session->data['facebookdata']=$this->request->post;
 				//echo json_encode($this->session->data['facebook']);
-				$json["redirect"] = ($this->url->link('account/register', '', true));
+				$json["redirect"] = ($this->url->link('account/register/register_step2', '', true));
 			}
 		}
 		$this->response->addHeader('Content-Type: application/json');
