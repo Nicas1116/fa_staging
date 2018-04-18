@@ -25,7 +25,7 @@ if(isset($facebookdata)){
   $firstname = $facebookfirst = $first;
   $lastname = $facebooklast = $last;
   $register_email = $email = $facebookemail = $googledata["email"];
-  $register_password = $confirm = $password = $facebookpassword = substr($googleid,0,15);
+  $register_confirm = $register_password = $confirm = $password = $facebookpassword = substr($googleid,0,15);
   //echo $password;
 }
 ?>

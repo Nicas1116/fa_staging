@@ -105,9 +105,12 @@ class ControllerAccountRegister extends Controller {
 		if ($this->customer->isLogged()) {
 			$this->response->redirect($this->url->link('account/account', '', true));
 		}
-		if(!isset($this->session->data['register_email']) || !isset($this->session->data['register_password']) || !isset($this->session->data['register_confirm'])){
-			$this->response->redirect($this->url->link('account/register/register_step1'));
+		if(!isset($this->session->data['facebookdata']) && !isset($this->session->data['googledata'])){
+			if(!isset($this->session->data['register_email']) || !isset($this->session->data['register_password']) || !isset($this->session->data['register_confirm'])){
+				$this->response->redirect($this->url->link('account/register/register_step1'));
+			}
 		}
+		
 		$this->load->language('account/register');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -267,6 +270,15 @@ class ControllerAccountRegister extends Controller {
 				}
 			}
 		}
+
+		if (isset($this->session->data['facebookdata'])) {
+			$data["facebookdata"] = $this->session->data['facebookdata'];
+		}
+
+		if (isset($this->session->data['googledata'])) {
+			$data["googledata"] = $this->session->data['googledata'];
+		}
+
 		if (isset($this->session->data['register_email'])) {
 			$data["register_email"] = $this->session->data['register_email'];
 		}
