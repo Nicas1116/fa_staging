@@ -48,6 +48,17 @@
             }
           }
         }
+         $ison = false;
+        foreach ($products as $product) {
+         $product_options = $product["option"];
+         foreach ($product_options as $option) {
+            if($option["name"] == "Send As Gift"){
+              //$mkinga[$option["product_option_id"]] = $option["value"];
+               $disabletext="disabled";
+              $ison = true;
+            }
+          }
+        }
       ?>
         <li><input type="radio" name="deliverymethod" class="radio_dm" <?php echo $disabletext ?>><a class="btnmultipledelivery <?php echo $disabletext ?>"><strong>Multiple Address Delivery</strong>
           <span>Only available with purchase of 1 product in multiple quantities</span></a></li>

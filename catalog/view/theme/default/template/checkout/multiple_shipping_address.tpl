@@ -2,7 +2,7 @@
   .receiptbox{margin:30px 0;}
 </style>
 <form class="form-horizontal">
-  <h2>Delivery Infomation</h2>
+  <h2>Delivery Information</h2>
   <?php for ($i=0 ;$i<sizeof($a_products);$i++) { ?>
   <div class="receiptbox" id="recipent<?php echo ($i+1); ?>">
     <p class="receiptbtext">Recipient #<?php echo ($i+1); ?></p>
@@ -124,7 +124,7 @@
       <?php //echo json_encode($a_products[$i]["fullproduct_options"]); ?>
       
       <label><input type="checkbox" name="giftcardmessage_check" class="giftcardmessage_check form-control"  <?php if( $thevalueid==$coption["product_option_value_id"]){ echo "checked='checked'";} ?>>Gift card with message Rm<?php echo $theprice; ?></label>
-      <textarea name="giftcardmessage" placeholder="Insert your message here" rows="8" class="giftcardmessage" class="form-control" <?php if( $thevalueid!=$coption["product_option_value_id"]){ echo "disabled";} ?>></textarea>
+      <textarea name="giftcardmessage" placeholder="Write your message here" rows="8" class="giftcardmessage" class="form-control" <?php if( $thevalueid!=$coption["product_option_value_id"]){ echo "disabled";} ?>></textarea>
      <script type="text/javascript">
        $(document).ready(function(){
           $("#recipent<?php echo ($i+1); ?> .giftcardmessage_check").change(function(){
@@ -198,7 +198,7 @@
         <div class="col-xs-6 text-right shipping_cost"></div>
     </div>
      <div class="overall_shippingcost_text row" style="display: block;">
-        <div class="col-xs-12">Not Avaiable for Delivery</div>
+        <div class="col-xs-12">Not Available for Delivery</div>
      </div>
      <div class="row">
         <div class="col-xs-12"><a href="#" class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>

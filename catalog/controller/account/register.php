@@ -40,13 +40,15 @@ class ControllerAccountRegister extends Controller {
 			$data["googledata"] = $this->session->data['googledata'];
 			unset($this->session->data['googledata']);
 		}
-
-		if (isset($this->error['warning'])) {
+		
+		if (isset($this->session->data['warning_email_exists'])) {
+			$data['error_warning'] = $this->language->get('error_exists');
+		}else if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
 			$data['error_warning'] = '';
 		}
-
+		
 		if (isset($this->error['email'])) {
 			$data['error_email'] = $this->error['email'];
 		} else {

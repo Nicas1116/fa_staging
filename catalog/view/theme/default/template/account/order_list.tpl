@@ -42,6 +42,7 @@
                        </div>
                      <?php }}else if($order["order_status_id" ]==17){ ?>
                      <a href="<?php echo $order["payment"]; ?>" class="btnvieworder">Make Payment</a>
+                     <a href="<?php echo $order["remove"]; ?>" class="btnremoveorder">Remove Order</a>
                      <?php } ?>
               </div>
             </div>
@@ -54,13 +55,11 @@
       <?php } else { ?>
       <p class="emptytext"><?php echo $text_empty; ?></p>
       <?php } ?>
-      <div class="buttons clearfix">
-        <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
-      </div>
+
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
-<style type="text/css">#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
+<style type="text/css">#content{margin-bottom: 40px;}#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
 <style type="text/css">.category_image_small{margin-bottom: 0px;}
 .account-order .order_listing{padding: 0 9px;}
 .account-order .order_listing > .row{background: #fff;margin-bottom: 0px;}

@@ -24,6 +24,8 @@
              <p>By State 
               <select  class="state">
                 <option value="selangor">Selangor</option>
+               <option value="selangor">Selangor</option>
+                <option value="selangor">Selangor</option>
              </select>
              </p>
            </div>
@@ -70,7 +72,7 @@
    </section>	
 		<?php echo $column_right; ?></div>
 </div>
-<style type="text/css">#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
+<style type="text/css">.locateus_storeslist{}#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}.borderlo > div{padding: 0px;}</style>
 
  <?php // Jquery googlemap api v3?>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj2QuD0yW1Kk3t_lgToAQkbdjjpGHVYho&v=3.exp&sensor=false&language=en"></script>

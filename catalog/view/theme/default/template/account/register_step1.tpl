@@ -82,9 +82,6 @@
 <script type="text/javascript"></script>
 <script>
   $(document).ready(function(){
-    <?php if($hasfacebook) { ?>
-        openpersonal();
-    <?php } ?>
 
   })
   var gotclick = false;

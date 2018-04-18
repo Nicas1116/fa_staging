@@ -119,6 +119,8 @@ class ControllerAccountOrder extends Controller {
 				'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
 				'view'       => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true),
 				'payment'       => $this->url->link('maybankcc/payment', 'order_id=' . $result['order_id'], true),
+				'remove'       => $this->url->link('account/order/removeorder', 'order_id=' . $result['order_id']."&redirect=account/order", true)
+				
 			);
 		}
 
@@ -818,6 +820,28 @@ class ControllerAccountOrder extends Controller {
 			$data['header'] = $this->load->controller('common/header');
 
 			$this->response->setOutput($this->load->view('error/not_found', $data));
+		}
+	}
+
+	public function removeorder() {
+		$this->load->language('account/order');
+
+		if (isset($this->request->get['order_id'])) {
+			$order_id = $this->request->get['order_id'];
+		} else {
+			$order_id = 0;
+		}
+
+		$this->load->model('account/order');
+		$this->load->model('checkout/order');
+		$order_info = $this->model_checkout_order->addOrderHistory($order_id,0);
+
+		if ($order_info) {
+
+		}
+		if (isset($this->request->get['redirect'])) {
+			$redirect = $this->request->get['redirect'];
+			$this->response->redirect($this->url->link($redirect));
 		}
 	}
 

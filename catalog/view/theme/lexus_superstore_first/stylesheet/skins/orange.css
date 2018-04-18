@@ -8808,7 +8808,8 @@ textarea.form-control {
 .locateus_box,.locateus_store {
     position: relative;
     padding: 10px 40px 10px 20px;
-    border-bottom: solid 1px #cbcbcb
+    border-bottom: solid 1px #cbcbcb;
+    z-index:  999;
 }
 
 .locateus_box.active,.locateus_store.active {
@@ -8816,9 +8817,10 @@ textarea.form-control {
 }
 
 .locateus_storeslist {
-    position: absolute;
+    position: relative;
     height: 690px;
-    overflow: auto
+    overflow: auto;
+    z-index:  98;
 }
 
 .locateus_store h4 {
@@ -9365,9 +9367,20 @@ textarea.form-control {
 #content .product-view p i{font-size: 14px;line-height: 20px;color:#9b9b9b;font-weight: 600}
 #content .product-view p {font-size: 16px;line-height: 22px;color:#222222;font-weight: normal;}
 #product-related-box .text-center > p{font-size: 24px;line-height: 30px;color:#000000;margin-bottom: 20px;font-weight: bold;}
-
-.locateus_box select{border: solid 1px #4a90e2;padding: 10px 20px;border-radius: 20px;margin-left: 20px;}
+.order_listing .order_listing_detail > div a.btnremoveorder{color:#fff;}
+.btnremoveorder{    color: #fff;
+    text-align: center;
+    padding: 10px;   
+    background: #ff8d00;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+    display: inline-block;
+    margin: 0px 0;}
+.locateus_box select{border: solid 1px #4a90e2;padding: 7px 13px;border-radius: 20px;margin-left: 20px;}
 .offcanvas-heading .btn.btn-primary{background: transparent;color:#ff8d00;}
+.emptytext{text-align: center;font-size: 14px;line-height: 20px;padding: 20px;}
 @media screen and (max-width: 999px) {
   .locateus_storeslist{position: relative;}
   #contact-map{width: 100%;}

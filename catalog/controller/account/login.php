@@ -215,9 +215,14 @@ class ControllerAccountLogin extends Controller {
 				}
 				$json["redirect"] = ($this->url->link('account/account', '', true));
 			}else{
-				$this->session->data['googledata']=$this->request->post;
-				//echo json_encode($this->session->data['facebook']);
-				$json["redirect"] = ($this->url->link('account/register', '', true));
+				if ($this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])){
+					//$this->error['warning'] = $this->language->get('error_exists');
+					$this->session->data['warning_email_exists'] = "true";
+					$json["redirect"] = ($this->url->link('account/register/register_step1', '', true));
+				}else{
+					$this->session->data['googledata']=$this->request->post;
+					$json["redirect"] = ($this->url->link('account/register/register_step2', '', true));
+				}
 			}
 		}
 		$this->response->addHeader('Content-Type: application/json');
@@ -256,9 +261,17 @@ class ControllerAccountLogin extends Controller {
 				}
 				$json["redirect"] = ($this->url->link('account/account', '', true));
 			}else{
-				$this->session->data['facebookdata']=$this->request->post;
+				
+				
 				//echo json_encode($this->session->data['facebook']);
-				$json["redirect"] = ($this->url->link('account/register/register_step2', '', true));
+				if ($this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])){
+					//$this->error['warning'] = $this->language->get('error_exists');
+					$this->session->data['warning_email_exists'] = "true";
+					$json["redirect"] = ($this->url->link('account/register/register_step1', '', true));
+				}else{
+					$this->session->data['facebookdata']=$this->request->post;
+					$json["redirect"] = ($this->url->link('account/register/register_step2', '', true));
+				}
 			}
 		}
 		$this->response->addHeader('Content-Type: application/json');
