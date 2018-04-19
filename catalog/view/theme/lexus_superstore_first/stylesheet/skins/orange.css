@@ -8999,7 +8999,8 @@ textarea.form-control {
     background: #fff5e1;
     color: #4a4a4a;
     border-radius: 20px;
-    padding: 20px
+    padding: 20px;
+    margin-bottom:  20px;
 }
 
 .bline {
@@ -9380,6 +9381,7 @@ textarea.form-control {
     margin: 0px 0;}
 .locateus_box select{border: solid 1px #4a90e2;padding: 7px 13px;border-radius: 20px;margin-left: 20px;}
 .offcanvas-heading .btn.btn-primary{background: transparent;color:#ff8d00;}
+.addresses  .col-sm-4{display: inline-block;float: none;}
 .emptytext{text-align: center;font-size: 14px;line-height: 20px;padding: 20px;}
 @media screen and (max-width: 999px) {
   .locateus_storeslist{position: relative;}

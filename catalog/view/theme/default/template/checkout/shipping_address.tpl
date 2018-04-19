@@ -203,7 +203,7 @@
         <div class="col-xs-12">Not Avaiable for Delivery</div>
      </div>
          <div class="row">
-        <div class="col-xs-12"><a href="#" class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
+        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
      </div>
 </div>
    <div class="buttons clearfix">
@@ -390,4 +390,23 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
 });
 
 $('#collapse-shipping-address select[name=\'country_id\']').trigger('change');
+
 //--></script>
+<div id="delivery_zone" class="pagefix" style="display: none;">
+    <div class="pagefix_insidebox">
+      <div class="row"> <h1 class="pull-left">Delivery Zone</h1></div>
+      <a class="btn_closepagefix">Close <span><i class="fa fa-close"></i></span></a>
+   <?php echo $delivery_zone; ?>
+ </div>
+</div>
+<script type="text/javascript">
+  $("document").ready(function(){
+  $("#delivery_zone .btn_closepagefix").click(function(){
+    $("#delivery_zone").hide();
+  });
+  $(".opendeliverycharge").click(function(){
+    $("#delivery_zone").show();
+  });
+  
+});
+</script>

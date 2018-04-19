@@ -202,7 +202,6 @@ class ControllerAccountEdit extends Controller {
 		$this->load->model('account/custom_field');
 
 		$data['custom_fields'] = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
-
 		if (isset($this->request->post['custom_field'])) {
 			$data['account_custom_field'] = $this->request->post['custom_field'];
 		} elseif (isset($customer_info)) {
@@ -246,6 +245,10 @@ class ControllerAccountEdit extends Controller {
 		if((utf8_strlen($this->request->post['password']))>1){
 			if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
 				$this->error['password'] = $this->language->get('error_password');
+			}
+
+			if(!filter_var($this->request->post['password'], FILTER_VALIDATE_REGEXP,array('options' => array('regexp' => "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/")))) {
+				$this->error['password'] = "Password must be minimum six characters, at least one letter and one number";
 			}
 
 			if ($this->request->post['confirm'] != $this->request->post['password']) {

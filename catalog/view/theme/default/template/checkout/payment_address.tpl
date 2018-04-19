@@ -65,7 +65,7 @@
         </select>
       </div>
        <div class="col-sm-4">
-        <input type="text" name="postcode" value="" placeholder="<?php echo $entry_postcode; ?>" id="input-payment-postcode" class="form-control" />
+        <input type="text" name="postcode" value="" placeholder="<?php echo $entry_postcode; ?>" id="input-payment-postcode" class="form-control numberonly" />
       </div>
     </div>
 
@@ -86,7 +86,7 @@
     <?php foreach ($custom_fields as $custom_field) { ?>
     <?php if ($custom_field['location'] == 'address') { ?>
     <?php if ($custom_field['type'] == 'select') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <select name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control">
           <option value=""><?php echo $text_select; ?></option>
@@ -98,7 +98,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'radio') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>">
           <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
@@ -113,7 +113,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'checkbox') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>">
           <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
@@ -128,21 +128,21 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'text') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
-        <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
+        <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control numberonly" />
       </div>
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'textarea') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <textarea name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" rows="5" placeholder="<?php echo $custom_field['name']; ?>" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"><?php echo $custom_field['value']; ?></textarea>
       </div>
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'file') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <button type="button" id="button-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
         <input type="hidden" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" />
@@ -150,7 +150,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'date') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div class="input-group date">
           <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
@@ -161,7 +161,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'time') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div class="input-group time">
           <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
@@ -172,7 +172,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'datetime') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div class="input-group datetime">
           <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-payment-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
@@ -369,3 +369,9 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 
 $('#collapse-payment-address select[name=\'country_id\']').trigger('change');
 //--></script>
+
+<script type="text/javascript">
+  $(document).on("input", ".numberonly", function() {
+      this.value = this.value.replace(/\D/g,'');
+  });
+</script>

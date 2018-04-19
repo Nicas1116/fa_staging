@@ -115,6 +115,8 @@ class ControllerCheckoutShippingAddress extends Controller {
 			$data['comment'] = '';
 		}
 
+		$data['delivery_zone'] = $this->load->controller('information/shipping/delivery_zone');
+		
 		$this->response->setOutput($this->load->view('checkout/shipping_address', $data));
 	}
 

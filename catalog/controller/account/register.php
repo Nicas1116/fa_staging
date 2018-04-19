@@ -460,6 +460,10 @@ class ControllerAccountRegister extends Controller {
 			$this->error['password'] = $this->language->get('error_password');
 		}
 
+		if(!filter_var($this->request->post['password'], FILTER_VALIDATE_REGEXP,array('options' => array('regexp' => "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/")))) {
+			$this->error['password'] = "Password must be minimum six characters, at least one letter and one number";
+		}
+
 		if ($this->request->post['confirm'] != $this->request->post['password']) {
 			$this->error['confirm'] = $this->language->get('error_confirm');
 		}

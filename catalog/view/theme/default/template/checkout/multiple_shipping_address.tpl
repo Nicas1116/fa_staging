@@ -70,7 +70,7 @@
         </select>
       </div>
        <div class="col-sm-4">
-        <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" class="ship_postcode form-control" />
+        <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" class="ship_postcode form-control numberonly" />
       </div>
     </div>
     <div class="form-group required" style="display: none;">
@@ -90,7 +90,7 @@
     </div>
     <div class="form-group required custom-field">
       <div class="col-sm-12">
-        <input type="text" name="custom_field[1]" value="" placeholder="Contact No" id="input-shipping-custom-field1" class="form-control">
+        <input type="text" name="custom_field[1]" value="" placeholder="Contact No" id="input-shipping-custom-field1" class="form-control numberonly">
       </div>
     </div>
   </div>
@@ -201,7 +201,7 @@
         <div class="col-xs-12">Not Available for Delivery</div>
      </div>
      <div class="row">
-        <div class="col-xs-12"><a href="#" class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
+        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
      </div>
 </div>
  </div>
@@ -233,6 +233,9 @@
   </div>
 </div>
 <script type="text/javascript">
+  $(document).on("input", ".numberonly", function() {
+      this.value = this.value.replace(/\D/g,'');
+  });
   var textNo 
   $(document).ready(function(){
 
@@ -400,8 +403,13 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
   });
 });
 var creceiptno;
+var postcoderunning = false;
+var haserror =false;
+var currentdp =0;
+var totaldp = <?php echo sizeof($a_products); ?>;
 $('#collapse-shipping-address select[name=\'country_id\']').trigger('change');
 function postcodechange(receiptno) {
+  console.log(creceiptno);
   creceiptno = receiptno;
     $.ajax({
         url: 'index.php?route=checkout/multiple_shipping_address/getshippingethodcost',
@@ -413,17 +421,19 @@ function postcodechange(receiptno) {
         complete: function() {
         },
         success: function(json) {
+            $('#recipent'+creceiptno+' .alert,#recipent'+creceiptno+' .text-danger').remove();
             if (json['redirect']) {
                 location = json['redirect'];
             } else if (json['error']) {
+                haserror=true;
                 $('#button-shipping-address').button('reset');
 
                 if (json['error']['warning']) {
-                    $('#collapse-shipping-address .panel-body').prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $('#collapse-shipping-address #recipent'+creceiptno+' .panel-body').prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                 }
 
                 for (i in json['error']) {
-                    var element = $('#input-shipping-' + i.replace('_', '-'));
+                    var element = $('#recipent'+creceiptno+' #input-shipping-' + i.replace('_', '-'));
 
                     if ($(element).parent().hasClass('input-group')) {
                         $(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
@@ -447,9 +457,20 @@ function postcodechange(receiptno) {
                     $("#recipent"+creceiptno+" .overall_shippingcost .shipping_cost").html(json.pricetext);
                     $("#recipent"+creceiptno+" #shipping-method .ishipping_method").val(json.dcode);
                 }
-                getordersummary();
-
-        }
+                if(!postcoderunning){
+                  getordersummary();
+                }
+          }
+          if(postcoderunning){
+            console.log(currentdp+":"+totaldp);
+            if(currentdp < totaldp-1){
+              currentdp++;
+              postcodechange(currentdp+1);
+            }else{
+              postcoderunning=false;
+              finishsaveaddress();
+            }
+          }
         },
         error: function(xhr, ajaxOptions, thrownError) {
             console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -457,17 +478,16 @@ function postcodechange(receiptno) {
     });
 }
 
-
-$(document).delegate('#button-shipping-address', 'click', function() {
-   
-    for(var i =0;i<totalreceipnt;i++){
-       if($("#recipent"+i+" .overall_shippingcost .can_shipping").val()=="false"){return;}
-    }
-    var recipents = [];
-    for(var i =0;i<totalreceipnt;i++){
-        postcodechange((i+1));
-    }
-    $.ajax({
+function finishsaveaddress(){
+  if(!haserror){
+       for(var i =0;i<totalreceipnt;i++){
+         if($("#recipent"+(i+1)+" .overall_shippingcost .can_shipping").val()=="false"){
+          $('#collapse-shipping-address #recipent'+(i+1)+'').append('<div class="alert alert-warning">Delivery not available.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            $(window).scrollTop(0);return;
+          }
+      }
+      return;
+      $.ajax({
         url: 'index.php?route=checkout/multiple_shipping_address/save',
         type: 'post',
         dataType: 'html',
@@ -506,6 +526,16 @@ $(document).delegate('#button-shipping-address', 'click', function() {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
+  }else{
+    $(window).scrollTop(0)
+  }
+}
+
+$(document).delegate('#button-shipping-address', 'click', function() {
+    haserror=false
+    postcoderunning=true;
+    currentdp = 0;
+    postcodechange(currentdp+1);
 });
 
 function callsaveshipmethod(){
@@ -590,5 +620,26 @@ function finishpayment(){
         }
     });
 }
-
+$('#collapse-shipping-address select[name=\'country_id\']').trigger('change');//-->
 //--></script>
+
+
+</script>
+<div id="delivery_zone" class="pagefix" style="display: none;">
+    <div class="pagefix_insidebox">
+      <div class="row"> <h1 class="pull-left">Delivery Zone</h1></div>
+      <a class="btn_closepagefix">Close <span><i class="fa fa-close"></i></span></a>
+   <?php echo $delivery_zone; ?>
+ </div>
+</div>
+<script type="text/javascript">
+  $("document").ready(function(){
+  $("#delivery_zone .btn_closepagefix").click(function(){
+    $("#delivery_zone").hide();
+  });
+  $(".opendeliverycharge").click(function(){
+    $("#delivery_zone").show();
+  });
+  
+});
+</script>

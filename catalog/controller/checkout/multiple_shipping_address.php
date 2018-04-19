@@ -136,6 +136,8 @@
 				$data['comment'] = '';
 			}
 
+			$data['delivery_zone'] = $this->load->controller('information/shipping/delivery_zone');
+			
 			$this->response->setOutput($this->load->view('checkout/multiple_shipping_address', $data));
 		}
 
@@ -281,7 +283,6 @@
 			}
 			if (!$json) {
 				foreach ($this->session->data['shipping_address'] as $address) {
-					echo json_encode($address);
 					if (isset($address['shipping_address'.$address['recipent']]) && $address['shipping_address'.$address['recipent']] == 'existing') {
 						
 					}else{
@@ -320,6 +321,7 @@
 		}
 
 		public function getshippingethodcost(){
+			$this->load->language('checkout/checkout');
 			$json = array();
 			// Validate if customer is logged in.
 			if (!$this->customer->isLogged()) {
@@ -371,6 +373,73 @@
 							
 						}
 					}else{
+						if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
+							$json['error']['firstname'] = $this->language->get('error_firstname');
+						}
+
+						if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
+							$json['error']['lastname'] = $this->language->get('error_lastname');
+						}
+
+						if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
+							$json['error']['address_1'] = $this->language->get('error_address_1');
+						}
+
+						if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
+							$json['error']['city'] = $this->language->get('error_city');
+						}
+
+						$this->load->model('localisation/country');
+
+						$country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
+
+						if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
+							$json['error']['postcode'] = $this->language->get('error_postcode');
+						}
+
+						if ($this->request->post['country_id'] == '') {
+							$json['error']['country'] = $this->language->get('error_country');
+						}
+
+						if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '' || !is_numeric($this->request->post['zone_id'])) {
+							$json['error']['zone'] = $this->language->get('error_zone');
+						}
+
+						// Custom field validation
+						$this->load->model('account/custom_field');
+
+						$custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
+
+						foreach ($custom_fields as $custom_field) {
+							if (($custom_field['location'] == 'address') && $custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['custom_field_id']])) {
+								$json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+							} elseif (($custom_field['location'] == 'address') && ($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
+		                        $json['error']['custom_field' . $custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+		                    }
+						}
+
+						if (!$json) {
+							/*// Default Shipping Address
+							$this->load->model('account/address');
+
+							$address_id = $this->model_account_address->addAddress($this->request->post);
+
+							$this->session->data['shipping_address'] = $this->model_account_address->getAddress($address_id);
+
+							//unset($this->session->data['shipping_method']);
+							//unset($this->session->data['shipping_methods']);
+
+							if ($this->config->get('config_customer_activity')) {
+								$this->load->model('account/activity');
+
+								$activity_data = array(
+									'customer_id' => $this->customer->getId(),
+									'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+								);
+
+								$this->model_account_activity->addActivity('address_add', $activity_data);
+							}*/
+						}
 						$address = $this->request->post;	
 				}
 			}

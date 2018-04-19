@@ -101,7 +101,7 @@ if(isset($facebookdata)){
           <div class="form-group required">
             <label class="col-sm-12 control-label" for="input-telephone">Phone No.</label>
             <div class="col-sm-12">
-              <input type="tel" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
+              <input type="tel" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control numberonly" />
               <?php if ($error_telephone) { ?>
               <div class="text-danger"><?php echo $error_telephone; ?></div>
               <?php } ?>
@@ -322,7 +322,7 @@ if(isset($facebookdata)){
           <div class="form-group col-sm-4 required">
             <label class="col-sm-12 control-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
             <div class="">
-              <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-postcode" class="form-control" />
+              <input type="text" name="postcode" value="<?php echo $postcode; ?>" maxlength="5" placeholder="<?php echo $entry_postcode; ?>" id="input-postcode" class="form-control numberonly" />
               <?php if ($error_postcode) { ?>
               <div class="text-danger"><?php echo $error_postcode; ?></div>
               <?php } ?>
@@ -406,7 +406,7 @@ if(isset($facebookdata)){
           <div id="custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-group col-sm-12 custom-field">
             <label class="col-sm-12 control-label" for="input-custom-field<?php echo $custom_field['custom_field_id']; ?>"><?php echo $custom_field['name']; ?></label>
             <div class="">
-              <input type="text" name="custom_field[<?php echo $custom_field['location']; ?>][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($register_custom_field[$custom_field['custom_field_id']]) ? $register_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
+              <input type="text" name="custom_field[<?php echo $custom_field['location']; ?>][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($register_custom_field[$custom_field['custom_field_id']]) ? $register_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control numberonly" />
               <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
               <div class="text-danger"><?php echo $error_custom_field[$custom_field['custom_field_id']]; ?></div>
               <?php } ?>
@@ -706,6 +706,30 @@ $('select[name=\'country_id\']').on('change', function() {
 });
 
 $('select[name=\'country_id\']').trigger('change');
+$(document).on("input", ".numberonly", function() {
+    this.value = this.value.replace(/\D/g,'');
+});/*
+$(".numberonly").keyup(function(e){
+ 
+  if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+         // Allow: Ctrl+A
+        (e.keyCode == 65 && e.ctrlKey === true) || 
+         // Allow: home, end, left, right
+        (e.keyCode >= 35 && e.keyCode <= 39)) {
+             // let it happen, don't do anything
+             return;
+    }
+
+    var charValue = String.fromCharCode(e.keyCode);
+    console.log(charValue);
+    var valid = /^[0-9]+$/.test(charValue);
+         
+    if (!valid) {
+      console.log("TEST"+valid); console.log(e);
+        e.preventDefault();
+        e.stopImmediatePropagation();
+    }
+})*/
 //--></script>
 
 <?php echo $footer; ?>

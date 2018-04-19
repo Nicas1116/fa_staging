@@ -16,13 +16,18 @@
 			$data['column_right'] = $this->load->controller('common/column_right');
 			$data['content_top'] = $this->load->controller('common/content_top');
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
+			$data['delivery_zone'] = $this->load->controller('information/shipping/delivery_zone');
+			
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
 			$data['active'] = 'faqs';
 			$data['block'] = [9];
 			$this->response->setOutput($this->load->view('information/shipping', $data));
 		}
-
+		public function delivery_zone() {
+			$data=array();
+			return $this->load->view('information/shipping_block', $data);
+		}
 		public function menu() {
 			$data['block'] = [3];
 			$data['active'] = 'shipping';
