@@ -9451,4 +9451,15 @@ textarea.form-control {
 .order_listing .order_listing_detail .order_listing_status > a.btnvieworder{display: block;}
 #product .form-group .form-control{width: auto;}
 #topbar .fa{font-size: 20px;}
+.giftboxmessage{width: 100%;}
+.deliverymethods li, .thebox ul{width: 100%;margin-bottom: 20px;}
+#content .row .cart_products_list > .row{margin-bottom: 20px;}
+.btn-remove-item{position: absolute;top:10px;right: 10px;}
+.cart_products_list .boxq{margin-left: 9px;margin-top: 5px;margin-bottom: 5px;}
+.subtotal_box_container{clear:both;}
+.cart_products_list .subtotal_box{padding-left: 0px;}
+.allgiftbox{padding-left: 0%;}
+.form-subscribe #formNewLestter .input-group{width: auto;}
+.paboutus img{width: auto;max-width: 100%;}
+#page .fa_aboutus_grey .container{padding-bottom:300px;background-size: auto 300px;background-position: right bottom;padding-left: 9px;padding-right: 9px;}
 }

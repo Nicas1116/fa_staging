@@ -14,7 +14,7 @@
   <div class="row">
   	 <section id="sidebar-main" class="col-md-12"><div id="content" class="paboutus">
       <div class="row">
-        <div class="col-xs-8">
+        <div class="col-lg-8 col-md-8 col-xs-12">
   	<h2>About Us</h2>
     <h3> The Famous Amos Cookie Story</h3>
     <p>Over the years, millions have slaved over the hot stoves trying to recapture the sensational taste created on that glorious day in Lowell, Massachusetts. But not until 1970, when Wally Amos started to bake his secret recipe, has any chocolate chip cookie been so thoroughly authentic and delicious at the same time. </p>
@@ -23,7 +23,7 @@
     <p>Today we carry on the traditions of our founder-baker. We still use the original recipes and the finest ingredients. Our cookies are bite sized and crunchy; they’re delicious! And Famous.</p>
     <p>So enjoy these “Famous Amos” chocolate chip cookies at your nearest Hot-baked Store!</p>
     <p>Have A Brown Day Always!</p>
-      </div><div class="col-xs-4">
+      </div><div class="col-lg-4 col-md-4 col-xs-12">
           <img src="/fa/staging/image/others/fa_aboutus.jpg"/>
       </div></div>
 </div></section>
@@ -33,14 +33,14 @@
     <div class="container">
       <h3>Famous Amos Malaysia</h3>
           <div class="row">
-        <div class="col-xs-4">
+        <div class="col-lg-4 col-md-4 col-xs-12">
           <p>Famous Amos was incorporated in Malaysia as a private limited company under the Companies Act, 1965 on 9 November 1983. It is the franchise holder of "THE FAMOUS AMOS C.C.C.C.(M) SDN BHD" in Malaysia. It was acquired by DKSH Holdings (Malaysia) Berhad in January 1997.</p>
           <p>Its first Hot-baked store was opened in Sungei Wang Plaza and officiated by the founder himself, Wally Amos on November 30, 1984. Today, it operates over 60 successful Hot-baked stores in shopping malls and airports in Malaysia.</p>
         </div>
-         <div class="col-xs-4">
+         <div class="col-lg-4 col-md-4 col-xs-12">
           <p>Currently, there are nine varieties of chocolate chip cookies which are freshly baked throughout the day in each of this Hot-baked store. By using the best ingredients, like semi-sweet chocolate chips and flavorful nuts, these homemade tasting cookies became famous just by word of mouth. The "Free Smell" from our Hot-baked store has been an irresistible aroma of our freshly baked cookies to be enjoyed by true cookie lovers everywhere.</p>
         </div>
-         <div class="col-xs-4">
+         <div class="col-lg-4 col-md-4 col-xs-12">
           <p>We have also introduce "Soft & Chewy Cookies" with variety of flavor for cookies lovers who indulge in freshly baked soft cookies . Muffins, Brownies, Chocolate, Confectionery pick and mix are complimentary products commonly found in Famous Amos outlets. Readily packed and customized gifts hampers are also ever available. </p>
         </div>
       </div>
@@ -50,7 +50,7 @@
     <div class="container">
         <h3>Gifts For All Occasion </h3>
          <div class="row">
-        <div class="col-xs-6">
+        <div class="col-lg-6 col-md-6 col-xs-12">
           <p>Famous Amos has been transformed to a cookies boutique with a selected range of cookies gift tins and wide variety of gift packaging. All gift packaging are also complimented with selected imported chocolates and premium mugs which are creatively packed into unique gifts.</p>
           <p>Our exclusive hampers are always available throughout the year and festival hampers for Chinese New Year, Hari Raya, Deepavali and Christmas.</p>
           <p>We cater for all private and corporate functions for occasions such as parties, picnics, dinners and social gatherings of all kinds.</p>

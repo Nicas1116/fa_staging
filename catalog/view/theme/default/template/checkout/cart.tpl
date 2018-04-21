@@ -70,11 +70,13 @@
                     //echo json_encode($product);
                    ?>
               <div class="row cart-id-<?php echo $product['cart_id'] ?>">
-                <div class="col-xs-1 text-center"><button type="button" onclick="cart.remove('<?php echo $product['cart_id']; ?>');" title="<?php echo $button_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></div>
-                <div class="col-xs-2 text-left"><?php if ($product['thumb']) { ?>
+                <div class="col-lg-1 text-center hidden-xs"><button type="button" onclick="cart.remove('<?php echo $product['cart_id']; ?>');" title="<?php echo $button_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></div>
+                <div class="col-lg-2 text-left"><?php if ($product['thumb']) { ?>
                   <a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-thumbnail" /></a>
-                  <?php } ?></div>
-                <div class="col-xs-4 text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
+                  <?php } ?>
+                  <button type="button" onclick="cart.remove('<?php echo $product['cart_id']; ?>');" title="<?php echo $button_remove; ?>" class="btn-remove-item btn btn-danger btn-xs hidden-lg hidden-md"><i class="fa fa-trash"></i></button>
+                </div>
+                <div class="col-lg-4 text-left col-xs-8"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
                   <?php if (!$product['stock']) { ?>
                   <span class="text-danger">***</span>
                   <?php } ?>
@@ -91,12 +93,14 @@
                   <br />
                   <span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>
                   <?php } ?></div>
-                  <div class="col-xs-2 text-left">Price<br/><?php echo $product['price']; ?></div>
-               <div class="col-xs-1 text-left"><div class="boxq"><a class="btn_minproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']-1; ?>);">-</a><span><?php echo $product['quantity']; ?></span><a class="btn_addproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']+1; ?>);">+</a></div></div>
+                  <div class="col-lg-2 text-left col-xs-4">Price<br/><?php echo $product['price']; ?></div>
+               <div class="col-lg-1 text-left"><div class="boxq"><a class="btn_minproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']-1; ?>);">-</a><span><?php echo $product['quantity']; ?></span><a class="btn_addproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']+1; ?>);">+</a></div></div>
                   
-                <div class="col-xs-2 text-left"><div class="subtotal_box">Subtotal<br/><p class="oriprice"><?php echo str_replace("RM","",$product['total']); ?></p><p class="item_subtotalprice"><?php echo $product['total']; ?></p></div></div>
-                <p class="clearfix"></p>
-                 <div class="col-xs-12 text-left">
+
+                <div class="col-lg-2 text-left col-xs-12  col-xs-4 col-xs-push-8 subtotal_box_container"><div class="subtotal_box">Subtotal<br/><p class="oriprice"><?php echo str_replace("RM","",$product['total']); ?></p><p class="item_subtotalprice"><?php echo $product['total']; ?></p></div></div>
+                
+
+                 <div class="col-lg-12 text-left col-xs-12" style="clear:both;">
                   <?php 
                   $fullproduct_options = $product["fullproduct_options"];
                   $product_options = $product["option"];
