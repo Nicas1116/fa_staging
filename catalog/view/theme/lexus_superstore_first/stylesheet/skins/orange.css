@@ -9383,6 +9383,60 @@ textarea.form-control {
 .offcanvas-heading .btn.btn-primary{background: transparent;color:#ff8d00;}
 .addresses  .col-sm-4{display: inline-block;float: none;}
 .emptytext{text-align: center;font-size: 14px;line-height: 20px;padding: 20px;}
+#offcanvassubmenu .panel-body{padding: 0px;}
+#offcanvassubmenu h2{padding-left:15px;}
+#offcanvassubmenu{
+      background-color: #ffffff;
+      border: 2px solid #fb5a29;
+      padding: 0;
+      margin-top:  20px;
+}
+#offcanvassubmenu ul{
+      margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+        margin: 0!important;
+    float: none;
+}
+#offcanvassubmenu ul > li{
+      border-bottom: 1px solid #e0e0e0;
+    float: none;
+        margin: 0!important;
+}
+#offcanvassubmenu ul > li > a{
+      position: relative;
+    display: block;
+    padding: 10px 15px;
+        line-height: 26px;
+}
+#offcanvassubmenurefine p{padding-left: 15px;margin:  0px;padding: 10px 20px;margin-left: -5px;}
+#offcanvassubmenurefine{
+      background-color: #ffffff;
+      border: 2px solid #fb5a29;
+      padding: 0;
+      margin-top:  20px;
+}
+#offcanvassubmenurefine ul{
+      margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+        margin: 0!important;
+    float: none;
+}
+#offcanvassubmenurefine ul > li{
+      border-bottom: 1px solid #e0e0e0;
+    float: none;
+        margin: 0!important;
+}
+#offcanvassubmenurefine ul > li > a{
+      position: relative;
+    display: block;
+    padding: 10px 15px;
+        line-height: 26px;
+}
+#offcanvassubmenurefine{display: none;}
+ .page-category #offcanvassubmenurefine{display: block;}
+
 @media screen and (max-width: 999px) {
   .locateus_storeslist{position: relative;}
   #contact-map{width: 100%;}
@@ -9390,7 +9444,7 @@ textarea.form-control {
 #topbar .canvas-menu{background:transparent;color:#fff;padding: 10px 20px;border: none;margin-top: 0px;text-align:  center;}
 #topbar .homelogo img.logo{width: 100%;}
 #cart .thecarttext{line-height: 1;width: 100px;position:  absolute;right: 20px;top: 10px;}
-.shopping-cart #cart .thecartside{min-width: 325px;}
+.shopping-cart #cart .thecartside{min-width: 345px;}
 #cart .thecarttext .links{float: right;}
 #offcanvasmenu .mega-col-inner ul{float: none;width: 100%;}
 .pavo-widget .widget-inner img{margin-bottom: 20px;}
@@ -9462,4 +9516,6 @@ textarea.form-control {
 .form-subscribe #formNewLestter .input-group{width: auto;}
 .paboutus img{width: auto;max-width: 100%;}
 #page .fa_aboutus_grey .container{padding-bottom:300px;background-size: auto 300px;background-position: right bottom;padding-left: 9px;padding-right: 9px;}
+ .accountlefmenu{display: none;}
+ .info_leftmenu{display: none;}
 }

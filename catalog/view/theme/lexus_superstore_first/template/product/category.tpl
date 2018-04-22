@@ -14,7 +14,7 @@
    <div id="sidebar-main" class="col-md-<?php echo $SPAN[1];?>">
     <div id="content"><?php echo $content_top; ?>
       <div class="row">
-        <div class="col-lg-3 col-md-3 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-xs-12 hidden-xs">
         <?php if ($categories) { ?>
 	   <div class="subcategories refine-search panel panel-default box white">
 			  <div class="panel-body category-list clearfix box-content">  
@@ -55,9 +55,9 @@
    
       <?php } else { ?>
       <div class="content"><div class="wrapper"><?php echo $text_empty; ?></div></div>
-        <div class="buttons">
+        <!--<div class="buttons">
           <div class="right"><a href="<?php echo $continue; ?>" class="button btn btn-default"><?php echo $button_continue; ?></a></div>
-        </div>
+        </div>-->
         <?php } ?>
 </div>
       
