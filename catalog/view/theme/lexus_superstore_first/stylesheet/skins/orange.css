@@ -1132,7 +1132,7 @@ border-bottom: 1px solid #dcdcdc;
 background-image: url(/fa/staging/image/others/thbg.png);
 background-repeat:  no-repeat;
 background-position:  center;
-background-size:  auto 100%;
+background-size:  cover;
 }
 /* line 129, D:\xampp\htdocs\demo\lexus_superstore_demo22\catalog\view\theme\lexus_superstore_first\development\less\opencart\layout.less */
 #topbar b,
@@ -9302,6 +9302,8 @@ textarea.form-control {
 .registerpage .succesmessage{font-size: 15px;line-height: 20px;margin: 30px 0 30px;}
 .registerpage .succesmessage h2{font-weight: 600;text-align: center;}
 .paboutus h2{font-size: 15px;line-height: 20px;margin-bottom: 10px;font-weight: bold;}
+.paboutus img{max-width: 100%;}
+.paboutus .fa_aboutusimg{position: absolute;bottom:0px;right: 0px;width: 400px}
 .fa_aboutus_grey h3,.fa_aboutus_orange h3,.paboutus h3{font-size: 35px;line-height: 40px;margin-bottom: 10px;font-weight: bold;margin-top: 0px;text-transform: capitalize;}
 .fa_aboutus_grey p,.fa_aboutus_orange p, .paboutus p{font-size: 15px;line-height: 20px;font-weight: normal;}
 .promtion-block .product-block{background:transparent;}
@@ -9438,6 +9440,7 @@ textarea.form-control {
  .page-category #offcanvassubmenurefine{display: block;}
 
 @media screen and (max-width: 999px) {
+	.paboutus .fa_aboutusimg{position: relative;bottom:auto;right: auto;width: auto;display: block;margin:0 auto;}
   .locateus_storeslist{position: relative;}
   #contact-map{width: 100%;}
   #topbar{min-height: 1px;}
@@ -9455,8 +9458,8 @@ textarea.form-control {
 #header-main .inner{margin-top: 5px;}
 #header-bottom span.hasborderleft,#header-bottom span.hasborderright{border-right: none;border-left: none;text-align:  center;}
 #header-bottom span{height: auto;display:  block;overflow:  hidden;margin: 10px 0;padding:  0px;}
-#header-bottom span span{width: auto;display: inline-block;height: auto;text-align:  left;}
-#header-bottom span img{width: auto;display: inline-block;margin-top: -30px;margin-right:  10px;}
+#header-bottom span span{width: auto;display: inline-block;height: auto;text-align:  left;width: 70%;margin: 0px;vertical-align: middle;}
+#header-bottom span img{width: auto;display: inline-block;margin-top: 0px;margin-right:  10px;}
 .product-filter{margin-top: 10px;}
 .homepage_sidemenu  {display: none;}
 .dtitle1{width: auto!important;height: auto!important;}
@@ -9510,12 +9513,14 @@ textarea.form-control {
 #content .row .cart_products_list > .row{margin-bottom: 20px;}
 .btn-remove-item{position: absolute;top:10px;right: 10px;}
 .cart_products_list .boxq{margin-left: 9px;margin-top: 5px;margin-bottom: 5px;}
-.subtotal_box_container{clear:both;}
+.subtotal_box_container{clear:both;margin-left: 66.66%}
 .cart_products_list .subtotal_box{padding-left: 0px;}
 .allgiftbox{padding-left: 0%;}
 .form-subscribe #formNewLestter .input-group{width: auto;}
 .paboutus img{width: auto;max-width: 100%;}
 #page .fa_aboutus_grey .container{padding-bottom:300px;background-size: auto 300px;background-position: right bottom;padding-left: 9px;padding-right: 9px;}
  .accountlefmenu{display: none;}
+ .loginpage .btn-register{width: auto;}
+ .common-home .newsletter_block .inputNew,.common-home .newsletter_block .button_mini{border-radius: 30px!important;margin-top:  0px;padding:  10px;height:  auto;}
  .info_leftmenu{display: none;}
 }

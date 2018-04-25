@@ -1,5 +1,5 @@
 <form class="form-horizontal ">
-   <h2>Billing Infomation</h2>
+   <h2>Billing Information</h2>
    <div class="row pa_address_p">
   <div class="radio">
     <label>
@@ -36,10 +36,10 @@
   <div id="payment-new" style="display: <?php echo ($addresses ? 'block' : 'none'); ?>;">
     <div class="form-group required">
       <div class="col-sm-6">
-        <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-payment-firstname" class="form-control" />
+        <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-payment-firstname" class="form-control alphabets-only" />
       </div>
       <div class="col-sm-6">
-        <input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-payment-lastname" class="form-control" />
+        <input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-payment-lastname" class="form-control alphabets-only" />
       </div>
     </div>
     <div class="form-group">
@@ -240,6 +240,14 @@ $('input[name=\'payment_address\']').on('change', function() {
 //--></script>
 <script type="text/javascript"><!--
 // Sort the custom fields
+$(document).ready(function(){
+    $(".alphabets-only").keypress(function(e) {
+        var key = e.keyCode;
+        if (key >= 48 && key <= 57) {
+            e.preventDefault();
+        }
+    });
+  })
 $('#collapse-payment-address .form-group[data-sort]').detach().each(function() {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#collapse-payment-address .form-group').length-2) {
 		$('#collapse-payment-address .form-group').eq(parseInt($(this).attr('data-sort'))+2).before(this);

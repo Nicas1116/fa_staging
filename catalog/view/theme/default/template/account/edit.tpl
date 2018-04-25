@@ -22,7 +22,7 @@
           <div class="form-group required">
             <label class="col-sm-12 control-label" for="input-firstname"><?php echo $entry_firstname; ?> </label>
             <div class="col-sm-12">
-              <input type="text" name="firstname" value="<?php echo $firstname; ?>" placeholder="<?php echo $entry_firstname; ?>" id="input-firstname" class="form-control" />
+              <input type="text" name="firstname" value="<?php echo $firstname; ?>" placeholder="<?php echo $entry_firstname; ?>" id="input-firstname" class="form-control alphabets-only" />
               <?php if ($error_firstname) { ?>
               <div class="text-danger"><?php echo $error_firstname; ?></div>
               <?php } ?>
@@ -33,7 +33,7 @@
           <div class="form-group required">
             <label class="col-sm-12 control-label" for="input-lastname"><?php echo $entry_lastname; ?></label>
             <div class="col-sm-12">
-              <input type="text" name="lastname" value="<?php echo $lastname; ?>" placeholder="<?php echo $entry_lastname; ?>" id="input-lastname" class="form-control" />
+              <input type="text" name="lastname" value="<?php echo $lastname; ?>" placeholder="<?php echo $entry_lastname; ?>" id="input-lastname" class="form-control alphabets-only" />
               <?php if ($error_lastname) { ?>
               <div class="text-danger"><?php echo $error_lastname; ?></div>
               <?php } ?>
@@ -53,7 +53,7 @@
           <div class="form-group required">
             <label class="col-sm-12 control-label" for="input-telephone">Phone No.</label>
             <div class="col-sm-12">
-              <input type="tel" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
+              <input type="tel" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" maxlength="12" pattern=".{3,12}"/>
               <?php if ($error_telephone) { ?>
               <div class="text-danger"><?php echo $error_telephone; ?></div>
               <?php } ?>
@@ -252,6 +252,14 @@
 </div>
 <script type="text/javascript"><!--
 // Sort the custom fields
+$(document).ready(function(){
+  $(".alphabets-only").keypress(function(e) {
+      var key = e.keyCode;
+      if (key >= 48 && key <= 57) {
+          e.preventDefault();
+      }
+  });
+})
 $('.form-group[data-sort]').detach().each(function() {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length) {
 		$('.form-group').eq($(this).attr('data-sort')).before(this);

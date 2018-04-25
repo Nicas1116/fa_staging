@@ -6,9 +6,9 @@ $_['heading_title']        = 'Address Book';
 $_['text_account']         = 'Account';
 $_['text_address_book']    = 'Address Book Entries';
 $_['text_edit_address']    = 'Edit Address';
-$_['text_add']             = 'Your address has been successfully inserted';
-$_['text_edit']            = 'Your address has been successfully updated';
-$_['text_delete']          = 'Your address has been successfully deleted';
+$_['text_add']             = 'Your address has been added successfully';
+$_['text_edit']            = 'Your address has been updated successfully ';
+$_['text_delete']          = 'Your address has been deleted successfully ';
 $_['text_empty']           = 'You have no addresses in your account.';
 
 // Entry

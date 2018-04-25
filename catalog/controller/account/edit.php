@@ -242,12 +242,12 @@ class ControllerAccountEdit extends Controller {
 		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
-		if((utf8_strlen($this->request->post['password']))>1){
+		if((utf8_strlen($this->request->post['password']))>0){
 			if ((utf8_strlen($this->request->post['password']) < 4) || (utf8_strlen($this->request->post['password']) > 20)) {
 				$this->error['password'] = $this->language->get('error_password');
 			}
 
-			if(!filter_var($this->request->post['password'], FILTER_VALIDATE_REGEXP,array('options' => array('regexp' => "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/")))) {
+			if(!filter_var($this->request->post['password'], FILTER_VALIDATE_REGEXP,array('options' => array('regexp' => "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{0,20}$/")))) {
 				$this->error['password'] = "Password must be minimum six characters, at least one letter and one number";
 			}
 

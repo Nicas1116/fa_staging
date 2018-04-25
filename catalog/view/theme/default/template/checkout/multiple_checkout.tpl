@@ -1,12 +1,12 @@
 <?php echo $header; ?>
-<div class="container" data-sticky-container>
+<div class="container">
   <?php if ($error_warning) { ?>
   <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
     <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
   <?php } ?>
-  <div class="checkoutpage row" >
-    <div id="content" class="<?php //echo $class; ?>"><?php echo $content_top; ?>
+  <div class="checkoutpage row"  >
+    <div id="content" class="<?php //echo $class; ?>" data-sticky_parent><?php echo $content_top; ?>
         <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
       <ul class="step_title row">
@@ -37,8 +37,8 @@
         </div>
   </div>
    <!--<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 ">&nbsp;</div>-->
-       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 " >
-        <div id="cart_ordersummary" data-margin-top="20">
+       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" data-sticky-container>
+        <div id="cart_ordersummary" data-sticky_column class="tall">
             <?php echo $order_summary; ?>
                 </div>
             </div>
@@ -63,9 +63,10 @@ $(document).on('change', 'input[name=\'account\']', function() {
         }
     }
 });
- var sticky = new Sticky('#cart_ordersummary');
+ var sticky
 <?php if (!$logged) { ?>
 $(document).ready(function() {
+
      getordersummary();
     $.ajax({
         url: 'index.php?route=checkout/login',
@@ -211,6 +212,7 @@ $(document).delegate('#button-payment-address', 'click', function() {
                         $('#collapse-shipping-method').parent().find('.panel-heading .panel-title').html('<?php echo $text_checkout_shipping_method; ?>');
                         $('#collapse-payment-method').parent().find('.panel-heading .panel-title').html('<?php echo $text_checkout_payment_method; ?>');
                         $('#collapse-checkout-confirm').parent().find('.panel-heading .panel-title').html('<?php echo $text_checkout_confirm; ?>');
+                        $("#cart_ordersummary").parent().css("height",$("#cart_ordersummary").parent().parent().height())
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

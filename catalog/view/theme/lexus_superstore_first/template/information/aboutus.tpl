@@ -23,9 +23,7 @@
     <p>Today we carry on the traditions of our founder-baker. We still use the original recipes and the finest ingredients. Our cookies are bite sized and crunchy; they’re delicious! And Famous.</p>
     <p>So enjoy these “Famous Amos” chocolate chip cookies at your nearest Hot-baked Store!</p>
     <p>Have A Brown Day Always!</p>
-      </div><div class="col-lg-4 col-md-4 col-xs-12">
-          <img src="/fa/staging/image/others/fa_aboutus.jpg"/>
-      </div></div>
+      </div><img class="fa_aboutusimg" src="/fa/staging/image/others/fa_aboutus.jpg"/></div>
 </div></section>
   </div>
 </div>

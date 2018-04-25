@@ -97,7 +97,7 @@
                <div class="col-lg-1 text-left"><div class="boxq"><a class="btn_minproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']-1; ?>);">-</a><span><?php echo $product['quantity']; ?></span><a class="btn_addproucts" onclick="cart.update('<?php echo $product['cart_id']; ?>',<?php echo $product['quantity']+1; ?>);">+</a></div></div>
                   
 
-                <div class="col-lg-2 text-left col-xs-12  col-xs-4 col-xs-push-8 subtotal_box_container"><div class="subtotal_box">Subtotal<br/><p class="oriprice"><?php echo str_replace("RM","",$product['total']); ?></p><p class="item_subtotalprice"><?php echo $product['total']; ?></p></div></div>
+                <div class="col-lg-2 text-left col-xs-12  col-xs-4 subtotal_box_container"><div class="subtotal_box">Subtotal<br/><p class="oriprice"><?php echo str_replace("RM","",$product['total']); ?></p><p class="item_subtotalprice"><?php echo $product['total']; ?></p></div></div>
                 
 
                  <div class="col-lg-12 text-left col-xs-12" style="clear:both;">

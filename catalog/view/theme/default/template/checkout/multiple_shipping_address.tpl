@@ -40,10 +40,10 @@
   <div id="shipping-new">
     <div class="form-group required">
       <div class="col-sm-6">
-        <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-shipping-firstname" class="form-control" />
+        <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-shipping-firstname" class="form-control alphabets-only" />
       </div>
        <div class="col-sm-6">
-        <input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-shipping-lastname" class="form-control" />
+        <input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-shipping-lastname" class="form-control alphabets-only" />
       </div>
     </div>
 
@@ -70,7 +70,7 @@
         </select>
       </div>
        <div class="col-sm-4">
-        <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" class="ship_postcode form-control numberonly" />
+        <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" maxlength="5" class="ship_postcode form-control numberonly" />
       </div>
     </div>
     <div class="form-group required" style="display: none;">
@@ -233,6 +233,14 @@
   </div>
 </div>
 <script type="text/javascript">
+  $(document).ready(function(){
+    $(".alphabets-only").keypress(function(e) {
+        var key = e.keyCode;
+        if (key >= 48 && key <= 57) {
+            e.preventDefault();
+        }
+    });
+  })
   $(document).on("input", ".numberonly", function() {
       this.value = this.value.replace(/\D/g,'');
   });
@@ -482,7 +490,8 @@ function finishsaveaddress(){
   if(!haserror){
        for(var i =0;i<totalreceipnt;i++){
          if($("#recipent"+(i+1)+" .overall_shippingcost .can_shipping").val()=="false"){
-          $('#collapse-shipping-address #recipent'+(i+1)+'').append('<div class="alert alert-warning">Delivery not available.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+          //$('#collapse-shipping-address #recipent'+(i+1)+'').prepend('<div class="alert alert-warning">Delivery not available.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+          $('#collapse-shipping-address .panel-body').prepend('<div class="alert alert-danger">One of the receipt address is not deliverable.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
             $(window).scrollTop(0);return;
           }
       }

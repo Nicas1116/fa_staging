@@ -1,5 +1,5 @@
 <form class="form-horizontal">
-  <h2>Delivery Infomation</h2>
+  <h2>Delivery Information</h2>
     <div class="row pa_address_p">
   <div class="radio">
     <label>
@@ -33,10 +33,10 @@
   <div id="shipping-new">
     <div class="form-group required">
       <div class="col-sm-6">
-        <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-shipping-firstname" class="form-control" />
+        <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-shipping-firstname" class="form-control alphabets-only" />
       </div>
        <div class="col-sm-6">
-        <input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-shipping-lastname" class="form-control" />
+        <input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-shipping-lastname" class="form-control alphabets-only" />
       </div>
     </div>
 
@@ -200,7 +200,7 @@
         <div class="col-xs-6 text-right shipping_cost"></div>
     </div>
      <div class="overall_shippingcost_text row" style="display: block;">
-        <div class="col-xs-12">Not Avaiable for Delivery</div>
+        <div class="col-xs-12">Not Available for Delivery</div>
      </div>
          <div class="row">
         <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
@@ -250,6 +250,16 @@
 </script>
 <?php } ?>
 <script type="text/javascript"><!--
+
+$(document).ready(function(){
+    $(".alphabets-only").keypress(function(e) {
+        var key = e.keyCode;
+        if (key >= 48 && key <= 57) {
+            e.preventDefault();
+        }
+    });
+  })
+  
 $('input[name=\'shipping_address\']').on('change', function() {
 	if (this.value == 'new') {
 		$('#shipping-existing').hide();
