@@ -29,7 +29,7 @@
               <b><?php echo $text_order_id; ?></b>#<?php echo $order_id; ?>
               </div>
           <div class="col-sm-2"><b><?php echo $text_date_added; ?></b> <?php echo $date_added; ?></div>
-          <div class="col-sm-2"><b>Order Total</b><?php echo $totals[2]["text"]; ?></div>
+          <div class="col-sm-2"><b>Order Total</b><?php echo $totals[sizeof($totals)-1]["text"]; ?></div>
           <div class="col-sm-3"><b>Status</b><?php echo $full_order_info["order_status"]; ?></div>
           <div class="col-sm-3 trackinglinks"><?php if($full_order_info["order_status_id" ]==5){$i=0;foreach ($trackinglist as $comment) { ?>
                        <div class="row">

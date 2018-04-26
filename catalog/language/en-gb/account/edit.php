@@ -20,5 +20,5 @@ $_['error_exists']                = 'Warning: E-Mail address is already register
 $_['error_firstname']             = 'First Name must be between 1 and 32 characters!';
 $_['error_lastname']              = 'Last Name must be between 1 and 32 characters!';
 $_['error_email']                 = 'E-Mail Address does not appear to be valid!';
-$_['error_telephone']             = 'Telephone must be between 3 and 32 characters!';
+$_['error_telephone']             = 'Telephone must be between 9 and 12 characters!';
 $_['error_custom_field']          = '%s required!';
