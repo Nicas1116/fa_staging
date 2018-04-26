@@ -15,12 +15,12 @@
 <nav id="topbar">
   	<div class="inner">
   		<div class="row">
-  			<div class="col-lg-4 col-md-4 col-sm-3 col-xs-2">
+  			<div class="col-lg-4 col-md-4 col-sm-2 col-xs-2">
   				<button data-toggle="offcanvas" class="btn btn-theme-default canvas-menu hidden-lg hidden-md" type="button"><span class="fa fa-bars"></span></button>
   				<div class="links hidden-sm hidden-xs">
   					<a href="<?php echo $stores; ?>"><?php echo $text_stores; ?></a>
 				</div>	
-				<div class="show-mobile hidden-lg hidden-md hidden-xs">
+				<div class="show-mobile hidden-lg hidden-md hidden-xs hidden-sm">
 					<div class="quick-user pull-left">
 						<div class="quickaccess-toggle">
 							<i class="fa fa-user"></i>															
@@ -38,19 +38,19 @@
 					</div>	
 				</div>			
   			</div>
-  			<div class="col-lg-4 col-md-4 col-sm-9 col-xs-6">
+  			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
   				<a class="homelogo" href="<?php echo $home; ?>"><img class="logo" src="/fa/staging/image/others/logo.png"/></a>
   			</div>
-  			<div class="col-lg-4 col-md-4 col-sm-9 col-xs-4">
+  			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
   				<div class="pull-right">
 	  				<ul class="links pull-left">
 	  					<!--<li><a href="<?php echo $wishlist; ?>"><i class=" fa-fw fa fa-heart-o"></i><span class="title-setting"><span id="wishlist-total"><?php echo $text_wishlist; ?></span></span></a></li>-->
 
 	  					
 	  					<?php if ($logged) { ?>
-	  						<li class="hidden-xs"><a href="<?php echo $account; ?>"><span class="title-setting"><?php echo $text_account; ?></span></a> | <a href="<?php echo $logout; ?>"><span><?php echo $text_logout; ?></span></a></li>
+	  						<li class="hidden-xs hidden-sm"><a href="<?php echo $account; ?>"><span class="title-setting"><?php echo $text_account; ?></span></a> | <a href="<?php echo $logout; ?>"><span><?php echo $text_logout; ?></span></a></li>
 	  					<?php } else { ?>
-		    				<li class="hidden-xs"><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a> | <a href="<?php echo $signup; ?>"><?php echo $text_signup; ?></a></li> 			
+		    				<li class="hidden-xs hidden-sm"><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a> | <a href="<?php echo $signup; ?>"><?php echo $text_signup; ?></a></li> 			
 	    				<?php } ?>		
 	  					<li class="shopping-cart"><?php echo $cart; ?></li>
 	  				</ul>  				

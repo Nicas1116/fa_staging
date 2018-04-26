@@ -384,6 +384,8 @@ $(document).delegate('#button-payment-address', 'click', function() {
     });
 });
 function postcodechange() {
+    $(".form-group").removeClass("has-error");
+    $(".alert,.text-danger").remove();
     $.ajax({
         url: 'index.php?route=checkout/shipping_method',
         type: 'post',
@@ -441,7 +443,9 @@ function postcodechange() {
 $(document).delegate('#input-shipping-postcode', 'change', postcodechange);
 // Shipping Address
 $(document).delegate('#button-shipping-address', 'click', function() {
-    if($(".overall_shippingcost .can_shipping").val()=="false"){return;}
+    postcodechange()
+    if($(".overall_shippingcost .can_shipping").val()=="false"){$('#collapse-shipping-address .panel-body').prepend('<div class="alert alert-danger">Your address is not deliverable.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            $(window).scrollTop(0);return;}
     $.ajax({
         url: 'index.php?route=checkout/shipping_address/save',
         type: 'post',

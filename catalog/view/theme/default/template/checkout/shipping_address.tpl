@@ -63,7 +63,7 @@
         </select>
       </div>
        <div class="col-sm-4">
-        <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" class="form-control" />
+        <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" class="form-control numberonly" />
       </div>
     </div>
     <div class="form-group required" style="display: none;">
@@ -128,7 +128,7 @@
     <?php if ($custom_field['type'] == 'text') { ?>
     <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
       <div class="col-sm-12">
-        <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
+        <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control numberonly" />
       </div>
     </div>
     <?php } ?>
@@ -187,7 +187,7 @@
  <div id="shipping-method">
    <div class="form-group">
     <div class="col-sm-12">
-      <textarea name="comment" rows="8" class="form-control"><?php echo $comment; ?></textarea>
+      <textarea name="comment" rows="8" class="form-control" placeholder="Comment Remark"><?php echo $comment; ?></textarea>
     </div>
   </div>
 <input type="hidden" name="shipping_method" class="ishipping_method" value="" />

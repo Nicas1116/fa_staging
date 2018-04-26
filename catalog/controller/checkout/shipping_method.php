@@ -127,7 +127,10 @@ class ControllerCheckoutShippingMethod extends Controller {
 				}
 			}
 		}
-		$data["pricetext"] = false;
+		if (isset($this->session->data['shipping_methods'])){
+			unset($this->session->data['shipping_methods']);
+		}
+		$json["pricetext"] = false;
 		if (isset($this->session->data['shipping_address'])) {
 			// Shipping Methods
 			$method_data = array();
@@ -149,8 +152,8 @@ class ControllerCheckoutShippingMethod extends Controller {
 							'error'      => $quote['error']
 						);
 						foreach ($quote['quote'] as $quote_quote) {
-							$data["pricetext"] =$quote_quote["text"];
-							$data["dcode"] = $quote_quote['code'];
+							$json["pricetext"] =$quote_quote["text"];
+							$json["dcode"] = $quote_quote['code'];
 						}
 						
 					}
@@ -166,37 +169,37 @@ class ControllerCheckoutShippingMethod extends Controller {
 			array_multisort($sort_order, SORT_ASC, $method_data);
 
 			$this->session->data['shipping_methods'] = $method_data;
-			if(isset($data["dcode"])){
-				$shipping = explode('.',$data["dcode"]);
+			if(isset($json["dcode"])){
+				$shipping = explode('.',$json["dcode"]);
 				$this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
 			}
 		}
 
 		if (empty($this->session->data['shipping_methods'])) {
-			$data['error_warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('information/contact'));
+			$json['error_warning'] = sprintf($this->language->get('error_no_shipping'), $this->url->link('information/contact'));
 		} else {
-			$data['error_warning'] = '';
+			$json['error_warning'] = '';
 		}
 
 		if (isset($this->session->data['shipping_methods'])) {
-			$data['shipping_methods'] = $this->session->data['shipping_methods'];
+			$json['shipping_methods'] = $this->session->data['shipping_methods'];
 		} else {
-			$data['shipping_methods'] = array();
+			$json['shipping_methods'] = array();
 		}
 
 		if (isset($this->session->data['shipping_method']['code'])) {
-			$data['code'] = $this->session->data['shipping_method']['code'];
+			$json['code'] = $this->session->data['shipping_method']['code'];
 		} else {
-			$data['code'] = '';
+			$json['code'] = '';
 		}
 
 		if (isset($this->session->data['comment'])) {
-			$data['comment'] = $this->session->data['comment'];
+			$json['comment'] = $this->session->data['comment'];
 		} else {
-			$data['comment'] = '';
+			$json['comment'] = '';
 		}
 
-		$this->response->setOutput(json_encode($data));
+		$this->response->setOutput(json_encode($json));
 		//$this->response->setOutput($this->load->view('checkout/shipping_method', $data));
 	}
 

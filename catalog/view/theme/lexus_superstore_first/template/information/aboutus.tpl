@@ -14,7 +14,7 @@
   <div class="row">
   	 <section id="sidebar-main" class="col-md-12"><div id="content" class="paboutus">
       <div class="row">
-        <div class="col-lg-8 col-md-8 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
   	<h2>About Us</h2>
     <h3> The Famous Amos Cookie Story</h3>
     <p>Over the years, millions have slaved over the hot stoves trying to recapture the sensational taste created on that glorious day in Lowell, Massachusetts. But not until 1970, when Wally Amos started to bake his secret recipe, has any chocolate chip cookie been so thoroughly authentic and delicious at the same time. </p>
@@ -23,7 +23,11 @@
     <p>Today we carry on the traditions of our founder-baker. We still use the original recipes and the finest ingredients. Our cookies are bite sized and crunchy; they’re delicious! And Famous.</p>
     <p>So enjoy these “Famous Amos” chocolate chip cookies at your nearest Hot-baked Store!</p>
     <p>Have A Brown Day Always!</p>
-      </div><img class="fa_aboutusimg" src="/fa/staging/image/others/fa_aboutus.jpg"/></div>
+      </div>
+       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 visible-lg visible-md">
+        <img class="fa_aboutusimg" src="/fa/staging/image/others/fa_aboutus.jpg"/>
+       </div>
+      <img class="fa_aboutusimg visible-xs visible-sm" src="/fa/staging/image/others/fa_aboutus.jpg"/>
 </div></section>
   </div>
 </div>

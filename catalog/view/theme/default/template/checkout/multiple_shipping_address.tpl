@@ -430,6 +430,7 @@ function postcodechange(receiptno) {
         },
         success: function(json) {
             $('#recipent'+creceiptno+' .alert,#recipent'+creceiptno+' .text-danger').remove();
+
             if (json['redirect']) {
                 location = json['redirect'];
             } else if (json['error']) {
@@ -488,10 +489,12 @@ function postcodechange(receiptno) {
 
 function finishsaveaddress(){
   if(!haserror){
+        $(".form-group").removeClass("has-error");
+        $(".alert,.text-danger").remove();
        for(var i =0;i<totalreceipnt;i++){
          if($("#recipent"+(i+1)+" .overall_shippingcost .can_shipping").val()=="false"){
           //$('#collapse-shipping-address #recipent'+(i+1)+'').prepend('<div class="alert alert-warning">Delivery not available.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-          $('#collapse-shipping-address .panel-body').prepend('<div class="alert alert-danger">One of the receipt address is not deliverable.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+          $('#collapse-shipping-address .panel-body').prepend('<div class="alert alert-danger">One of the addresses is not deliverable.<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
             $(window).scrollTop(0);return;
           }
       }

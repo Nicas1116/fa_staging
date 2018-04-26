@@ -1132,7 +1132,7 @@ border-bottom: 1px solid #dcdcdc;
 background-image: url(/fa/staging/image/others/thbg.png);
 background-repeat:  no-repeat;
 background-position:  center;
-background-size:  cover;
+background-size:  auto 100%;
 }
 /* line 129, D:\xampp\htdocs\demo\lexus_superstore_demo22\catalog\view\theme\lexus_superstore_first\development\less\opencart\layout.less */
 #topbar b,
@@ -7435,22 +7435,25 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     line-height: 45px;
     color: #fff;
     text-transform: uppercase;
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 .bannerh1 .price {
     font-weight: 700;
     font-size: 40px;
     line-height: 40px;
-    color: #000;
-    margin-bottom: 0
+    color: #fff;
+    margin-bottom: 0;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 .bannerh1 .dprice {
     font-weight: 700;
     font-size: 16px;
     line-height: 16px;
-    color: rgba(0,0,0,.3)
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 .small_text.tp-caption a,.small_text.tp-caption a.orangebtn {
@@ -7472,7 +7475,8 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 
 .bannerh1 .dprice span {
     margin-left: 20px;
-    color: #f45d23
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 .bannerh1 .productname span {
@@ -7485,7 +7489,9 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 
 .limited {
     font-size: 14px;
-    font-weight: 700
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 #cart_ordersummary .row.total,.page-home #content {
@@ -9302,8 +9308,6 @@ textarea.form-control {
 .registerpage .succesmessage{font-size: 15px;line-height: 20px;margin: 30px 0 30px;}
 .registerpage .succesmessage h2{font-weight: 600;text-align: center;}
 .paboutus h2{font-size: 15px;line-height: 20px;margin-bottom: 10px;font-weight: bold;}
-.paboutus img{max-width: 100%;}
-.paboutus .fa_aboutusimg{position: absolute;bottom:0px;right: 0px;width: 400px}
 .fa_aboutus_grey h3,.fa_aboutus_orange h3,.paboutus h3{font-size: 35px;line-height: 40px;margin-bottom: 10px;font-weight: bold;margin-top: 0px;text-transform: capitalize;}
 .fa_aboutus_grey p,.fa_aboutus_orange p, .paboutus p{font-size: 15px;line-height: 20px;font-weight: normal;}
 .promtion-block .product-block{background:transparent;}
@@ -9438,14 +9442,33 @@ textarea.form-control {
 }
 #offcanvassubmenurefine{display: none;}
  .page-category #offcanvassubmenurefine{display: block;}
-
+#topbar .links:after{clear: both;content: " ";display: table;}
+@media screen and (min-width:1000px) and (max-width:1100px) {
+  #search{position: absolute;top:0px;right: 0px;width: 200px;}
+   #topbar .links{min-width: 330px;}
+.links  li{width: 65%;}
+#topbar .links li.shopping-cart{width: 30%;margin-left: 0px;min-width: 90px;position: relative;}
+#cart .thecarttext span#cart-total{position: absolute;top: 20px;right: -5px;}
+}
+@media screen  and (min-width:990px) and (max-width: 1000px) {
+#topbar .links li.hidden-xs.hidden-sm{display: none!important;}
+}
 @media screen and (max-width: 999px) {
-	.paboutus .fa_aboutusimg{position: relative;bottom:auto;right: auto;width: auto;display: block;margin:0 auto;}
+.fa_aboutusimg{display: block;margin: 0 auto;w}  
+  .checkoutpage  #content{padding-left: 20px;padding-right: 20px;}
+   .checkoutpage #content .form-group{margin-bottom: 0px;}
+  .checkoutpage #content .form-group .col-sm-12,
+  .checkoutpage #content .form-group .col-sm-3,
+  .checkoutpage #content .form-group .col-sm-6,
+  .checkoutpage #content .form-group .col-sm-9,
+  .checkoutpage #content .form-group .col-sm-4
+  {margin-bottom: 15px;}
+  .pa_address_p .radio{width: 50%;margin-left:  0px;margin-bottom:  15px;}
   .locateus_storeslist{position: relative;}
   #contact-map{width: 100%;}
   #topbar{min-height: 1px;}
 #topbar .canvas-menu{background:transparent;color:#fff;padding: 10px 20px;border: none;margin-top: 0px;text-align:  center;}
-#topbar .homelogo img.logo{width: 100%;}
+#topbar .homelogo img.logo{width: auto;height: 50px;}
 #cart .thecarttext{line-height: 1;width: 100px;position:  absolute;right: 20px;top: 10px;}
 .shopping-cart #cart .thecartside{min-width: 345px;}
 #cart .thecarttext .links{float: right;}
@@ -9454,12 +9477,12 @@ textarea.form-control {
 #offcanvasmenu .navbar-nav .dropdown-menu{border-top: 1px solid #e0e0e0}
 #offcanvasmenu .navbar-nav li .dropdown-menu-inner{background-color: transparent;}
 #search .search.pull-left{float: none;width:  100%;}
-#header-main #search{margin-top: 0px;}
+#header-main #search{margin-top: 0px;margin-bottom: 7px;}
 #header-main .inner{margin-top: 5px;}
 #header-bottom span.hasborderleft,#header-bottom span.hasborderright{border-right: none;border-left: none;text-align:  center;}
 #header-bottom span{height: auto;display:  block;overflow:  hidden;margin: 10px 0;padding:  0px;}
-#header-bottom span span{width: auto;display: inline-block;height: auto;text-align:  left;width: 70%;margin: 0px;vertical-align: middle;}
-#header-bottom span img{width: auto;display: inline-block;margin-top: 0px;margin-right:  10px;}
+#header-bottom span span{width: auto;display: inline-block;height: auto;text-align:  left;}
+#header-bottom span img{width: auto;display: inline-block;margin-top: -30px;margin-right:  10px;}
 .product-filter{margin-top: 10px;}
 .homepage_sidemenu  {display: none;}
 .dtitle1{width: auto!important;height: auto!important;}
@@ -9513,14 +9536,12 @@ textarea.form-control {
 #content .row .cart_products_list > .row{margin-bottom: 20px;}
 .btn-remove-item{position: absolute;top:10px;right: 10px;}
 .cart_products_list .boxq{margin-left: 9px;margin-top: 5px;margin-bottom: 5px;}
-.subtotal_box_container{clear:both;margin-left: 66.66%}
+.subtotal_box_container{clear:both;}
 .cart_products_list .subtotal_box{padding-left: 0px;}
 .allgiftbox{padding-left: 0%;}
 .form-subscribe #formNewLestter .input-group{width: auto;}
 .paboutus img{width: auto;max-width: 100%;}
 #page .fa_aboutus_grey .container{padding-bottom:300px;background-size: auto 300px;background-position: right bottom;padding-left: 9px;padding-right: 9px;}
  .accountlefmenu{display: none;}
- .loginpage .btn-register{width: auto;}
- .common-home .newsletter_block .inputNew,.common-home .newsletter_block .button_mini{border-radius: 30px!important;margin-top:  0px;padding:  10px;height:  auto;}
  .info_leftmenu{display: none;}
 }

@@ -28,7 +28,9 @@
     $("#offcanvassubmenu").html($(".accountlefmenu ").html());
   }else if($(".info_leftmenu").length > 0){
     $("#offcanvassubmenu").html($(".info_leftmenu ").html());
-  }  
+  }  else{
+     $("#offcanvassubmenu").hide();
+  }
   
 
 </script>
