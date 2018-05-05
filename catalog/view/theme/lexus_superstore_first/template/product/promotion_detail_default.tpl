@@ -6,7 +6,9 @@
     ); 
     $cols = $cols[$mode];   
 ?>
-
+<style type="text/css">
+    .thumbnail{border:none;}
+</style>
 <div class="product-info promotion-info">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -29,7 +31,7 @@
             </span>
         <?php } ?>
 
-        <a href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>" class="imagezoom">
+        <a href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>" class="imagezoom ">
             <img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" data-zoom-image="<?php echo $popup; ?>" class="product-image-zoom img-responsive"/>
         </a>
 
@@ -39,7 +41,7 @@
      <div class="thumbs-preview">
         <?php if ($images) { ?>
          <div class="image-additional slide carousel horical" id="image-additional">
-            <div id="image-additional-carousel" class="carousel-inner">
+            <div id="image-additional-carousel" class="carousel-inner thumbnails">
                 <?php 
                 if( $productConfig['product_zoomgallery'] == 'slider' && $thumb ) {  
                     $eimages = array( 0=> array( 'popup'=>$popup,'thumb'=> $thumb )  ); 
@@ -50,7 +52,7 @@
                     <?php if( (++$i)%$icols == 1 ) { ?>
                     <div class="item clearfix">
                     <?php } ?>
-                        <a href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>" class="imagezoom" data-zoom-image="<?php echo $image['popup']; ?>" data-image="<?php echo $image['popup']; ?>">
+                        <a href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>" class="imagezoom ">
                             <img src="<?php echo $image['thumb']; ?>" style="max-width:<?php echo $config->get('theme_default_image_additional_width');?>px"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" data-zoom-image="<?php echo $image['popup']; ?>" class="product-image-zoom img-responsive" />
                         </a>
                     <?php if( $i%$icols == 0 || $i==count($images) ) { ?>

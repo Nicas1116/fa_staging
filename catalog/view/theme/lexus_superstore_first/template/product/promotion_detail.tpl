@@ -272,6 +272,13 @@ $(document).ready(function() {
          enabled:true
       }
    });
+   $('.thumbnails').magnificPopup({
+      type:'image',
+      delegate: 'a',
+      gallery: {
+         enabled:true
+      }
+   });
 });
 //--></script> 
 <?php if( $productConfig['product_enablezoom'] ) { ?>

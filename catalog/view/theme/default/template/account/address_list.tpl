@@ -15,7 +15,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="addresspage <?php echo $class; ?>"><?php echo $content_top; ?>
-      <h2>Adress Book</h2>
+      <h2>Address Book</h2>
       <div class="bline"></div>
       <?php if ($addresses) { ?>
 

@@ -150,9 +150,9 @@
 		<div class="container">
 
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner">
-				<span class="hasborderright"><img src="<?php  echo $base; ?>/image/others/delivery.png"/><span class="semibold">FREE DELIVERY ABOVE RM100</span></span>
-				<span><img src="<?php  echo $base; ?>/image/others/address.png"/><span class="semibold">CORPORATE ORDER CALL <a href="tel:+603 7882 6161">+603 7882 6161</a> or <a href="mailto:rachel.chen@dksh.com">EMAIL</a> </span></span>
-				<span class="hasborderleft"><img src="<?php  echo $base; ?>/image/others/call.png"/><span class="semibold">HAMPER HOTLINE  <a href="tel:+603 7966 9595">+603 7966 9595</a></span></span>
+				<span class="hasborderright"><span class="semiimage"><img src="<?php  echo $base; ?>/image/others/delivery.png"/></span><span class="semibold">FREE DELIVERY ABOVE RM100</span></span>
+				<span><span class="semiimage"><img src="<?php  echo $base; ?>/image/others/address.png"/></span><span class="semibold">CORPORATE ORDER CALL <a href="tel:+603 7882 6161">+603 7882 6161</a> or <a href="mailto:rachel.chen@dksh.com">EMAIL</a> </span></span>
+				<span class="hasborderleft"><span class="semiimage"><img src="<?php  echo $base; ?>/image/others/call.png"/></span><span class="semibold">HAMPER HOTLINE  <a href="tel:+603 7966 9595">+603 7966 9595</a></span></span>
 			</div>
 		</div>
 	</div>

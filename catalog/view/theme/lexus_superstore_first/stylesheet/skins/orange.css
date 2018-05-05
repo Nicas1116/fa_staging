@@ -7288,8 +7288,9 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 }
 
 #header-bottom span span{
-    padding-right: 0px
-    
+    padding-right: 0px;
+    margin-top:  0px;
+    margin-bottom:  0px;
 }
 
 #header-bottom span a {
@@ -9443,6 +9444,7 @@ textarea.form-control {
 #offcanvassubmenurefine{display: none;}
  .page-category #offcanvassubmenurefine{display: block;}
 #topbar .links:after{clear: both;content: " ";display: table;}
+ .account-wishlist .purchased_container .btnwishlit, .account-wishlist .purchased_container .btnordersnow{margin-bottom:10px;}
 @media screen and (min-width:1000px) and (max-width:1100px) {
   #search{position: absolute;top:0px;right: 0px;width: 200px;}
    #topbar .links{min-width: 330px;}
@@ -9480,9 +9482,9 @@ textarea.form-control {
 #header-main #search{margin-top: 0px;margin-bottom: 7px;}
 #header-main .inner{margin-top: 5px;}
 #header-bottom span.hasborderleft,#header-bottom span.hasborderright{border-right: none;border-left: none;text-align:  center;}
-#header-bottom span{height: auto;display:  block;overflow:  hidden;margin: 10px 0;padding:  0px;}
+#header-bottom span{height: auto;display:  block;overflow:  hidden;margin: 0px 0;padding:  0px;}
 #header-bottom span span{width: auto;display: inline-block;height: auto;text-align:  left;}
-#header-bottom span img{width: auto;display: inline-block;margin-top: -30px;margin-right:  10px;}
+#header-bottom span img{width: auto;display: block;margin-top: -30px;margin-right:  10px;margin-top: 0px;}
 .product-filter{margin-top: 10px;}
 .homepage_sidemenu  {display: none;}
 .dtitle1{width: auto!important;height: auto!important;}
@@ -9544,4 +9546,23 @@ textarea.form-control {
 #page .fa_aboutus_grey .container{padding-bottom:300px;background-size: auto 300px;background-position: right bottom;padding-left: 9px;padding-right: 9px;}
  .accountlefmenu{display: none;}
  .info_leftmenu{display: none;}
+ .loginpage{margin:0px;}
+ .form-horizontal,.loginpage .btn-register{width: auto!important;}
+ .purchased_container .col-sm-5.text-right{text-align: left;}
+ .account-wishlist .purchased_container .btnwishlit, .account-wishlist .purchased_container .btnordersnow{margin:0px 10px 10px!important;}
+ .account-purchasehistory .purchased_container .btnwishlit, .account-purchasehistory .purchased_container .btnordersnow{margin:0px 10px 10px!important;}
+ .common-home .newsletter_block .button_mini,.common-home .newsletter_block .inputNew{border-radius: 30px!important;margin-top: 0px;}
+}
+#header-bottom .container .inner > span{position:relative;}
+@media screen and (max-width: 999px) {
+    #header-bottom .container .inner > span{padding:0px;margin:0px;}
+    #header-bottom span img{display: inline-block;margin:0px;}
+    #header-bottom .container .inner > span span{;float: left;}
+    #header-bottom .container .inner > span span.semiimage{width: 20%;margin:  10px 0;text-align: center;display:  block;}
+    #header-bottom .container .inner > span span.semibold{width: 80%;margin: 15px 0;}
+    #header-bottom .container .inner > span:after{clear: both;display: table;content: " ";}
+}
+@media screen and (max-width: 400px) {
+	#header-bottom .container .inner > span.hasborderleft span.semibold,#header-bottom .container .inner > span.hasborderright span.semibold{width: 80%;margin: 15px 0;}
+	#header-bottom .container .inner > span span.semibold{width: 80%;margin: 10px 0;}
 }

@@ -488,6 +488,7 @@ function postcodechange(receiptno) {
 }
 
 function finishsaveaddress(){
+  $('#button-shipping-address').button('reset');
   if(!haserror){
         $(".form-group").removeClass("has-error");
         $(".alert,.text-danger").remove();
@@ -498,7 +499,6 @@ function finishsaveaddress(){
             $(window).scrollTop(0);return;
           }
       }
-      return;
       $.ajax({
         url: 'index.php?route=checkout/multiple_shipping_address/save',
         type: 'post',
@@ -544,6 +544,7 @@ function finishsaveaddress(){
 }
 
 $(document).delegate('#button-shipping-address', 'click', function() {
+    $('#button-shipping-address').button('loading');
     haserror=false
     postcoderunning=true;
     currentdp = 0;
