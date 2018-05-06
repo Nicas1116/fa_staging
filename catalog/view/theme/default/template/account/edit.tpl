@@ -12,8 +12,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?> account_edit"><?php echo $content_top; ?>
-      <h2>Account Details</h2>
-      <div class="bline"></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_accountdetail.png"/></div>
       <h3>Personal Information</h3>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
@@ -199,7 +198,7 @@
             <div class="col-sm-12">
               <div class="input-group date">
                 <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($account_custom_field[$custom_field['custom_field_id']]) ? $account_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
-                <span class="input-group-btn">
+                <span class="input-group-btn" style="display: none">
                 <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                 </span></div>
               <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
@@ -259,6 +258,7 @@ $(document).ready(function(){
           e.preventDefault();
       }
   });
+  $("#input-custom-field2").dateDropdowns();
 })
 $('.form-group[data-sort]').detach().each(function() {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length) {

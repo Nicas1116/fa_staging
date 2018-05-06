@@ -38,12 +38,12 @@
                        </div>
                        <div><a href="<?php echo $comment["trackinglink"]; ?>" class="trackinglink"><img src="/fa/staging/image/others/btntrackorder.png"/>&nbsp;Track Order</a></div>
                      <?php }}else if($full_order_info["order_status_id" ]==17){ ?>
-                     <a href="<?php echo $order["payment"]; ?>" class="btnvieworder">Make Payment</a>
+                     <a href="<?php echo $payment; ?>" class="btnvieworder">Make Payment</a>
                      <?php } ?></div>
       </div>
       <div class="row topaddress">
         <div class="col-sm-4">
-          <b><?php echo $text_payment_address; ?></b>
+          <b>Billing Address</b>
           <p><?php echo $payment_address; ?></p>
         </div>
         <?php if ($shipping_address) { ?>

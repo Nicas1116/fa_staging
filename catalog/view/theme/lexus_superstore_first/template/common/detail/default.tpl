@@ -73,7 +73,7 @@
         </script>
         <?php } ?> 
     </div>
-    <div class="delivery_container">
+    <div class="delivery_container" style="display: none">
         <p class="delivery"><img src="/fa/staging/image/others/delivery.png"/>FREE DELIVERY ABOVE RM100</p>  
     </div>
      <div class="share_container">

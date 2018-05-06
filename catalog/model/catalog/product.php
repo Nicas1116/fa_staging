@@ -215,7 +215,7 @@ class ModelCatalogProduct extends Model {
 		if (!empty($data['filter_price']) ) {
 			switch ($data['filter_price']) {
 				case 1:
-					$sql .= "AND p.price <= 20";
+					$sql .= "AND p.price <= 20 AND p.price > 0";
 					break;
 				case 2:
 					$sql .= "AND p.price >= 21 AND p.price <50 ";

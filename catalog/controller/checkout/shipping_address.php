@@ -117,6 +117,78 @@ class ControllerCheckoutShippingAddress extends Controller {
 
 		$data['delivery_zone'] = $this->load->controller('information/shipping/delivery_zone');
 		
+		if (isset($this->session->data['payment_address'])) {
+			// Totals
+			$totals = array();
+			$taxes = $this->cart->getTaxes();
+			$total = 0;
+
+			// Because __call can not keep var references so we put them into an array.
+			$total_data = array(
+				'totals' => &$totals,
+				'taxes'  => &$taxes,
+				'total'  => &$total
+			);
+			
+			$this->load->model('extension/extension');
+
+			$sort_order = array();
+
+			$results = $this->model_extension_extension->getExtensions('total');
+
+			foreach ($results as $key => $value) {
+				$sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+			}
+
+			array_multisort($sort_order, SORT_ASC, $results);
+
+			foreach ($results as $result) {
+				if ($this->config->get($result['code'] . '_status')) {
+					$this->load->model('extension/total/' . $result['code']);
+					
+					// We have to put the totals in an array so that they pass by reference.
+					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				}
+			}
+
+			// Payment Methods
+			$method_data = array();
+
+			$this->load->model('extension/extension');
+
+			$results = $this->model_extension_extension->getExtensions('payment');
+
+			$recurring = $this->cart->hasRecurringProducts();
+
+			foreach ($results as $result) {
+				if ($this->config->get($result['code'] . '_status')) {
+					$this->load->model('extension/payment/' . $result['code']);
+
+					$method = $this->{'model_extension_payment_' . $result['code']}->getMethod($this->session->data['payment_address'], $total);
+
+					if ($method) {
+						if ($recurring) {
+							if (property_exists($this->{'model_extension_payment_' . $result['code']}, 'recurringPayments') && $this->{'model_extension_payment_' . $result['code']}->recurringPayments()) {
+								$method_data[$result['code']] = $method;
+							}
+						} else {
+							$method_data[$result['code']] = $method;
+						}
+					}
+				}
+			}
+
+			$sort_order = array();
+
+			foreach ($method_data as $key => $value) {
+				$sort_order[$key] = $value['sort_order'];
+			}
+
+			array_multisort($sort_order, SORT_ASC, $method_data);
+
+			$this->session->data['payment_methods'] = $method_data;
+		}
+
 		$this->response->setOutput($this->load->view('checkout/shipping_address', $data));
 	}
 
@@ -232,8 +304,6 @@ class ControllerCheckoutShippingAddress extends Controller {
 
 					$this->session->data['shipping_address'] = $this->model_account_address->getAddress($address_id);
 
-					//unset($this->session->data['shipping_method']);
-					//unset($this->session->data['shipping_methods']);
 
 					if ($this->config->get('config_customer_activity')) {
 						$this->load->model('account/activity');
@@ -248,6 +318,19 @@ class ControllerCheckoutShippingAddress extends Controller {
 				}
 			}
 		}
+		
+		if (!$json) {
+			$shipping = explode('.', $this->session->data['shipping_method']["code"]);
+			//$this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
+			$this->session->data['comment'] = strip_tags($this->request->post['comment']);
+		}
+		if (!$json) {
+			$paymentmethod = $this->session->data['payment_methods'];
+			foreach ($paymentmethod as $key => $value) {
+				$code =  $key;
+			}
+			$this->session->data['payment_method'] = $this->session->data['payment_methods'][$code];
+		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
@@ -256,6 +339,17 @@ class ControllerCheckoutShippingAddress extends Controller {
 	public function getordersummary(){
 			$totals[1]['title'] = "Subtotal";
 			$totals[1]['text'] =  "RM 0.00";
+			$data['vouchers'] = array();
+			if (!empty($this->session->data['vouchers'])) {
+				foreach ($this->session->data['vouchers'] as $key => $voucher) {
+					$data['vouchers'][] = array(
+						'key'         => $key,
+						'description' => $voucher['description'],
+						'amount'      => $this->currency->format($voucher['amount'], $this->session->data['currency'])
+					);
+				}
+			}
+			$mda=0;
 			$products = $this->cart->getProducts();
 			if(isset($products)){
 				if(is_array($products)){
@@ -271,7 +365,7 @@ class ControllerCheckoutShippingAddress extends Controller {
 						$products[$pi]["link"] = $this->url->link("product/product");
 						
 						if ($product['image']) {
-							$image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+							$image = $this->model_tool_image->resize($product['image'], 200,200);
 						} else {
 							$image = '';
 						}
@@ -279,27 +373,44 @@ class ControllerCheckoutShippingAddress extends Controller {
 						$product = $this->model_catalog_product->getProduct($value["product_id"]);
 						$products[$pi]["price"] = $product["price"];
 					}
-					$totals[0]['title'] = "Subtotal";
-					$totals[0]['text'] =  "RM ".number_format($productcost, 2, '.', ',');
+					$totals[$mda]['title'] = "Subtotal";
+					$totals[$mda]['text'] =  "RM ".number_format($productcost, 2, '.', ',');
+					
 					$this->load->model('catalog/product');
 					$data["products"] = $products;
 					
 				}
 			}
-			$totals[1]['title'] = "Delivery";
-			$totals[1]['text'] =  "RM 0.00";
+			$this->load->model('extension/total/coupon');
+			$totalcoupondiscount =0;
+			if (!empty($this->session->data['coupon'])) {
+				$coupon_info = $this->model_extension_total_coupon->getCoupon($this->session->data['coupon']);
+				if(isset($coupon_info)){
+					
+					if($coupon_info["type"] =="P"){
+						$totalcoupondiscount = -$productcost * $coupon_info["discount"] / 100;
+					}
+					$totals[$mda]['title'] = "Coupons(".$coupon_info["code"].")";
+					$totals[$mda]['text'] =  "RM ".number_format($totalcoupondiscount, 2, '.', ',');
+					$mda++;
+				}
+			}
+			
+			$totals[$mda]['title'] = "Delivery";
+			$totals[$mda]['text'] =  "RM 0.00";
 			$deliverycost =0;
 			if(isset($this->session->data['shipping_method'])){
 				if(is_array($this->session->data['shipping_method'])){
 					$deliverycost += $this->session->data['shipping_method']["cost"];
-					$totals[1]['title'] = "Delivery";
-					$totals[1]['text'] =  "RM ".number_format($deliverycost, 2, '.', ',');
+					$totals[$mda]['title'] = "Delivery";
+					$totals[$mda]['text'] =  "RM ".number_format($deliverycost, 2, '.', ',');
 				}else{
 					
 				}
 			}
-			$totals[2]['title'] = "Total";
-			$totals[2]['text'] =  "RM ".number_format($productcost+$deliverycost, 2, '.', ',');
+			$mda++;
+			$totals[$mda]['title'] = "Total";
+			$totals[$mda]['text'] =  "RM ".number_format($productcost+$totalcoupondiscount+$deliverycost, 2, '.', ',');
 			$data["totals"]=$totals;
 			 
 			$this->response->setOutput($this->load->view('checkout/order_summary', $data));

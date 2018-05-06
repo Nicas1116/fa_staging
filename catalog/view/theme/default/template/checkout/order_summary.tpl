@@ -4,10 +4,10 @@
         <div class="product_list">
         <?php foreach ($products as $product) { ?>
           <div class="row product_item">
-          <div class="col-xs-3 text-left">
+          <div class="col-xs-4 text-left">
              <img src="<?php echo $product["thumb"]; ?>" alt="<?php echo $product["name"]; ?>" class="img-thumbnail">
           </div>
-          <div class="col-xs-9 text-left product_name">
+          <div class="col-xs-8 text-left product_name">
               <p><?php echo $product["name"]; ?></p>
               <div class="row">
                 <div class="col-xs-8 text-left"><?php echo $product["quantity"] ?>x</div>
@@ -42,29 +42,18 @@
         <?php } ?>
       </div>
       <div class="lined"></div>
-      <div class="row">
-        <div class="col-sm-6">
-          <p class="text-left"><strong><?php echo $totals[0]['title']; ?>:</strong></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="text-right"><strong class="subtotalprice"><?php echo $totals[0]['text']; ?></strong></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <p class="text-left"><strong><?php echo $totals[1]['title']; ?>:</strong></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="text-right"><strong class="totalprice"><?php echo $totals[1]['text']; ?></strong></p>
-        </div>
-      </div>
-      <div class="row total">
-        <div class="col-sm-6">
-          <p class="text-left"><strong><?php echo $totals[2]['title']; ?>:</strong></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="text-right"><strong class="totalprice"><?php echo $totals[2]['text']; ?></strong></p>
-        </div>
-      </div>
+      
+        <?php 
+          foreach ($totals as $key => $value) { ?>
+          <div class="row <?php echo strtolower($value['title']); ?>">
+            <div class="col-sm-6">
+              <p class="text-left"><strong><?php echo $value['title']; ?>:</strong></p>
+            </div>
+            <div class="col-sm-6">
+              <p class="text-right"><strong class="subtotalprice"><?php echo $value['text']; ?></strong></p>
+            </div>
+          </div>
+        <?php  }
+        ?>
       <p class="small">GST included, where applicable</p>
     </div>

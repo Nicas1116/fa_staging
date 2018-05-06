@@ -7835,7 +7835,7 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 }
 
 #topbar .thecartside .product_list .product_item {
-    margin: 5px 0
+    margin: 5px 0 20px;
 }
 
 #topbar .thecartside .product_list .product_price {
@@ -7868,7 +7868,8 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 #topbar .thecartside .product_list .product_name {
     font-weight: 400;
     font-size: 16px;
-    line-height: 16px
+    line-height: 16px;
+    padding-top:  5px;
 }
 
 #topbar .links .thecartside .product_list .boxq {
@@ -7988,7 +7989,8 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     border-radius: 10px;
     border: solid 1px #d0d0d0;
     padding: 10px;
-    margin-top: 20px
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .cart_products_list .subtotal_box {
@@ -8008,7 +8010,8 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 
 .allgiftbox {
     position: relative;
-    padding-left: 8.3%
+    padding-left: 8.3%;
+    padding-top:  10px;
 }
 
 .sendgiftbox {
@@ -8903,7 +8906,9 @@ textarea.form-control {
 
 .homepage_sidemenu {
     background: #fffbed;
-    padding: 20px 0
+    padding: 20px 0;
+    border-radius:  0px;
+    border-right: solid 3px #CCC;
 }
 
 .homepage_sidemenu h2 {
@@ -9003,11 +9008,22 @@ textarea.form-control {
 }
 
 .addresspage .orangebox {
+    background: #fff;
+    border:solid 1px #4a4a4a;
+    color: #4a4a4a;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom:  20px;
+    height: 260px;
+}
+
+.addresspage .orangebox.whitebox {
     background: #fff5e1;
     color: #4a4a4a;
     border-radius: 20px;
     padding: 20px;
     margin-bottom:  20px;
+    border-color: #fff5e1;
 }
 
 .bline {
@@ -9244,7 +9260,7 @@ textarea.form-control {
 .addresses .orangebox > p{margin-bottom: 0px;}
 .addresses .orangebox .addressname{font-size: 18px;line-height: 24px;color:#4a4a4a;font-weight: bold;}
 .addresses .orangebox .companyname{font-size: 18px;line-height: 24px;color:#4a4a4a;font-weight: 600;}
-.addresses .orangebox .address{font-size: 18px;line-height: 24px;color:#4a4a4a;font-weight: normal;}
+.addresses .orangebox .address{font-size: 18px;line-height: 24px;color:#4a4a4a;font-weight: normal;height:  96px;}
 .addresses .orangebox .form-control{visibility: hidden;width:  25px;display: inline-block;}
 .addresses .orangebox .radio label{font-size: 15px;line-height: 20px;color:#4a4a4a;font-weight: 600;}
 .addresses .orangebox .form-control:after {
@@ -9388,7 +9404,7 @@ textarea.form-control {
     margin: 0px 0;}
 .locateus_box select{border: solid 1px #4a90e2;padding: 7px 13px;border-radius: 20px;margin-left: 20px;}
 .offcanvas-heading .btn.btn-primary{background: transparent;color:#ff8d00;}
-.addresses  .col-sm-4{display: inline-block;float: none;}
+.addresses  .col-sm-4{display: inline-block;float: none;width: 31%;}
 .emptytext{text-align: center;font-size: 14px;line-height: 20px;padding: 20px;}
 #offcanvassubmenu .panel-body{padding: 0px;}
 #offcanvassubmenu h2{padding-left:15px;}
@@ -9445,6 +9461,14 @@ textarea.form-control {
  .page-category #offcanvassubmenurefine{display: block;}
 #topbar .links:after{clear: both;content: " ";display: table;}
  .account-wishlist .purchased_container .btnwishlit, .account-wishlist .purchased_container .btnordersnow{margin-bottom:10px;}
+ .img-thumbnail{display: block;width: 100%;}
+ .wishlitname a{font-size: 14px;}
+.input-group.date{display: block;}
+  .date-dropdowns{width: 100%;}
+ .date-dropdowns select{width: 31%;float: left;display: block;margin-right: 2%;border: 1px solid #ededed;font-size: 14px;line-height: 1.42857143;}
+  .date-dropdowns select:last-child{margin-right:  0%;width: 33%;}
+  .date-dropdowns:after{display: table;content: " ";clear: both;}
+  .category_image_small img{width: 100%;}
 @media screen and (min-width:1000px) and (max-width:1100px) {
   #search{position: absolute;top:0px;right: 0px;width: 200px;}
    #topbar .links{min-width: 330px;}

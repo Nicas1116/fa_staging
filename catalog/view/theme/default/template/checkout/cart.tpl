@@ -40,7 +40,7 @@
         <?php 
           $disabletext ="";
         if(sizeof($products)>1){
-          
+           $disabletext="disabled";
         }else{
           if(sizeof($products)>0){
             if($products[0]["quantity"]<=1){
@@ -53,7 +53,6 @@
          $product_options = $product["option"];
          foreach ($product_options as $option) {
             if($option["name"] == "Send As Gift"){
-              //$mkinga[$option["product_option_id"]] = $option["value"];
                $disabletext="disabled";
               $ison = true;
             }
@@ -100,7 +99,7 @@
                 <div class="col-lg-2 text-left col-xs-12  col-xs-4 subtotal_box_container"><div class="subtotal_box">Subtotal<br/><p class="oriprice"><?php echo str_replace("RM","",$product['total']); ?></p><p class="item_subtotalprice"><?php echo $product['total']; ?></p></div></div>
                 
 
-                 <div class="col-lg-12 text-left col-xs-12" style="clear:both;">
+                 <div class="col-lg-12 text-left col-xs-12" style="clear:both;display: none;">
                   <?php 
                   $fullproduct_options = $product["fullproduct_options"];
                   $product_options = $product["option"];
@@ -148,7 +147,7 @@
                   <div class="allgiftbox"><label><input <?php if($ison){echo "checked='checked'";} ?> class="checkbox_sendasgift checkbox_sendasgift-<?php echo $product["cart_id"]  ?>" type="checkbox" /> Send as gift</label>
                   <div class="sendgiftbox" <?php if($ison){echo "style='display:block;'";} ?>>
                     <label><input <?php if($ison){echo "checked='checked'";} ?> class="checkbox_giftboxwithmessage" type="checkbox" /> Gift card with message Rm 3</label>
-                    <textarea placeholder="Insert your message here" class="giftboxmessage giftboxmessage-<?php echo $product['cart_id'] ?>" name="giftboxname-<?php echo $product['cart_id'] ?>" ><?php if($hasmessage){echo $product_option_giftboxmessage;} ?></textarea>
+                    <textarea placeholder="Insert your message here" maxlength="120" class="giftboxmessage giftboxmessage-<?php echo $product['cart_id'] ?>" name="giftboxname-<?php echo $product['cart_id'] ?>" ><?php if($hasmessage){echo $product_option_giftboxmessage;} ?></textarea>
                     <span>Not more than 120 characters</span>
                   </div>
                   <script type="text/javascript">

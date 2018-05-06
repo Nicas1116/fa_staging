@@ -13,10 +13,6 @@ class ControllerCheckoutConfirm extends Controller {
 			if (!isset($this->session->data['shipping_method'])) {
 				$redirect = $this->url->link('checkout/checkout', '', true);
 			}
-		} else {
-			unset($this->session->data['shipping_address']);
-			unset($this->session->data['shipping_method']);
-			unset($this->session->data['shipping_methods']);
 		}
 
 		// Validate if payment address has been set.
@@ -85,6 +81,8 @@ class ControllerCheckoutConfirm extends Controller {
 
 					// We have to put the totals in an array so that they pass by reference.
 					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+					echo 'model_extension_total_' . $result['code'];
+					echo json_encode($result)."<br/>";
 				}
 			}
 
@@ -95,9 +93,7 @@ class ControllerCheckoutConfirm extends Controller {
 			}
 
 			array_multisort($sort_order, SORT_ASC, $totals);
-
 			$order_data['totals'] = $totals;
-
 			$this->load->language('checkout/checkout');
 
 			$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
@@ -324,7 +320,6 @@ class ControllerCheckoutConfirm extends Controller {
 			}
 
 			$this->load->model('checkout/order');
-
 			$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
 
 			$data['text_recurring_item'] = $this->language->get('text_recurring_item');

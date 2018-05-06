@@ -86,7 +86,7 @@ class ControllerAccountOrder extends Controller {
 				$product_info = $this->model_catalog_product->getProduct($product['product_id']);
 				if ($product_info) {
 					if ($product_info['image']) {
-						$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+						$image = $this->model_tool_image->resize($product_info['image'], 200, 200);
 					} else {
 						$image = false;
 					}
@@ -392,7 +392,7 @@ class ControllerAccountOrder extends Controller {
 					}
 					if ($product_info) {
 						if ($product_info['image']) {
-							$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+							$image = $this->model_tool_image->resize($product_info['image'], 200, 200);
 						} else {
 							$image = false;
 						}
@@ -506,7 +506,7 @@ class ControllerAccountOrder extends Controller {
 				$data['content_bottom'] = $this->load->controller('common/content_bottom');
 				$data['footer'] = $this->load->controller('common/footer');
 				$data['header'] = $this->load->controller('common/header');
-
+				$data['payment'] = $this->url->link('maybankcc/payment', 'order_id=' . $data['order_id'], true);
 				$this->response->setOutput($this->load->view('account/order_info_multiple', $data));
 			}else{
 				$this->document->setTitle($this->language->get('text_order'));
@@ -710,7 +710,7 @@ class ControllerAccountOrder extends Controller {
 					}
 					if ($product_info) {
 						if ($product_info['image']) {
-							$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+							$image = $this->model_tool_image->resize($product_info['image'], 200, 200);
 						} else {
 							$image = false;
 						}
@@ -776,7 +776,7 @@ class ControllerAccountOrder extends Controller {
 				$data['content_bottom'] = $this->load->controller('common/content_bottom');
 				$data['footer'] = $this->load->controller('common/footer');
 				$data['header'] = $this->load->controller('common/header');
-
+				$data['payment'] = $this->url->link('maybankcc/payment', 'order_id=' . $data['order_id'], true);
 				$this->response->setOutput($this->load->view('account/order_info', $data));
 			}
 		} else {

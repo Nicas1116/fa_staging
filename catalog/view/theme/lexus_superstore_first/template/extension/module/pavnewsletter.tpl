@@ -8,7 +8,7 @@
 			            <div class="clearfix input-group">
 			            	<div class="box-heading">
 				            	<div class="heading">
-					            	<p class="title_newletter">Don’t miss a cookie. Join our mailing list today!</p>
+					            	<p class="title_newletter">Don’t miss a cookie. Get our latest updates!</p>
 					            	<div class="description">Pstt! Do you know new subs get 10% off? Don’t say we bojio!</div>
 				            	</div>
 				            </div>

@@ -9,7 +9,8 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="category_image_small"><p>Orders</p></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_orders.png"/></div>
+      
       <?php if ($orders) { ?>
       <div class="order_listing">
       

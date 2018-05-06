@@ -12,7 +12,8 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?> accountaccountpage"><?php echo $content_top; ?>
-      <div class="category_image_small"><p>Welcome to your account</p></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_myaccount.png"/></div>
+      
       <div class="row">
           <div class="col-sm-6">
             <h2>RECENT ORDER <a href="<?php echo $orderslink; ?>" class="btnorders">View All Orders »</a></h2>

@@ -220,7 +220,7 @@ if(isset($facebookdata)){
             <div class="col-sm-12">
               <div class="input-group date">
                 <input type="text" name="custom_field[<?php echo $custom_field['location']; ?>][<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo (isset($register_custom_field[$custom_field['custom_field_id']]) ? $register_custom_field[$custom_field['custom_field_id']] : $custom_field['value']); ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
-                <span class="input-group-btn">
+                <span class="input-group-btn" style="display: none">
                 <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                 </span></div>
               <?php if (isset($error_custom_field[$custom_field['custom_field_id']])) { ?>
@@ -529,6 +529,7 @@ if(isset($facebookdata)){
 <style type="text/css">
 #content{margin-bottom: 40px; }
         #page{background-color: #fff5e1;}#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}
+        #custom-field1{display: none!important;}
      </style>
 <script type="text/javascript"><!--
 // Sort the custom fields
@@ -662,7 +663,14 @@ $('.datetime').datetimepicker({
   pickDate: true,
   pickTime: true
 });
+$(document).ready(function(){
+  $("#input-custom-field2").dateDropdowns();
+  $("#input-telephone").change(function(){
+    $("#input-custom-field1").val($("#input-telephone").val())
+  })
+})
 //--></script>
+
 <script type="text/javascript"><!--
 $('select[name=\'country_id\']').on('change', function() {
   $.ajax({

@@ -36,7 +36,7 @@
     <div class="row">
       <div class="col-sm-6"><a class="button-facebook"><i class="fa fa-facebook"></i>Facebook</a></div>
       <div class="col-sm-6">
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="g-signin2"></div>
       </div>
     
     </div>
@@ -66,9 +66,15 @@
     });
       
     FB.AppEvents.logPageView();   
-      
+    
   };
+  var d
+  $(document).ready(function(){
+    d = setInterval(function(){$(".abcRioButtonContents span").html("Google")},10);
+    setTimeout(function(){clearInterval(d);},500)
+  })
  function onSignIn(googleUser) {
+
   if(gotclick){
     var profile = googleUser.getBasicProfile();
     var gu = {id:profile.getId(), name:profile.getName(), email:profile.getEmail()};

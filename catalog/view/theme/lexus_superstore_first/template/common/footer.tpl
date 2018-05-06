@@ -148,7 +148,6 @@ echo $helper->renderAddon( 'offcanvas-category');
   $(document).ready(function(){
     $(".parent >a").removeAttr("href");
     if($(window).width()<1000){
-    $("#header-bottom .container .inner ").bxSlider({pager:false,controls:false,auto:true});
     $.each($(".tp-simpleresponsive >ul >li"),function(i,a){
       $(a).css("background-image","url("+$(a).attr("data-thumb")+")")
     });

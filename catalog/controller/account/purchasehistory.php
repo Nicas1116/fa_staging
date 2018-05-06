@@ -94,7 +94,7 @@ class ControllerAccountPurchaseHistory extends Controller {
 			$product_info = $this->model_catalog_product->getProduct($product['product_id']);
 			if ($product_info) {
 				if ($product_info['image']) {
-					$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
+					$image = $this->model_tool_image->resize($product_info['image'], 200,200);
 				} else {
 					$image = false;
 				}

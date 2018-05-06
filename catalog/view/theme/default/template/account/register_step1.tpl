@@ -96,6 +96,10 @@
     FB.AppEvents.logPageView();   
       
   };
+  $(document).ready(function(){
+    d = setInterval(function(){$(".abcRioButtonContents span").html("Google")},10);
+    setTimeout(function(){clearInterval(d);},500)
+  })
  function onSignIn(googleUser) {
   if(gotclick){
     var profile = googleUser.getBasicProfile();

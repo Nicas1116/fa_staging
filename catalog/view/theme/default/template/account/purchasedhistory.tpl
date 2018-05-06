@@ -9,7 +9,8 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="category_image_small"><p>Purchased History</p></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_purchased.png"/></div>
+      
       <?php if ($products) { ?>
             <div>
               <p class="purchased_topco"><label><input class="producheckboxall form-control" type="checkbox" name="product-id-all">Select All</label> | <a onclick="onclickreorder();"><img src="/fa/staging/image/others/icon_snackbag.png"/>Re-Order</a> <a onclick="onclickaddtowishlist();"><img src="/fa/staging/image/others/icon_love.png"/>Add To Wish List</a></p>
@@ -104,7 +105,19 @@
 .account-purchasehistory .purchased_container .wishlitprice{font-weight: bold;}
 .account-purchasehistory .purchased_container .wishlitname{margin-top: 30px;}
 .account-purchasehistory .purchased_container .btnwishlit,
-.account-purchasehistory .purchased_container .btnordersnow{background: #ffa000;color:#fff;font-size: 15px;line-height: 20px;font-weight: bold;text-align: center;display: inline-block;padding: 10px 40px;border-radius: 20px;margin-top: 20px;}
+.account-purchasehistory .purchased_container .btnordersnow{
+    background: #ffa000;
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
 .account-purchasehistory .purchased_container .btnwishlit{background: transparent;font-size: 14px;color: #000;border:solid 1px #ffa000;margin: 0 20px;padding: 10px 20px;}
 </style>
 <?php echo $footer; ?>

@@ -9,7 +9,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="category_image_small"><p>Wishlist</p></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_wishlist.png"/></div>
       <?php if ($products) { ?>
             <div>
               <p class="purchased_topco"><label><input class="producheckboxall form-control" type="checkbox" name="product-id-all">Select All</label> | <a onclick="onclickreorder();"><img src="/fa/staging/image/others/icon_snackbag.png"/>Re-Order</a></p>
@@ -27,7 +27,7 @@
                     </div>
                   </div>
                   <div class="col-sm-5 text-right">
-                    <a href="<?php echo $product["href"] ?>" class="btnordersnow">RE-ORDER</a>
+                    <a href="<?php echo $product["href"] ?>" class="btnordersnow">ORDER NOW</a>
                     <a href="<?php echo $product["remove"] ?>" class="btnordersnow">REMOVE</a>
                   </div>
                </div>
@@ -106,8 +106,19 @@
 .account-wishlist .purchased_container .wishlitprice{font-size: 13px;line-height: 17px;color:#000;margin-bottom: 0px;}
 .account-wishlist .purchased_container .wishlitprice{font-weight: bold;}
 .account-wishlist .purchased_container .wishlitname{margin-top: 30px;}
-.account-wishlist .purchased_container .btnwishlit,
-.account-wishlist .purchased_container .btnordersnow{background: #ffa000;color:#fff;font-size: 15px;line-height: 20px;font-weight: bold;text-align: center;display: inline-block;padding: 10px 40px;border-radius: 20px;margin-top: 20px;margin-right: 20px;}
+.account-wishlist .purchased_container .btnwishlit, .account-wishlist .purchased_container .btnordersnow {
+    background: #ffa000;
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
 .account-wishlist .purchased_container .btnwishlit{background: transparent;font-size: 14px;color: #000;border:solid 1px #ffa000;margin: 0 20px;padding: 10px 20px;}
 </style>
 <?php echo $footer; ?>

@@ -479,7 +479,19 @@ $(document).delegate('#button-shipping-address', 'click', function() {
 				// Highlight any found errors
 				$('.text-danger').parent().parent().addClass('has-error');
             } else {
-                callsaveshipmethod();
+                $.ajax({
+                    url: 'index.php?route=checkout/confirm',
+                    dataType: 'html',
+                    complete: function() {
+                        $('#button-payment-method').button('reset');
+                    },
+                    success: function(html) {
+                        finishpayment();
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -547,7 +559,6 @@ function finishpayment(){
             $('#button-confirm').button('reset');
         },
         success: function(json) {
-            console.log(json);
 
             location = json["payment_link"]+"&order_id="+json["order_id"];
         }
@@ -582,7 +593,7 @@ function savepaymentmethod() {
                         $('#button-payment-method').button('reset');
                     },
                     success: function(html) {
-                        finishpayment();
+                        //finishpayment();
 					},
                     error: function(xhr, ajaxOptions, thrownError) {
                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

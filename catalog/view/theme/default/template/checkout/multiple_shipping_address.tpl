@@ -194,7 +194,7 @@
    </div></div>
     <div class="overall_shippingcost row" style="display: none;">
       <input type="hidden" name="can_shipping" class="can_shipping" value="false">
-        <div class="col-xs-6">Delivery Fee</div>
+        <div class="col-xs-6">Delivery Charges</div>
         <div class="col-xs-6 text-right shipping_cost"></div>
     </div>
      <div class="overall_shippingcost_text row" style="display: block;">
@@ -387,7 +387,7 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
         $('#collapse-shipping-address input[name=\'postcode\']').parent().parent().removeClass('required');
       }
 
-      html = '<option value=""><?php echo $text_select; ?></option>';
+      html = '<option value="">State</option>';
 
       if (json['zone'] && json['zone'] != '') {
         for (i = 0; i < json['zone'].length; i++) {

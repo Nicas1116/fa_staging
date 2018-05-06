@@ -84,7 +84,7 @@
     <?php foreach ($custom_fields as $custom_field) { ?>
     <?php if ($custom_field['location'] == 'address') { ?>
     <?php if ($custom_field['type'] == 'select') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <select name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control">
           <option value=""><?php echo $text_select; ?></option>
@@ -96,7 +96,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'radio') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>">
           <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
@@ -111,7 +111,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'checkbox') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>">
           <?php foreach ($custom_field['custom_field_value'] as $custom_field_value) { ?>
@@ -126,21 +126,21 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'text') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control numberonly" />
       </div>
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'textarea') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <textarea name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" rows="5" placeholder="<?php echo $custom_field['name']; ?>" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control"><?php echo $custom_field['value']; ?></textarea>
       </div>
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'file') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <button type="button" id="button-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-default"><i class="fa fa-upload"></i> <?php echo $button_upload; ?></button>
         <input type="hidden" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" />
@@ -148,7 +148,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'date') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div class="input-group date">
           <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
@@ -159,7 +159,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'time') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div class="input-group time">
           <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="HH:mm" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
@@ -170,7 +170,7 @@
     </div>
     <?php } ?>
     <?php if ($custom_field['type'] == 'datetime') { ?>
-    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" data-sort="<?php echo $custom_field['sort_order']; ?>">
+    <div class="form-group<?php echo ($custom_field['required'] ? ' required' : ''); ?> custom-field" >
       <div class="col-sm-12">
         <div class="input-group datetime">
           <input type="text" name="custom_field[<?php echo $custom_field['custom_field_id']; ?>]" value="<?php echo $custom_field['value']; ?>" placeholder="<?php echo $custom_field['name']; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-shipping-custom-field<?php echo $custom_field['custom_field_id']; ?>" class="form-control" />
@@ -187,7 +187,7 @@
  <div id="shipping-method">
    <div class="form-group">
     <div class="col-sm-12">
-      <textarea name="comment" rows="8" class="form-control" placeholder="Comment Remark"><?php echo $comment; ?></textarea>
+      <textarea name="comment" rows="8" class="form-control" placeholder="Delivery Remark (optional) eg. delivery timing"><?php echo $comment; ?></textarea>
     </div>
   </div>
 <input type="hidden" name="shipping_method" class="ishipping_method" value="" />
@@ -196,7 +196,7 @@
    </div></div>
     <div class="overall_shippingcost row" style="display: none;">
       <input type="hidden" name="can_shipping" class="can_shipping" value="false">
-        <div class="col-xs-6">Delivery Fee</div>
+        <div class="col-xs-6">Delivery Charges</div>
         <div class="col-xs-6 text-right shipping_cost"></div>
     </div>
      <div class="overall_shippingcost_text row" style="display: block;">
@@ -375,7 +375,7 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
 				$('#collapse-shipping-address input[name=\'postcode\']').parent().parent().removeClass('required');
 			}
 
-			html = '<option value=""><?php echo $text_select; ?></option>';
+			html = '<option value="">State</option>';
 
 			if (json['zone'] && json['zone'] != '') {
 				for (i = 0; i < json['zone'].length; i++) {

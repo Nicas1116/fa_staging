@@ -20,7 +20,7 @@
                   <div class="clearfix input-group">
                     <div class="box-heading">
                       <div class="heading">
-                         <h2 class="faq_header">SUBSCRIBE FOR OUR MAILING LIST</h2>
+                         <h2 class="faq_header">Get our latest updates</h2>
                         <div class="description">New subs get 10% off! Sign up now!</div>
                       </div>
                     </div>

@@ -351,7 +351,7 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 				$('#collapse-payment-address input[name=\'postcode\']').parent().parent().removeClass('required');
 			}
 
-			html = '<option value=""><?php echo $text_select; ?></option>';
+			html = '<option value="">State</option>';
 
 			if (json['zone'] && json['zone'] != '') {
 				for (i = 0; i < json['zone'].length; i++) {

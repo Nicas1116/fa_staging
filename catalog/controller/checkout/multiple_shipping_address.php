@@ -144,6 +144,7 @@
 		public function getordersummary(){
 			$totals[1]['title'] = "Subtotal";
 			$totals[1]['text'] =  "RM 0.00";
+			$mda=0;
 			if(isset($this->session->data['shipping_products'])){
 				if(is_array($this->session->data['shipping_products'])){
 					$productcost =0;
@@ -163,22 +164,37 @@
 						$products[$pi]["link"] = $this->url->link("product/product");
 						
 						if ($product['image']) {
-							$image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+							$image = $this->model_tool_image->resize($product['image'], 200,200);
 						} else {
 							$image = '';
 						}
 						$products[$pi]["quantity"] = 1;
 						$products[$pi]["thumb"] = $image;
 					}
-					$totals[0]['title'] = "Subtotal";
-					$totals[0]['text'] =  "RM ".number_format($productcost, 2, '.', ',');
+					$totals[$mda]['title'] = "Subtotal";
+					$totals[$mda]['text'] =  "RM ".number_format($productcost, 2, '.', ',');
 					$this->load->model('catalog/product');
 					$data["products"] = $products;
 					
 				}
 			}
-			$totals[1]['title'] = "Delivery<br/>(".sizeof($this->session->data['shipping_products'])." recipients)";
-			$totals[1]['text'] =  "RM 0.00";
+
+			$this->load->model('extension/total/coupon');
+			$totalcoupondiscount =0;
+			if (!empty($this->session->data['coupon'])) {
+				$coupon_info = $this->model_extension_total_coupon->getCoupon($this->session->data['coupon']);
+				if(isset($coupon_info)){
+					
+					if($coupon_info["type"] =="P"){
+						$totalcoupondiscount = -$productcost * $coupon_info["discount"] / 100;
+					}
+					$totals[$mda]['title'] = "Coupons(".$coupon_info["code"].")";
+					$totals[$mda]['text'] =  "RM ".number_format($totalcoupondiscount, 2, '.', ',');
+					$mda++;
+				}
+			}
+			$totals[$mda]['title'] = "Delivery<br/>(".sizeof($this->session->data['shipping_products'])." recipients)";
+			$totals[$mda]['text'] =  "RM 0.00";
 			$deliverycost =0;
 			if(isset($this->session->data['shipping_method'])){
 				if(is_array($this->session->data['shipping_method'])){
@@ -190,12 +206,14 @@
 							}
 						}
 					}
-					$totals[1]['title'] = "Delivery<br/>(".sizeof($this->session->data['shipping_method'])." recipients)";
-					$totals[1]['text'] =  "RM ".number_format($deliverycost, 2, '.', ',');
+					$totals[$mda]['title'] = "Delivery<br/>(".sizeof($this->session->data['shipping_method'])." recipients)";
+					$totals[$mda]['text'] =  "RM ".number_format($deliverycost, 2, '.', ',');
+
 				}
 			}
-			$totals[2]['title'] = "Total";
-			$totals[2]['text'] =  "RM ".number_format($productcost+$deliverycost, 2, '.', ',');
+			$mda++;
+			$totals[$mda]['title'] = "Total";
+			$totals[$mda]['text'] =  "RM ".number_format($productcost+$totalcoupondiscount+$deliverycost, 2, '.', ',');
 			$data["totals"]=$totals;
 			 
 			$this->response->setOutput($this->load->view('checkout/order_summary', $data));
@@ -593,7 +611,6 @@
 					$product["quantity"] = 1;
 					$totalproductprice =$product["quantity"] * $product["price"];
 					foreach ($product["option"] as $option) {
-						echo json_encode($option);
 						if(isset($option["price"])){
 							$totalproductprice += floatval($option["price"]);
 						}
@@ -684,17 +701,74 @@
 				} else {
 					$order_data['accept_language'] = '';
 				}
-				echo json_encode($order_data);
 
 				$order_data["multiple_delivery"]=true;
-				$order_data['totals'] = array();
-				$order_data['totals'][]  = array("code" => "sub_total" , "title" => "Sub-Total", "value" => $overalltotal, "sort_order" => 1);
-				$order_data['totals'][]  = array("code" => "shipping" , "title" => "Shipping", "value" => $totalshipping_cost, "sort_order" => 3);
-				$order_data['totals'][]  = array("code" => "total" , "title" => "Total", "value" => $order_data['totalall'], "sort_order" => 9);
+				//$order_data['totals'] = array();
+				//$order_data['totals'][]  = array("code" => "sub_total" , "title" => "Sub-Total", "value" => $overalltotal, "sort_order" => 1);
+				//$order_data['totals'][]  = array("code" => "shipping" , "title" => "Shipping", "value" => $totalshipping_cost, "sort_order" => 3);
+				//$order_data['totals'][]  = array("code" => "total" , "title" => "Total", "value" => $order_data['totalall'], "sort_order" => 9);
+				$totals = array();
+				$taxes = $this->cart->getTaxes();
+				$total = 0;
 
+				// Because __call can not keep var references so we put them into an array.
+				$total_data = array(
+					'totals' => &$totals,
+					'taxes'  => &$taxes,
+					'total'  => &$total
+				);
+
+				$this->load->model('extension/extension');
+
+				$sort_order = array();
+
+				$results = $this->model_extension_extension->getExtensions('total');
+
+				foreach ($results as $key => $value) {
+					$sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+				}
+
+				array_multisort($sort_order, SORT_ASC, $results);
+
+				foreach ($results as $result) {
+					if ($this->config->get($result['code'] . '_status')) {
+						$this->load->model('extension/total/' . $result['code']);
+
+						// We have to put the totals in an array so that they pass by reference.
+						$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+						//echo 'model_extension_total_' . $result['code'];
+						//echo json_encode($result)."<br/>";
+					}
+				}
+
+				foreach ($totals as $key => $value) {
+					if($value["code"]=="shipping"){
+						$totals[$key]["title"]="Shipping";
+						$totals[$key]["value"]=$totalshipping_cost;
+						
+					}else if($value["code"]=="total"){
+						$totals[$key]["value"]+=$totalshipping_cost;
+					}
+				}
+
+				$sort_order = array();
+
+				foreach ($totals as $key => $value) {
+					$sort_order[$key] = $value['sort_order'];
+				}
+				$totaldas=0;
+				foreach ($totals as $key => $value) {
+					if($value["code"]=="total"){
+						$totaldas=$totals[$key]["value"];
+					}
+				}
+				array_multisort($sort_order, SORT_ASC, $totals);
+				$order_data['totals']= $totals;
+				$order_data["totalall"] = $totaldas;
 				$this->load->model('checkout/order');
-				$this->session->data['order_id'] = $this->model_checkout_order->addMultipleDeliveryOrder($order_data);
-				
+				$json['order_id'] = $this->session->data['order_id'] = $this->model_checkout_order->addMultipleDeliveryOrder($order_data);
+				$this->response->addHeader('Content-Type: application/json');
+				$this->response->setOutput(json_encode($json));
 			} else {
 				$data['redirect'] = $redirect;
 			}
