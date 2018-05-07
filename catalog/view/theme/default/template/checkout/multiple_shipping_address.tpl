@@ -117,14 +117,14 @@
        }
      }
        ?>
-  <div class="shipping_options <?php if( $thevalueid!=$coption["product_option_value_id"]){ echo "disabled";} ?>">
-<div class="form-group">
+  <div style="display: none" class="shipping_options <?php if( $thevalueid!=$coption["product_option_value_id"]){ echo "disabled";} ?>">
+<div class="form-group" >
     <div class="col-sm-12">
       <h2>Order Information</h2>
       <?php //echo json_encode($a_products[$i]["fullproduct_options"]); ?>
       
-      <label><input type="checkbox" name="giftcardmessage_check" class="giftcardmessage_check form-control"  <?php if( $thevalueid==$coption["product_option_value_id"]){ echo "checked='checked'";} ?>>Gift card with message Rm<?php echo $theprice; ?></label>
-      <textarea name="giftcardmessage" placeholder="Write your message here" rows="8" class="giftcardmessage" class="form-control" <?php if( $thevalueid!=$coption["product_option_value_id"]){ echo "disabled";} ?>></textarea>
+      <label ><input type="checkbox" name="giftcardmessage_check" class="giftcardmessage_check form-control"  <?php if( $thevalueid==$coption["product_option_value_id"]){ echo "checked='checked'";} ?>>Gift card with message Rm<?php echo $theprice; ?></label>
+      <textarea  name="giftcardmessage" placeholder="Write your message here" rows="8" class="giftcardmessage" class="form-control" <?php if( $thevalueid!=$coption["product_option_value_id"]){ echo "disabled";} ?>></textarea>
      <script type="text/javascript">
        $(document).ready(function(){
           $("#recipent<?php echo ($i+1); ?> .giftcardmessage_check").change(function(){

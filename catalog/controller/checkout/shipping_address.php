@@ -411,6 +411,8 @@ class ControllerCheckoutShippingAddress extends Controller {
 			$mda++;
 			$totals[$mda]['title'] = "Total";
 			$totals[$mda]['text'] =  "RM ".number_format($productcost+$totalcoupondiscount+$deliverycost, 2, '.', ',');
+			
+			sort($totals);
 			$data["totals"]=$totals;
 			 
 			$this->response->setOutput($this->load->view('checkout/order_summary', $data));
@@ -471,7 +473,7 @@ class ControllerCheckoutShippingAddress extends Controller {
 						}
 						
 						if ($productdetail['image']) {
-							$image = $this->model_tool_image->resize($productdetail['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+							$image = $this->model_tool_image->resize($productdetail['image'], 400,400);
 						} else {
 							$image = '';
 						}

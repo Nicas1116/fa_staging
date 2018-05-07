@@ -36,6 +36,13 @@ class ModelExtensionShippingmulflatshpzipshipping extends Controller {
 		} 
  	} 
 	
+ 	function getFullList(){
+ 		if($this->config->get((substr(VERSION,0,3)>='3.0' ? 'module_mulflatshpzip_status' : 'mulflatshpzip_status'))) {
+ 			$mulflatshpzip_query = $this->db->query("SELECT m.mulflatshpzip_id AS id, m.name, m.zipcode,mc.cost FROM " . DB_PREFIX . "mulflatshpzip m LEFT JOIN " . DB_PREFIX . "mulflatshpzip_cost mc ON m.mulflatshpzip_id = mc.mulflatshpzip_id WHERE m.status = 1 AND m.mulflatshpzip_id != 56 ORDER BY m.zipcode");
+ 			return $mulflatshpzip_query->rows;
+ 		}
+ 	}
+
 	function getQuote($address) {
 		$this->load->language($this->modpath);
 		
@@ -86,14 +93,14 @@ class ModelExtensionShippingmulflatshpzipshipping extends Controller {
 							foreach($query->rows as $resultcost) {
 								//print_r($resultcost);
 								$order_total_text = json_decode($resultcost['order_total_text'], true);
-								/*$mulflatshpzip_cost_info = array(
+								$mulflatshpzip_cost_info = array(
 									'mulflatshpzip_cost_id' => $resultcost['mulflatshpzip_cost_id'],
 									'mulflatshpzip_id' 	=> $resultcost['mulflatshpzip_id'],		
 									'order_total_text' 	=> isset($order_total_text[$this->langid]) ? $order_total_text[$this->langid] : '',																	
 									'totfrom'      		=> (float)$resultcost['totfrom'],
 									'totto'      		=> (float)$resultcost['totto'],
 									'cost'     			=> (float)$resultcost['cost']
-								);*/
+								);
 								
 								$cost = 0;
 								

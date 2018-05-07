@@ -84,6 +84,13 @@
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
         <!-- AddThis Button END --> 
     <script type="text/javascript">
+        $(document).ready(function(){
+            var sm = 0;
+            $(".dotds li").removeClass("active");
+            $($(".dotds li")[sm]).addClass("active");
+            $($(".thumbs-preview .item a")[sm]).click();
+            $("#img-detail a").attr("href", $($(".thumbs-preview .item a")[sm]).attr("href"));
+        })
         var sizeofm = <?php echo sizeof($images); ?>;
         var m=0;
         function ongoleft(){
@@ -92,6 +99,7 @@
             $(".dotds li").removeClass("active");
             $($(".dotds li")[sm]).addClass("active");
             $($(".thumbs-preview .item a")[sm]).click();
+            $("#img-detail a").attr("href", $($(".thumbs-preview .item a")[sm]).attr("href"));
         }
 
         function ongoright(){
@@ -100,6 +108,7 @@
             $(".dotds li").removeClass("active");
             $($(".dotds li")[sm]).addClass("active");
             $($(".thumbs-preview .item a")[sm]).click();
+            $("#img-detail a").attr("href", $($(".thumbs-preview .item a")[sm]).attr("href"));
         }
 
         

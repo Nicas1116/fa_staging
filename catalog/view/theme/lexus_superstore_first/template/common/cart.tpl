@@ -50,7 +50,7 @@
           <?php foreach ($totals as $total) { ?>
           <div class="row rototal rod<?php echo $total['title']; ?>">
             <div class="col-sm-6 text-left"><strong><?php echo $total['title']; ?></strong></div>
-            <div class="col-sm-6 text-right"><?php echo $total['text']; ?></div>
+            <div class="col-sm-6 text-right"><?php echo $total['text']; ?><?php if($total['title']=="Total") { ?><span class="small">GST included, where applicable</span><?php } ?></div>
             </div>
           <?php } ?>
         

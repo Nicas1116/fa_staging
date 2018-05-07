@@ -117,11 +117,11 @@ class ControllerExtensionModulePavproducttabs extends Controller {
 		$products = array();
 		foreach ($results as $result) {
 			if ($result['image']) {
-				$image = $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height']);
+				$image = $this->model_tool_image->resize($result['image'],  400,400);
 				// Image Attribute for product
                 $product_images = $this->model_catalog_product->getProductImages($result['product_id']);
                 if(isset($product_images) && !empty($product_images)) {
-                    $thumb2 = $this->model_tool_image->resize($product_images[0]['image'], $setting['width'], $setting['height']);
+                    $thumb2 = $this->model_tool_image->resize($product_images[0]['image'],  400,400);
                 }
 			} else {
 				$image = false;

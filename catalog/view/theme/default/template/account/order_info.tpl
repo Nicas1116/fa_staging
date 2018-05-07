@@ -97,7 +97,9 @@
             <?php foreach ($totals as $total) { ?>
             <div class="row tt_<?php echo $total['code']; ?>">
               <div class="col-sm-6 text-left"><?php echo $total['title']; ?></div>
-              <div class="col-sm-6 text-right"><?php echo $total['text']; ?></div>
+              <div class="col-sm-6 text-right"><?php echo $total['text']; ?>
+                <?php if($total['title']=="Total") { ?><span class="small">GST included, where applicable</span><?php } ?>
+              </div>
             </div>
             <?php } ?>
           </div>

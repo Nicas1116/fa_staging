@@ -26,6 +26,22 @@
 		}
 		public function delivery_zone() {
 			$data=array();
+
+			$this->load->model('extension/shipping/mulflatshpzipshipping');
+			$shipping_list = $this->model_extension_shipping_mulflatshpzipshipping->getFullList();
+			foreach ($shipping_list as $key => $shipping) {
+				$arral = explode(",",$shipping["zipcode"]);
+				$zipcode_text = $arral[0]." - ". $arral[sizeof($arral)-1];
+				unset($shipping_list[$key]["zipcode"]);
+				
+				if($shipping["id"]==4){
+					 $zipcode_text="40000 - 40099<br/>40150 - 40469";
+				}else if($shipping["id"]==55){
+					$zipcode_text="40100 - 40149<br/>40470 - 40999";
+				}
+				$shipping_list[$key]["zipcode_text"] = $zipcode_text;
+			}
+			$data["shipping_list"] = $shipping_list;
 			return $this->load->view('information/shipping_block', $data);
 		}
 		public function menu() {

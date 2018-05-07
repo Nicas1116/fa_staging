@@ -293,13 +293,13 @@ class ControllerthemecontrolProduct extends Controller {
 			$this->load->model('tool/image');
 
 			if ($product_info['image']) {
-				$data['popup'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+				$data['popup'] = $this->model_tool_image->resize($product_info['image'],  400*2,400*2);
 			} else {
 				$data['popup'] = '';
 			}
 
 			if ($product_info['image']) {
-				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+				$data['thumb'] = $this->model_tool_image->resize($product_info['image'],  400,400);
 			} else {
 				$data['thumb'] = '';
 			}
@@ -310,8 +310,8 @@ class ControllerthemecontrolProduct extends Controller {
 
 			foreach ($results as $result) {
 				$data['images'][] = array(
-					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
+					'popup' => $this->model_tool_image->resize($result['image'],  400,400),
+					'thumb' => $this->model_tool_image->resize($result['image'],  400*2,400*2)
 				);
 			}
 
@@ -419,9 +419,9 @@ class ControllerthemecontrolProduct extends Controller {
 
 			foreach ($results as $result) {
 				if ($result['image']) {
-					$image = $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_related_width'), $this->config->get($this->config->get('config_theme') . '_image_related_height'));
+					$image = $this->model_tool_image->resize($result['image'],  400,400);
 				} else {
-					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_related_width'), $this->config->get($this->config->get('config_theme') . '_image_related_height'));
+					$image = $this->model_tool_image->resize('placeholder.png',  400,400);
 				}
 
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {

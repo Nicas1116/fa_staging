@@ -275,7 +275,7 @@ class ControllerCheckoutCart extends Controller {
 			if ($result) {
 				$data['modules'][] = $result;
 			}
-
+			$data['delivery_zone'] = $this->load->controller('information/shipping/delivery_zone');
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
 			$data['content_top'] = $this->load->controller('common/content_top');
@@ -294,7 +294,7 @@ class ControllerCheckoutCart extends Controller {
 			$data['continue'] = $this->url->link('common/home');
 
 			unset($this->session->data['success']);
-
+			$data['delivery_zone'] = $this->load->controller('information/shipping/delivery_zone');
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
 			$data['content_top'] = $this->load->controller('common/content_top');

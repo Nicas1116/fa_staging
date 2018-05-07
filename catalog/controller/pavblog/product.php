@@ -90,13 +90,13 @@ class ControllerpavblogProduct extends Controller {
 			$this->load->model('tool/image');
 
 			if ($product_info['image']) {
-				$this->data['popup'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height'));
+				$this->data['popup'] = $this->model_tool_image->resize($product_info['image'], 400*2,400*2);
 			} else {
 				$this->data['popup'] = '';
 			}
 			
 			if ($product_info['image']) {
-				$this->data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('config_image_thumb_width'), $this->config->get('config_image_thumb_height'));
+				$this->data['thumb'] = $this->model_tool_image->resize($product_info['image'],  400,400);
 			} else {
 				$this->data['thumb'] = '';
 			}
@@ -107,8 +107,8 @@ class ControllerpavblogProduct extends Controller {
 			
 			foreach ($results as $result) {
 				$this->data['images'][] = array(
-					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
-					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_additional_width'), $this->config->get('config_image_additional_height'))
+					'popup' => $this->model_tool_image->resize($result['image'],  400*2,400*2),
+					'thumb' => $this->model_tool_image->resize($result['image'],  400,400)
 				);
 			}	
 						

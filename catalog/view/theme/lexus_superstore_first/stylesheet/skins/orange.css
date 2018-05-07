@@ -7419,11 +7419,12 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     padding-left: 10px;
     opacity: .5
 }
-.layerslider-wrapper .small_text,.layerslider-wrapper .bannerh1{display:none;}
+.homesliderbanner .layerslider-wrapper .small_text,.homesliderbanner .layerslider-wrapper .bannerh1{display:none;}
 #footer .paymentoption {
     margin: 50px auto 0
 }
-
+#topbar .links li span.small{color:#fff;font-size: 12px;display:  block;font-weight: normal;line-height:  1;text-transform: initial;}
+.toptotal span.small{color:#000;font-size: 12px;display:  block;font-weight: normal;line-height:  1;text-transform: initial;}
 #powered .copyright .ptext {
     margin-top: 10px
 }
@@ -9236,7 +9237,7 @@ textarea.form-control {
 .account_detail_content  .productinfo{padding: 20px 0;margin-left: 0px;margin-right: 0px;}
 .account_detail_content  .productinfo .productname{font-size: 15px;line-height: 20px;}
 .account_detail_content  .productinfo .productprice{font-size: 13px;line-height: 40px;font-weight: bold;}
-.account_detail_content .toptotal{width: 300px;margin:0 auto;font-size: 15px;line-height: 20px;font-weight: normal;text-transform: uppercase;margin-top:20px;color:#4A4A4A;}
+.account_detail_content .toptotal{width: 350px;margin:0 auto;font-size: 15px;line-height: 20px;font-weight: normal;text-transform: uppercase;margin-top:20px;color:#4A4A4A;}
 .account_detail_content .toptotal > .row{padding: 2px 0;}
 .account_detail_content .toptotal .tt_total{padding:10px 0;font-weight:bold;border-top:solid 1px #000000;border-bottom: solid 1px #000;margin-top:20px;color:#000;}
 .account_detail_content  .productinfo .productqty{font-size: 13px;line-height: 40px;font-weight: bold;}
@@ -9579,6 +9580,7 @@ textarea.form-control {
  .account-purchasehistory .purchased_container .btnwishlit, .account-purchasehistory .purchased_container .btnordersnow{margin:0px 10px 10px!important;}
  .common-home .newsletter_block .button_mini,.common-home .newsletter_block .inputNew{border-radius: 30px!important;margin-top: 0px;}
 }
+.img-responsive{margin:0 auto;}
 #header-bottom .container .inner > span{position:relative;}
 @media screen and (max-width: 999px) {
     #header-bottom .container .inner > span{padding:0px;margin:0px;}

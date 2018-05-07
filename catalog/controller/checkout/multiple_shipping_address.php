@@ -214,8 +214,8 @@
 			$mda++;
 			$totals[$mda]['title'] = "Total";
 			$totals[$mda]['text'] =  "RM ".number_format($productcost+$totalcoupondiscount+$deliverycost, 2, '.', ',');
+			sort($totals);
 			$data["totals"]=$totals;
-			 
 			$this->response->setOutput($this->load->view('checkout/order_summary', $data));
 		}
 
@@ -480,9 +480,15 @@
 								'error'      => $quote['error']
 							);
 							foreach ($quote['quote'] as $quote_quote) {
-								$json["pricetext"] =$quote_quote["text"];
-								$json["price"] =$quote_quote["resultcost"];
-								$json["dcode"] = $quote_quote['code'];
+								if(isset($quote_quote["text"])){
+									$json["pricetext"] =$quote_quote["text"];
+								}
+								if(isset($quote_quote["code"])){
+									$json["dcode"] = $quote_quote['code'];
+								}
+								if(isset($quote_quote["resultcost"])){
+									$json["price"] = $quote_quote['resultcost'];
+								}
 							}
 							
 						}

@@ -21,7 +21,7 @@
         <div class="addresses row">
           <?php $dasd=0;foreach ($addresses as $result) { //echo json_encode($result); ?> 
           <div class="col-sm-4">
-              <div class="orangebox <?php if($dasd%2==0){echo "whitebox";}$dasd++;?>">
+              <div class="orangebox <?php if($result["is_default"]){echo "whitebox";}$dasd++;?>">
          <p><?php echo $result['address']; ?></p>
          <div class="buttons">
          <a href="<?php echo $result['update']; ?>" class="btn btn-info"><?php echo $button_edit; ?></a> &nbsp;|&nbsp; <a href="<?php echo $result['delete']; ?>" class="btn btn-danger"><?php echo $button_delete; ?></a>

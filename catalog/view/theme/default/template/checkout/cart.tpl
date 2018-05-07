@@ -62,6 +62,9 @@
         <li><input type="radio" name="deliverymethod" class="radio_dm" <?php echo $disabletext ?>><a class="btnmultipledelivery <?php echo $disabletext ?>"><strong>Multiple Address Delivery</strong>
           <span>Only available with purchase of 1 product in multiple quantities</span></a></li>
       </ul>
+      <div class="row">
+        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png">Delivery Charges</a></div>
+     </div>
       <h2>My Bag <span class="itemsbag"><?php echo sizeof($products) ?> items</span></h2>
           <div class="cart_products_list">
               <?php foreach ($products as $product) { ?>
@@ -291,5 +294,23 @@
     $("#cart_ordersummary .subtotalprice").html("RM"+totalPrice.toFixed(2));
     $("#cart_ordersummary .totalprice").html("RM"+totalPrice.toFixed(2));
   }
+</script>
+<div id="delivery_zone" class="pagefix" style="display: none;">
+    <div class="pagefix_insidebox">
+      <div class="row"> <h1 class="pull-left">Delivery Zone</h1></div>
+      <a class="btn_closepagefix">Close <span><i class="fa fa-close"></i></span></a>
+   <?php echo $delivery_zone; ?>
+ </div>
+</div>
+<script type="text/javascript">
+  $("document").ready(function(){
+  $("#delivery_zone .btn_closepagefix").click(function(){
+    $("#delivery_zone").hide();
+  });
+  $(".opendeliverycharge").click(function(){
+    $("#delivery_zone").show();
+  });
+  
+});
 </script>
 <?php echo $footer; ?>

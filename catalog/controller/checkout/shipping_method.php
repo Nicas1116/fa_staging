@@ -143,7 +143,6 @@ class ControllerCheckoutShippingMethod extends Controller {
 					$this->load->model('extension/shipping/' . $result['code']);
 
 					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
-
 					if ($quote) {
 						$method_data[$result['code']] = array(
 							'title'      => $quote['title'],
@@ -152,8 +151,12 @@ class ControllerCheckoutShippingMethod extends Controller {
 							'error'      => $quote['error']
 						);
 						foreach ($quote['quote'] as $quote_quote) {
-							$json["pricetext"] =$quote_quote["text"];
-							$json["dcode"] = $quote_quote['code'];
+							if(isset($quote_quote["text"])){
+								$json["pricetext"] =$quote_quote["text"];
+							}
+							if(isset($quote_quote["code"])){
+								$json["dcode"] = $quote_quote['code'];
+							}
 						}
 						
 					}

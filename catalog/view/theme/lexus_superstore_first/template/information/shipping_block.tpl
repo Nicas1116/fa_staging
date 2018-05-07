@@ -20,7 +20,7 @@
         </div>
         <div class="row whitebox">
           <div class="col-xs-4">
-             <p class="lin1 text-left">Petaling Jaya</p>
+             <p class="lin1 text-left">PETALING JAYA </p>
           </div>
           <div class="col-xs-3">
              <p class="lin1 text-left">46000 - 46999</p>
@@ -36,82 +36,21 @@
         </div>
           </div>
         </div>
-        <div class="row lightgrexbox">
+        <?php $m=0;foreach ($shipping_list as $key => $value) { ?>
+          <div class="row <?php echo ($m%2==0) ? "lightgrexbox" : "whitebox";$m++; ?>">
           <div class="col-xs-4">
-             <p class="lin1 text-left">Shah Alam (Sek 1 - Sek 8) / Bukit Jelutong</p>
+             <p class="lin1 text-left" style="text-transform: uppercase;"><?php echo $value["name"]; ?></p>
           </div>
           <div class="col-xs-3">
              <p class="lin1 text-left">
-                40000 - 40099<br/>
-                40150 - 40469
+                <?php echo $value["zipcode_text"]; ?>
               </p>
           </div>
           <div class="col-xs-5">
-            <p class="lin1 text-center">RM30.00</p>
+            <p class="lin1 text-center">RM<?php echo $value["cost"]; ?></p>
               
           </div>
         </div>
-        <div class="row whitebox">
-          <div class="col-xs-4">
-             <p class="lin1 text-left">Shah Alam (Sek 9 - Sek 36 / U10 -  U20)</p>
-          </div>
-          <div class="col-xs-3">
-             <p class="lin1 text-left">
-              40100 - 40149<br/>
-              40470 - 40999
-            </p>
-          </div>
-          <div class="col-xs-5">
-            <p class="lin1 text-center">RM30.00</p>
-              
-          </div>
-        </div>
-        <div class="row lightgrexbox">
-          <div class="col-xs-4">
-             <p class="lin1 text-left">Klang</p>
-          </div>
-          <div class="col-xs-3">
-             <p class="lin1 text-left">41000 - 41999</p>
-          </div>
-          <div class="col-xs-5">
-            <p class="lin1 text-center">RM18.00</p>
-              
-          </div>
-        </div>
-        <div class="row lightgrexbox">
-          <div class="col-xs-4">
-             <p class="lin1 text-left">Klang</p>
-          </div>
-          <div class="col-xs-3">
-             <p class="lin1 text-left">41000 - 41999</p>
-          </div>
-          <div class="col-xs-5">
-            <p class="lin1 text-center">RM18.00</p>
-              
-          </div>
-        </div>
-        <div class="row lightgrexbox">
-          <div class="col-xs-4">
-             <p class="lin1 text-left">Klang</p>
-          </div>
-          <div class="col-xs-3">
-             <p class="lin1 text-left">41000 - 41999</p>
-          </div>
-          <div class="col-xs-5">
-            <p class="lin1 text-center">RM18.00</p>
-              
-          </div>
-        </div>
-        <div class="row lightgrexbox">
-          <div class="col-xs-4">
-             <p class="lin1 text-left">Klang</p>
-          </div>
-          <div class="col-xs-3">
-             <p class="lin1 text-left">41000 - 41999</p>
-          </div>
-          <div class="col-xs-5">
-            <p class="lin1 text-center">RM18.00</p>
-              
-          </div>
-        </div>
+        <?php } ?>
+        
       </div>
