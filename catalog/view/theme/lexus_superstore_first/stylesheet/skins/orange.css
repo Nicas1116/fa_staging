@@ -7409,7 +7409,9 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     color: #fff;
     line-height: 33px
 }
-
+#powered .paypal{display:none;}
+.common-home #powered .paypal{display:block;}
+#footer .paymentoption {display:none;}
 #footer .paymentoption h5 {
     color: #4a4a4a;
     font-weight: 400;
@@ -7417,7 +7419,7 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     padding-left: 10px;
     opacity: .5
 }
-
+.layerslider-wrapper .small_text,.layerslider-wrapper .bannerh1{display:none;}
 #footer .paymentoption {
     margin: 50px auto 0
 }

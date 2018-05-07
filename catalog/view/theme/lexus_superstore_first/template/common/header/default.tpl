@@ -150,7 +150,7 @@
 		<div class="container">
 
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner">
-				<span ><span class="semiimage"><img src="<?php  echo $base; ?>/image/others/call.png"/></span><span class="semibold">HAMPER & CORPORATE ODER ENQUIRIES <a href="tel:+603 7882 6161">+603 7882 6161</a> or <a href="mailto:rachel.chen@dksh.com">EMAIL</a> </span></span>
+				<span ><span class="semiimage"><img src="<?php  echo $base; ?>/image/others/call.png"/></span><span class="semibold">HAMPER & CORPORATE ODER ENQUIRIES <a href="tel:+603 7882 6161">+603 7882 6161</a> or <a href="mailto:enquiry@famousamos.com.my">EMAIL</a> </span></span>
 			</div>
 		</div>
 	</div>
