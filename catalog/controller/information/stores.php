@@ -35,7 +35,6 @@ class ControllerInformationStores extends Controller {
 			}
 			
 		}
-		echo json_encode($data['states']);
 		$data["heading_title"] = "Store Locator";
 		$this->document->setTitle($data["heading_title"]);
 		$data['column_left'] = $this->load->controller('common/column_left');

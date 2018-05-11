@@ -143,7 +143,6 @@
                 tag: "marker-6",
                 all: true,
                 callback: function(objs){
-                  console.log(objs);
                   if(objs.length>0){
                     google.maps.event.trigger(objs[0], 'click');
                   }
