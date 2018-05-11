@@ -41,7 +41,17 @@
         <div class="pull-left"><a href="<?php echo $add; ?>" class="btn btn-primary"><?php echo $button_new_address; ?></a></div>
       </div>
       <script type="text/javascript">
+        $(window).load(function(){
+          var sheight = 0;
+          $.each($(".addresses .orangebox"),function(i,a){
+            if($(a).height()>sheight){
+              sheight = $(a).height();
+            }
+          })
+          $(".addresses .orangebox").height(sheight);
+        })
         $(document).ready(function () {
+
           $("input[name=primaryaddress]").change(function(){
             //alert($("input[name=primaryaddress]:checked").attr("value"));
             $(".addresses .orangebox").removeClass("whitebox");

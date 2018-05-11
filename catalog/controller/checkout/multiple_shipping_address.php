@@ -277,7 +277,7 @@
 						$product["option"][] = $seleced_products_option;
 					}
 					$this->session->data['shipping_products'][$tproductno] = $product;
-					echo json_encode($this->session->data['shipping_products']);
+					//echo json_encode($this->session->data['shipping_products']);
 				}
 			}
 		}
@@ -330,11 +330,7 @@
 						
 						$totalcost += $value["price"];
 					}
-					foreach ($this->session->data['shipping_address'] as $key => $value) {
-						echo json_encode($value);
-					}
 				}
-				echo "<br/>totalcost:".$totalcost;
 			}
 		}
 

@@ -9,7 +9,33 @@ class ControllerInformationStores extends Controller {
 		$data['sconfig'] = $config;
 		$data['themename'] = $config->get("theme_default_directory");
 		
+		$this->load->model('information/stores');
+		$data['products'] = array();
+		$data['states'] = array();
+		$results = $this->model_information_stores->getProducts();
 
+		foreach ($results as $key => $value) {
+			$valueds = str_replace(',', '', strtolower($value["outlet_states"]));
+			$valueds = str_replace(' ', '-', $valueds);
+			$value["class"] = $valueds;
+			$data['products'][$key] = $value;
+			$have=true;
+			foreach ($data['states'] as $states) {
+				if($states["name"]==strtoupper($value["outlet_states"])){
+					$have=false;
+				}
+			}
+			if($have==true){
+				$obj = array();
+				$obj["name"] = strtoupper($value["outlet_states"]);
+				$valueds = str_replace(',', '', $obj["name"]);
+				$valueds = str_replace(' ', '-', $valueds);
+				$obj["value"] =strtolower($valueds);
+				$data['states'][]=$obj;
+			}
+			
+		}
+		echo json_encode($data['states']);
 		$data["heading_title"] = "Store Locator";
 		$this->document->setTitle($data["heading_title"]);
 		$data['column_left'] = $this->load->controller('common/column_left');

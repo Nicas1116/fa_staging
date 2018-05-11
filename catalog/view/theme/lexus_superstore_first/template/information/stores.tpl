@@ -23,43 +23,23 @@
              <h2>Locate us</h2>
              <p>By State 
               <select  class="state">
-                <option value="selangor">Selangor</option>
-               <option value="selangor">Selangor</option>
-                <option value="selangor">Selangor</option>
+                <?php foreach ($states as $key => $value) { ?>
+                 <option value="<?php echo $value["value"] ?>" <?php echo ($value["value"]=="selangor") ? "selected" : ""; ?>><?php echo $value["name"] ?></option>
+                <?php } ?>
              </select>
              </p>
            </div>
            <div class="locateus_storeslist">
-              <div class="locateus_store active">
-                <h4>Sunway Pyramid</h4>
-                <p>LG2.K12 & LG2.K12A, Lower Ground Two, No 3, Jalan PJS 11/15, Bandar Sunway, 46151 Petaling Jaya, Selangor.</p>
+              <?php 
+              $m=0;
+              foreach ($products as $key => $value) { ?>
+                 <div class="marker-<?php echo $value["outlet_id"]; ?> <?php echo $value["class"]; ?> locateus_store <?php echo ($m==0) ? "active" : ""; ?>" data-marker-id="marker-<?php echo $value["outlet_id"]; ?>">
+                <h4><?php echo $value["outlet_name"]; ?></h4>
+                <p><?php echo $value["outlet_address"]; ?></p>
                 <i class="fa fa-angle-right"></i>
               </div>
-              <div class="locateus_store">
-                <h4>Sunway Pyramid</h4>
-                <p>LG2.K12 & LG2.K12A, Lower Ground Two, No 3, Jalan PJS 11/15, Bandar Sunway, 46151 Petaling Jaya, Selangor.</p>
-                <i class="fa fa-angle-right"></i>
-              </div>
-              <div class="locateus_store">
-                <h4>Sunway Pyramid</h4>
-                <p>LG2.K12 & LG2.K12A, Lower Ground Two, No 3, Jalan PJS 11/15, Bandar Sunway, 46151 Petaling Jaya, Selangor.</p>
-                <i class="fa fa-angle-right"></i>
-              </div>
-              <div class="locateus_store">
-                <h4>Sunway Pyramid</h4>
-                <p>LG2.K12 & LG2.K12A, Lower Ground Two, No 3, Jalan PJS 11/15, Bandar Sunway, 46151 Petaling Jaya, Selangor.</p>
-                <i class="fa fa-angle-right"></i>
-              </div>
-              <div class="locateus_store">
-                <h4>Sunway Pyramid</h4>
-                <p>LG2.K12 & LG2.K12A, Lower Ground Two, No 3, Jalan PJS 11/15, Bandar Sunway, 46151 Petaling Jaya, Selangor.</p>
-                <i class="fa fa-angle-right"></i>
-              </div>
-              <div class="locateus_store">
-                <h4>Sunway Pyramid</h4>
-                <p>LG2.K12 & LG2.K12A, Lower Ground Two, No 3, Jalan PJS 11/15, Bandar Sunway, 46151 Petaling Jaya, Selangor.</p>
-                <i class="fa fa-angle-right"></i>
-              </div>
+              <?php $m++;}
+              ?>
            </div>
            </div>
           <div class="col-lg-8 col-md-8 col-xs-12">
@@ -79,6 +59,32 @@
     <script type="text/javascript" src="catalog/view/javascript/gmap/gmap3.min.js"></script>
     <script type="text/javascript" src="catalog/view/javascript/gmap/gmap3.infobox.js"></script>
     <script type="text/javascript">
+      $(document).ready(function(){
+        $(".state").change(function(){
+          $(".locateus_store").hide();
+          $("."+$(".state").val()).show()
+        })
+         
+
+        $(".locateus_store").click(function(){
+          $(".locateus_store").removeClass("active");
+          $(this).addClass("active");
+          $("#contact-map").gmap3({
+              get: {
+                name:"marker",
+                tag: $(this).attr("data-marker-id"),
+                all: true,
+                callback: function(objs){
+                  console.log(objs);
+                  if(objs.length>0){
+                    google.maps.event.trigger(objs[0], 'click');
+                  }
+                }
+              }
+            });
+          //google.maps.event.trigger(ourMarker, 'click');
+        })
+      })
         var mapDiv, map, infobox;
         var lat ='3.0726';
         var lon ='101.6068';
@@ -91,9 +97,13 @@
                         zoom: 15
                     }
                 },
-                marker:{
+                marker:
+                {
                     values:[
-                        {latLng:[lat, lon], data:"<div class='mapstores'><h3>Sunway Pyramid</h3><p>LG2.K12 & LG2.K12A, Lower Ground Two, No 3, Jalan PJS 11/15, Bandar Sunway, 46151 Petaling Jaya, Selangor.</p><img src='/fa/staging/image/others/storesphoto.jpg'/><div class='dphone'>03-56365187</div><div class='optime'>10am - 10pm</div><button>Get Directions</button></div>"},
+                    <?php foreach ($products as $key => $value) { ?>
+                      {tag:"marker-<?php echo $value["outlet_id"]; ?>",latLng:[<?php echo $value["outlet_coordinate"]; ?>], data:"<div class='mapstores'><h3><?php echo $value["outlet_name"]; ?></h3><p><?php echo $value["outlet_address"]; ?></p><img src='/fa/staging/image/others/storesphoto.jpg'/><div class='dphone'><?php echo $value["outlet_contact"]; ?></div><div class='optime'><?php echo $value["outlet_ophour"]; ?></div><a href='https://www.google.com.my/maps/search/<?php echo $value["outlet_address"]; ?>' target='_blank' class='buttongetdirection'>Get Directions</a></div>"},
+                    <?php } ?>
+                        
                     ],
                     options:{
                         draggable: false
@@ -122,6 +132,23 @@
                         }*/
                     }
                 }
+            });
+            $(".locateus_store").hide();
+          $("."+$(".state").val()).show()
+          $(".locateus_store").removeClass("active");
+          $(".marker-6").addClass("active");
+          $("#contact-map").gmap3({
+              get: {
+                name:"marker",
+                tag: "marker-6",
+                all: true,
+                callback: function(objs){
+                  console.log(objs);
+                  if(objs.length>0){
+                    google.maps.event.trigger(objs[0], 'click');
+                  }
+                }
+              }
             });
         });
     </script>
