@@ -10,9 +10,10 @@
                   <p>REFINE BY</p>
                   <p>Price</p>
                   <ul>
-                    <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=11">Under RM30</a></li>
-                    <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=12">RM30 — RM50</a></li>
-                    <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=13">RM50 and above</a></li>
+                    <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=1">Under RM20</a></li>
+                    <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=2">RM21 — RM50</a></li>
+                    <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=3">RM51 - RM100</a></li>
+                    <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=4">RM100 and Above</a></li>
                   </ul>
               </div>
               </div>

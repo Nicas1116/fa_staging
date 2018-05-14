@@ -26,7 +26,7 @@
 <p>
   <textarea name="comment" rows="8" class="form-control"><?php echo $comment; ?></textarea>
 </p>
-<p>Fill in the delivery address above to get the delivery fee</p>
+<p>Fill in the delivery address above to get the delivery charges</p>
 <div class="buttons">
   <div class="pull-right">
     <input type="button" value="<?php echo $button_continue; ?>" id="button-shipping-method" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary" />

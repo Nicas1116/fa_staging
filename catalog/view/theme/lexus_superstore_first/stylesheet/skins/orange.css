@@ -7875,7 +7875,7 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 .cart_products_list .boxq {
     border: solid 1px #000;
     display: inline-block;
-    min-width: 57px
+    min-width: 63px;
 }
 
 #topbar .rototal {
@@ -8858,7 +8858,7 @@ textarea.form-control {
 .mapstores img {
     display: block
 }
-
+.mapstores img {display:none;}
 .mapstores .dphone,.mapstores .optime {
     display: inline-block;
     width: 125px;

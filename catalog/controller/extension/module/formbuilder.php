@@ -122,7 +122,7 @@ class ControllerExtensionModuleFormbuilder extends Controller {
 						$field_details .= '</tr>';
 					}elseif($formbuilder_fields['type'] == 'file' && $fields_value[str_replace(' ','_', trim(strtolower($formbuilder_fields['name'])))]){
 						$field_details .= '<tr>';
-						$field_details .= '<th width="25%">' . $formbuilder_fields['name'] . ': </th> <td><a href='. $this->url->link('tool/upload/download', 'token=' . $this->session->data['token'] . '&code=' . $fields_value[str_replace(' ','_', trim(strtolower($formbuilder_fields['name'])))], true) .'>Download</a></td>';
+						$field_details .= '<th width="25%">' . $formbuilder_fields['name'] . ': </th> <td><a href='. $this->url->link('tool/upload/download', 'token=' . '&code=' . $fields_value[str_replace(' ','_', trim(strtolower($formbuilder_fields['name'])))], true) .'>Download</a></td>';
 						$field_details .= '</tr>';
 					}elseif($formbuilder_fields['type'] == 'checkbox'){
 						$checkboxvalues = $fields_value[str_replace(' ','_', trim(strtolower($formbuilder_fields['name'])))];

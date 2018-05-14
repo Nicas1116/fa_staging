@@ -192,7 +192,7 @@
   </div>
 <input type="hidden" name="shipping_method" class="ishipping_method" value="" />
 <div class="row"> <div class="col-xs-12">
-  <p>Fill in the delivery address above to get the delivery fee</p>
+  <p>Fill in the delivery address above to get the delivery charges</p>
    </div></div>
     <div class="overall_shippingcost row" style="display: none;">
       <input type="hidden" name="can_shipping" class="can_shipping" value="false">
