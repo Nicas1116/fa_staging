@@ -26,7 +26,11 @@ class ControllerMaybankCCPayment extends Controller {
 				$mer_id = "INV".date("Ymd").date("Hi").$order_info["order_id"];//.generateRandomString(5);
 				$invoiceid = $order_info["invoice_no"];
 				$totalamount = number_format($order_info["total"], 2, '.', ',');
-				$tphash = "J9jqR8Fh"."02700701128175000698".$mer_id.number_format($totalamount,2);
+
+				//$tphash = "J9jqR8Fh"."02700701128175000698".$mer_id.number_format($totalamount,2);
+				//$data["paymentlink"] = "https://ebpgcards.maybank.com/BPG/admin/payment/PaymentWindowSimulator.jsp";
+				$data["paymentlink"] = "https://cards.maybank.com/BPG/admin/payment/PaymentInterface.jsp";
+				$tphash = "Ia4Vfs3M"."02700701128175000698".$mer_id.number_format($totalamount,2);
 				$invoiceData["invoices_code"] = $mer_id;
 				$invoiceData["invoices_hash"] = hash("sha512",$tphash,false);
 				$data["invoiceid"] = $invoiceid;
@@ -89,6 +93,8 @@ class ControllerMaybankCCPayment extends Controller {
 		} else {
 			$order_id = 0;
 		}
+		//echo json_encode($_POST);
+		$this->load->model('maybankcc/payment');
 		if (!empty($_POST))
 		{
 			$totalamount = number_format($this->session->data['total_amount'], 2, '.', ',');
@@ -97,18 +103,18 @@ class ControllerMaybankCCPayment extends Controller {
 			$tra_id = $_POST["TRANSACTION_ID"];
 			$tra_status = $_POST["TXN_STATUS"];
 			$res_code = $_POST["RESPONSE_CODE"];
-			$tphash = strtoupper("J9jqR8Fh"."02700701128175000698".$mer_id.$totalamount.$tra_id.$tra_status.$res_code);
+			
+			//$tphash = strtoupper("J9jqR8Fh"."02700701128175000698".$mer_id.$totalamount.$tra_id.$tra_status.$res_code);
+			$tphash = strtoupper("Ia4Vfs3M"."02700701128175000698".$mer_id.$totalamount.$tra_id.$tra_status.$res_code);
 			$this->load->model('account/order');
 			if(strtoupper(hash("sha512",$tphash,false)) == $txn_sign2){
 				if($res_code==0){
-					$this->load->model('maybankcc/payment');
-					$this->model_maybankcc_payment->addMaybankCC($order_id,$_POST);
 					$this->model_maybankcc_payment->updateCompleteStatus($order_id);
 				}
 			}
 			
 		}
-		
+		$this->model_maybankcc_payment->addMaybankCC($order_id,$_POST);
 		echo "<script>window.close();</script>";
 	}
 }

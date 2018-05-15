@@ -7307,7 +7307,11 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     width: 50%;
     float: left
 }
-
+.paymentmethods.deliverymethods{margin: 15px 0;}
+.paymentmethods.deliverymethods li{
+    width: 100%;
+    float: left
+}
 #cart .thecarttext {
     line-height: 80px;
     color: #fff;
@@ -7935,7 +7939,7 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     margin-right: 20px;
     border-radius: 10px
 }
-
+.paymentmethods.deliverymethods li a {margin-right:0px;}
 #topbar .links .btn-viewbag,.deliverymethods li a strong {
     font-size: 18px;
     line-height: 22px;
@@ -7948,7 +7952,12 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     display: block;
     color: #000
 }
-
+.deliverymethods li a span.logopayment{display: inline-block;margin-right: 10px;background: #fec70b;padding: 5px;}
+.deliverymethods li a span.logopayment img{width:120px;}
+.paymentmethods.deliverymethods li a strong{line-height: 34px;}
+.paymentmethods.deliverymethods .radio_dm{
+    top:20px;
+}
 .deliverymethods li a.active {
     border-color: #ff8d00
 }
