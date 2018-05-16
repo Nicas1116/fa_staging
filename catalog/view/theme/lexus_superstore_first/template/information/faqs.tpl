@@ -9,7 +9,9 @@
 
         $themeConfig = (array)$config->get('themecontrol') ?>
 <div class="container">
-    
+    <style type="text/css">
+      #sidebar-main p.faq_answer{text-align: center;line-height: 30px;font-size: 18px;font-weight: bold;}
+    </style>
   <?php require( ThemeControlHelper::getLayoutPath( 'common/mass-container.tpl' )  ); ?>
   <div class="row">
     <?php echo $column_left; ?>
@@ -27,6 +29,13 @@
           ?>
          
       </div>
+      <p class="faq_answer">
+        Don’t find answer to your questions?<br/>
+Please drop us an email at <a href="mailto:enquiry@famousamos.com.my">enquiry@famousamos.com.my</a><br/>
+Our team works 9am to 5pm, Mondays to Fridays,<br/>
+and we will get back you as soon as we can.
+
+      </p>
     </div>
       <?php echo $content_bottom; ?></div>
    </section>	

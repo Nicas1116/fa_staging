@@ -3,7 +3,30 @@
  echo $header; ?> <?php require( ThemeControlHelper::getLayoutPath( 'common/mass-header.tpl' )  ); ?>
 <div class="container">
 <div class="category_image cop-<?php echo $category_parent_id ?>">
-    <h2><?php echo $heading_title; ?></h2>
+    <?php 
+    switch ( $category_parent_id ) {
+      case 25:
+        ?>
+        <img src="/fa/staging/image/others/By-Occassion.jpg">
+        <?php
+        break;
+       case 33:
+        ?>
+        <img src="/fa/staging/image/others/By-Products.jpg">
+        <?php
+        break;
+       case 34:
+        ?>
+        <img src="/fa/staging/image/others/Corporate.jpg">
+        <?php
+        break;
+      default:
+         ?>
+        <img src="/fa/staging/image/others/By-Price.jpg">
+        <?php
+        break;
+    }
+    ?>
   </div>
   
   <?php //require( ThemeControlHelper::getLayoutPath( 'common/mass-container.tpl' )  ); ?>

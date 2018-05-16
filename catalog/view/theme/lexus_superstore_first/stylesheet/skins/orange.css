@@ -7219,13 +7219,9 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 
 .category_image {
     margin: 30px 0;
-    background: url(/fa/staging/image/others/category_header_banner.jpg) center center;
-    background-size: cover;
-    padding: 65px 60px
 }
 .category_image.cop-34{
-  background: url(/fa/staging/image/others/corp_gift_header_banner.jpg) center center;
-  background-size: cover;
+
 }
 .category_image h2 {
     font-size: 30px;

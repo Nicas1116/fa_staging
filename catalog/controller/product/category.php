@@ -395,9 +395,11 @@ class ControllerProductCategory extends Controller {
 			$data['header'] = $this->load->controller('common/header');
 			
 			if($category_id == 60){
+				
+				$data["category_parent_id"] = "00";
 				$this->response->setOutput($this->load->view('product/promtion', $data));
-				//$category_parent_id = $parts[0];)
 			}else{
+				$data["category_parent_id"] = "00";
 				$this->response->setOutput($this->load->view('product/category', $data));
 			}
 		} else {
@@ -552,7 +554,6 @@ class ControllerProductCategory extends Controller {
 		} else {
 			$category_id = 0;
 		}
-		
 		$category_info = $this->model_catalog_category->getCategory($category_id);
 
 		if ($category_info) {
@@ -861,10 +862,12 @@ class ControllerProductCategory extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
 			if($category_id == 61){
 				$this->response->setOutput($this->load->view('product/promotion', $data));
 				//$category_parent_id = $parts[0];)
 			}else{
+
 				$this->response->setOutput($this->load->view('product/category', $data));
 			}
 		} else {
