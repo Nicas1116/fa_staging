@@ -28,8 +28,9 @@ class ControllerMaybankCCPayment extends Controller {
 				$totalamount = number_format($order_info["total"], 2, '.', ',');
 
 				//$tphash = "J9jqR8Fh"."02700701128175000698".$mer_id.number_format($totalamount,2);
+				
 				//$data["paymentlink"] = "https://ebpgcards.maybank.com/BPG/admin/payment/PaymentWindowSimulator.jsp";
-				$data["paymentlink"] = "https://cards.maybank.com/BPG/admin/payment/PaymentInterface.jsp";
+				$data["paymentlink"] = "https://cards.maybank.com/BPG/admin/payment/PaymentWindow.jsp";
 				$tphash = "Ia4Vfs3M"."02700701128175000698".$mer_id.number_format($totalamount,2);
 				$invoiceData["invoices_code"] = $mer_id;
 				$invoiceData["invoices_hash"] = hash("sha512",$tphash,false);
