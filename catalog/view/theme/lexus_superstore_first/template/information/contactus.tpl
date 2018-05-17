@@ -12,13 +12,12 @@
     
   <?php require( ThemeControlHelper::getLayoutPath( 'common/mass-container.tpl' )  ); ?>
   <div class="row form-contactus">
-				
+        
   <div class="col-md-<?php echo $block[0];?>">
       
       <h2 class="faq_header">Contact Us</h2>
       <div class="bline"></div>
       <p><strong>We would love to hear from you</strong></p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       <div class="form-horizontal form_<?php echo $module; ?>">
       <div class="row">
       
@@ -215,8 +214,8 @@
     </div>
   </div>
       <?php echo $content_bottom; ?></div>
-   </section>	
-		<?php echo $column_right; ?></div>
+   </section> 
+    <?php echo $column_right; ?></div>
 </div>
 <style type="text/css">#header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}</style>
 <script type="text/javascript"><!--
