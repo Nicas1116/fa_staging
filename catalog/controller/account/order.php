@@ -148,6 +148,17 @@ class ControllerAccountOrder extends Controller {
 		$this->response->setOutput($this->load->view('account/order_list', $data));
 	}
 
+
+	public function email() {
+		if (isset($this->request->get['order_id'])) {
+			$order_id = $this->request->get['order_id'];
+		} else {
+			$order_id = 0;
+		}
+		$this->load->model('checkout/order');
+
+		$this->model_checkout_order->getEmail($order_id);
+	}
 	public function info() {
 		$this->load->language('account/order');
 
@@ -375,8 +386,32 @@ class ControllerAccountOrder extends Controller {
 					);
 
 					$shipping_address['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
-					$product_info = $this->model_catalog_product->getProduct($shipping_address['product_id']);
+					
+					$option_data = array();
 
+					$options = $this->model_account_order->getOrderOptions($order_id, $shipping_address['order_product_id']);
+
+					foreach ($options as $option) {
+						if ($option['type'] != 'file') {
+							$value = $option['value'];
+						} else {
+							$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+
+							if ($upload_info) {
+								$value = $upload_info['name'];
+							} else {
+								$value = '';
+							}
+						}
+
+						$option_data[] = array(
+							'name'  => $option['name'],
+							'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+						);
+					}
+					
+					$product_info = $this->model_catalog_product->getProduct($shipping_address['product_id']);
+					$product_info["option"] = $option_data;
 					if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 						$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 					} else {

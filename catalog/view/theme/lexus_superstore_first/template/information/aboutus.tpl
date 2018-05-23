@@ -15,7 +15,7 @@
   	 <section id="sidebar-main" class="col-md-12"><div id="content" class="paboutus">
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  	<img class="about_main" src="/fa/staging/image/others/about_main.jpg"/>
+  	<img class="about_main" src="/image/others/about_main.jpg"/>
       </div>
 
 </div></section>
@@ -46,7 +46,7 @@
           <p>Famous Amos has been transformed to a cookies boutique with a selected range of cookies gift tins and wide variety of gift packaging. All gift packaging are also complimented with selected imported chocolates and premium mugs which are creatively packed into unique gifts.</p>
           <p>Our exclusive hampers are always available throughout the year and festival hampers for Chinese New Year, Hari Raya, Deepavali and Christmas.</p>
           <p>We cater for all private and corporate functions for occasions such as parties, picnics, dinners and social gatherings of all kinds.</p>
-          <p><a href="/fa/staging/index.php?route=product/category&path=25" class="btn btn-yellow">ORDER NOW</a></p>
+          <p><a href="/index.php?route=product/category&path=25" class="btn btn-yellow">ORDER NOW</a></p>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
 #header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}
   .fa_aboutus_orange{background:#FFFAC2;padding: 20px 0}
   .fa_aboutus_grey{background:#fff;}
-    .fa_aboutus_grey .container{    background: #FFF url(/fa/staging/image/others/fa_aboutus_grey.jpg) center right no-repeat;
+    .fa_aboutus_grey .container{    background: #FFF url(/image/others/fa_aboutus_grey.jpg) center right no-repeat;
     background-size: cover;
     padding: 50px 0;
     max-height: 544px;

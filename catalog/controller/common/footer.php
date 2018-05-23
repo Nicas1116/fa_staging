@@ -53,8 +53,8 @@ class ControllerCommonFooter extends Controller {
         $data['shipping'] = $this->url->link('information/shipping');
         $data['storelocator'] = $this->url->link('information/stores');
         $data['career'] = $this->url->link('information/careers');
-        $data['facebooklink'] = "http://www.facebook.com/";
-        $data['instagramlink'] = "http://www.instagram.com/";
+        $data['facebooklink'] = "https://www.facebook.com/famousamosmalaysia/";
+        $data['instagramlink'] = "https://www.instagram.com/famousamos.my/";
         $data['contact'] = $this->url->link('information/contactus');
         $data['return'] = $this->url->link('account/return/add', '', true);
         $data['sitemap'] = $this->url->link('information/sitemap');

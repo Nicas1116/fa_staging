@@ -15,7 +15,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="addresspage <?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_addressbook.png"/></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/image/banner_addressbook.png"/></div>
       <?php if ($addresses) { ?>
 
         <div class="addresses row">

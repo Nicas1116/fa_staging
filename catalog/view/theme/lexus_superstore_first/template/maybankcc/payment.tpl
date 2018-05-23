@@ -47,6 +47,7 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+.logopayment{margin:0 5px;}
 </style>
 <ul class="step_title row">
         <li><p class="step1 active">Customer Info</p></li>
@@ -57,7 +58,7 @@
            <h2>Payment Methods:</h2>
         </div>
         <ul class="paymentmethods deliverymethods row">
-        <li><input type="radio" name="paymentmethod" class="radio_dm" checked="checked"><a class="btnsingledelivery active"><span class="logopayment"><img src="/fa/staging/image/others/logo-maybank.png"/></span><strong>Maybank Credit Cards</strong></a></li>
+        <li><input type="radio" name="paymentmethod" class="radio_dm" checked="checked"><a class="btnsingledelivery active"><span class="logopayment"><img src="/image/others/iconMaster.jpg"/> <span class="logopayment" ><img src="/image/others/iconVisa.jpg"/></span><strong> Credit Cards</strong></a></li>
       </ul>
         <div class="text-right">
             <a href="javascript:submitForm();void(0);" class="theButton">SUBMIT</a>
@@ -93,7 +94,7 @@
         function submitForm(){
             $(".theForm").submit();
             $(".csdaop_step2").show();
-            $(".theButton").html("Submiting...");
+            $(".theButton").html("Submitting...");
         }
       $(document).ready(function(){
             getordersummary();

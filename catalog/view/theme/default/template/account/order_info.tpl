@@ -65,7 +65,11 @@
                
                 <div class="row productinfo <?php if($m%2==0){echo "oddbox";} ?>">
                   <div class="col-sm-2"><img src="<?php echo $product["thumb"]; ?>" alt="<?php echo $product["name"]; ?>" class="img-thumbnail"></div>
-                  <div class="col-sm-3"><p class="productname"><?php echo $product["name"]; ?></p></div>
+                  <div class="col-sm-3"><p class="productname"><b><?php echo $product["name"]; ?></b><br/>
+                  <?php foreach ($product["option"] as $option) { ?>
+                    <?php echo $option["name"]; ?>:<?php echo $option["value"]; ?><br/>
+                   <?php } ?>
+                  </p></div>
                   <div class="col-sm-2"><p class="productprice"><?php echo $product["price"]; ?></p></div>
                   <div class="col-sm-2"><p class="productqty">QTY<?php echo $product["quantity"]; ?></p></div>
                   <div class="col-sm-3"><a href="<?php echo $product["reorder"] ?>" class="btnordersnow">RE-ORDER</a></div>

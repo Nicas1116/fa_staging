@@ -36,7 +36,7 @@
                           <div class="col-sm-6">Tracking No. #<?php echo ++$i; ?></div>
                           <div class="col-sm-6 comments"><?php echo $comment["trackingno"]; ?></div>
                        </div>
-                       <div><a href="<?php echo $comment["trackinglink"]; ?>" class="trackinglink"><img src="/fa/staging/image/others/btntrackorder.png"/>&nbsp;Track Order</a></div>
+                       <div><a href="<?php echo $comment["trackinglink"]; ?>" class="trackinglink"><img src="/image/others/btntrackorder.png"/>&nbsp;Track Order</a></div>
                      <?php }}else if($full_order_info["order_status_id" ]==17){ ?>
                      <a href="<?php echo $order["payment"]; ?>" class="btnvieworder">Make Payment</a>
                      <?php } ?></div>
@@ -64,7 +64,11 @@
                 <div class="row productinfo <?php if($m%2==0){echo "oddbox";} ?>">
                   <div class="col-sm-12 shipping_address"><b>Shipping Address</b><p><?php echo $shipping_address["shipping_address"]; ?></p></div>
                   <div class="col-sm-2"><img src="<?php echo $shipping_address["thumb"]; ?>" alt="<?php echo $product["name"]; ?>" class="img-thumbnail"></div>
-                  <div class="col-sm-3"><p class="productname"><?php echo $product["name"]; ?></p></div>
+                  <div class="col-sm-3"><p class="productname"><b><?php echo $product["name"]; ?></b><br/>
+				  <?php foreach ($product["option"] as $option) { ?>
+                    <?php echo $option["name"]; ?>:<?php echo $option["value"]; ?><br/>
+                   <?php } ?>
+				  </p></div>
                   <div class="col-sm-2"><p class="productprice"><?php echo $shipping_address["price"]; ?></p></div>
                   <div class="col-sm-2"><p class="productqty">QTY<?php echo $shipping_address["quantity"]; ?></p></div>
                   <div class="col-sm-3"><a href="<?php echo $shipping_address["reorder"] ?>" class="btnordersnow">RE-ORDER</a></div>

@@ -12,7 +12,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?> account_edit"><?php echo $content_top; ?>
-      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_accountdetail.png"/></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/image/banner_accountdetail.png"/></div>
       <h3>Personal Information</h3>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>

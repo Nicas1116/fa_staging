@@ -203,7 +203,7 @@
         <div class="col-xs-12">Not Available for Delivery</div>
      </div>
          <div class="row">
-        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
+        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/image/others/delivery.png"/>Delivery Charges</a></div>
      </div>
 </div>
    <div class="buttons clearfix">

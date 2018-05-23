@@ -201,7 +201,7 @@
         <div class="col-xs-12">Not Available for Delivery</div>
      </div>
      <div class="row">
-        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png"/>Delivery Charges</a></div>
+        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/image/others/delivery.png"/>Delivery Charges</a></div>
      </div>
 </div>
  </div>
@@ -614,7 +614,7 @@ function savepaymentmethod() {
     });
 }
 
-
+var jsond;
 function finishpayment(){
     $.ajax({
         type: 'get',
@@ -627,9 +627,9 @@ function finishpayment(){
             $('#button-confirm').button('reset');
         },
         success: function(json) {
-            console.log(json);
-
-            location = json["payment_link"]+"&order_id="+json["order_id"];
+			jsond=json;
+           $("body").append('<script type="text/javascript">/* <![CDATA[ */var google_conversion_id = 880328971;var google_conversion_label = "8S0iCP7F-YIBEIuC46MD";var google_remarketing_only = false;/* ]]> */</script><script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script><noscript><div style="display:inline;"><img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880328971/?label=8S0iCP7F-YIBEIuC46MD&amp;guid=ON&amp;script=0"/></div></noscript>');
+            setTimeout(function(){location = jsond["payment_link"]+"&order_id="+jsond["order_id"];},1000);
         }
     });
 }

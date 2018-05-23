@@ -11,7 +11,9 @@ class ModelMaybankCCPayment extends Model {
 		echo "UPDATE `".DB_PREFIX."order` SET `order_status_id` = '1' WHERE `order_id` = '" . (int)$order_id . "' AND `status` = '1'";
 		$query = $this->db->query("UPDATE `".DB_PREFIX."order` SET `order_status_id` = '1' WHERE `order_id` = '" . (int)$order_id . "'");
 		$query = $this->db->query("UPDATE `".DB_PREFIX."order_history` SET `order_status_id` = '1' WHERE `order_id` = '" . (int)$order_id . "'");
+		
 		if($query){
+
 			return true;
 		}else{
 			return false;

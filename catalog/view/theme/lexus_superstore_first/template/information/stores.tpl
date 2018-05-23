@@ -101,7 +101,7 @@
                 {
                     values:[
                     <?php foreach ($products as $key => $value) { ?>
-                      {tag:"marker-<?php echo $value["outlet_id"]; ?>",latLng:[<?php echo $value["outlet_coordinate"]; ?>], data:"<div class='mapstores'><h3><?php echo $value["outlet_name"]; ?></h3><p><?php echo $value["outlet_address"]; ?></p><img src='/fa/staging/image/others/storesphoto.jpg'/><div class='dphone'><?php echo $value["outlet_contact"]; ?></div><div class='optime'><?php echo $value["outlet_ophour"]; ?></div><a href='https://www.google.com.my/maps/search/<?php echo $value["outlet_address"]; ?>' target='_blank' class='buttongetdirection'>Get Directions</a></div>"},
+                      {tag:"marker-<?php echo $value["outlet_id"]; ?>",latLng:[<?php echo $value["outlet_coordinate"]; ?>], data:"<div class='mapstores'><h3><?php echo $value["outlet_name"]; ?></h3><p><?php echo $value["outlet_address"]; ?></p><img src='/image/others/storesphoto.jpg'/><div class='dphone'><?php echo $value["outlet_contact"]; ?></div><div class='optime'><?php echo $value["outlet_ophour"]; ?></div><a href='https://www.google.com.my/maps/search/<?php echo $value["outlet_address"]; ?>' target='_blank' class='buttongetdirection'>Get Directions</a></div>"},
                     <?php } ?>
                         
                     ],

@@ -9,7 +9,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_orders.png"/></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/image/banner_orders.png"/></div>
       
       <?php if ($orders) { ?>
       <div class="order_listing">
@@ -39,7 +39,7 @@
                 <?php if($order["order_status_id" ]==5){$i=0;foreach ($order["comments"] as $comment) { ?>
                        <div class="row">
                           <div class="col-sm-12">Tracking No. #<?php echo ++$i; ?></div>
-                          <div class="col-sm-12 comments"><?php echo $comment["trackingno"]; ?><a href="<?php echo $comment["trackinglink"]; ?>" class="trackinglink"><img src="/fa/staging/image/others/btntrackorder.png"/>&nbsp;Track Order</a></div>
+                          <div class="col-sm-12 comments"><?php echo $comment["trackingno"]; ?><a href="<?php echo $comment["trackinglink"]; ?>" class="trackinglink"><img src="/image/others/btntrackorder.png"/>&nbsp;Track Order</a></div>
                        </div>
                      <?php }}else if($order["order_status_id" ]==17){ ?>
                      <a href="<?php echo $order["payment"]; ?>" class="btnvieworder">Make Payment</a>

@@ -1,7 +1,7 @@
 <div id="cart" class="clearfix pull-right">
     <div data-toggle="dropdown" data-loading-text="<?php echo $text_loading; ?>" class="dropdown-toggle">
       <div class="thecarttext">
-        <span class=""><img src="/fa/staging/image/others/combinedbag.png"/><span>BAG</span></span>
+        <span class=""><img src="/image/others/combinedbag.png"/><span>BAG</span></span>
         <span id="cart-total"><?php echo $text_items; ?></span>
       </div>
     </div>

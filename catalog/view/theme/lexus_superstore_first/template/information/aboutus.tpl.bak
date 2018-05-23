@@ -25,9 +25,9 @@
     <p>Have A Brown Day Always!</p>
       </div>
        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 visible-lg visible-md">
-        <img class="fa_aboutusimg" src="/fa/staging/image/others/fa_aboutus.jpg"/>
+        <img class="fa_aboutusimg" src="/image/others/fa_aboutus.jpg"/>
        </div>
-      <img class="fa_aboutusimg visible-xs visible-sm" src="/fa/staging/image/others/fa_aboutus.jpg"/>
+      <img class="fa_aboutusimg visible-xs visible-sm" src="/image/others/fa_aboutus.jpg"/>
 </div></section>
   </div>
 </div>
@@ -64,7 +64,7 @@
 #header-bottom{display: none;}#header-main{padding-bottom: 0px;border-bottom: solid 1px #e3e3e3;}
   .fa_aboutus_orange{background:#ffeed1;padding: 20px 0}
   .fa_aboutus_grey{background:#eaeaea;}
-    .fa_aboutus_grey .container{background:#eaeaea url(/fa/staging/image/others/fa_aboutus_grey.jpg) center right no-repeat;background-size: cover;padding: 20px 0;}
+    .fa_aboutus_grey .container{background:#eaeaea url(/image/others/fa_aboutus_grey.jpg) center right no-repeat;background-size: cover;padding: 20px 0;}
 </style>
     <?php //end contact map ?>
 <?php echo $footer; ?>

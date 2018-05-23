@@ -15,13 +15,12 @@
     <?php echo $column_left; ?>
    <section id="sidebar-main" class="col-md-<?php echo $block[0];?>"><div id="content"><?php echo $content_top; ?>
      
-     <form id="formNewLestter" method="post" action="http://localhost:81/fa/staging/index.php?route=extension/module/pavnewsletter/subscribe" class="formNewLestter" _lpchecked="1">
+     <form id="formNewLestter" method="post" action="http://localhost:81/index.php?route=extension/module/pavnewsletter/subscribe" class="formNewLestter" _lpchecked="1">
                   
                   <div class="clearfix input-group">
                     <div class="box-heading">
                       <div class="heading">
                          <h2 class="faq_header">Get our latest updates</h2>
-                        <div class="description">New subs get 10% off! Sign up now!</div>
                       </div>
                     </div>
                       <label>EMAIL</label>

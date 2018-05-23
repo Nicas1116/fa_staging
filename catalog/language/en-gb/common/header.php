@@ -2,8 +2,8 @@
 // Text
 $_['text_home']          = 'Home';
 $_['text_wishlist']      = 'Wish List (%s)';
-$_['text_shopping_cart'] = '<img src="/fa/staging/image/others/combinedbag.png"/><span>BAG</span>';
-$_['text_stores'] 		 = '<img src="/fa/staging/image/others/combinedstore.png"/><span>FIND A STORE</span>';
+$_['text_shopping_cart'] = '<img src="/image/others/combinedbag.png"/><span>BAG</span>';
+$_['text_stores'] 		 = '<img src="/image/others/combinedstore.png"/><span>FIND A STORE</span>';
 $_['text_category']      = 'Categories';
 $_['text_account']       = 'My Account';
 $_['text_register']      = 'Register';

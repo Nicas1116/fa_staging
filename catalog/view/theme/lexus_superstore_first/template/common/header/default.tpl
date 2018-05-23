@@ -39,7 +39,7 @@
 				</div>			
   			</div>
   			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-  				<a class="homelogo" href="<?php echo $home; ?>"><img class="logo" src="/fa/staging/image/others/logo.png"/></a>
+  				<a class="homelogo" href="<?php echo $home; ?>"><img class="logo" src="/image/others/logo.png"/></a>
   			</div>
   			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
   				<div class="pull-right">
@@ -150,7 +150,7 @@
 		<div class="container">
 
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner">
-				<span ><span class="semiimage"><img src="<?php  echo $base; ?>/image/others/call.png"/></span><span class="semibold">HAMPER & CORPORATE ODER ENQUIRIES <a href="tel:+603 7882 6161">+603 7882 6161</a> or <a href="mailto:enquiry@famousamos.com.my">EMAIL</a> </span></span>
+				<span ><span class="semiimage"><img src="<?php  echo $base; ?>/image/others/call.png"/></span><span class="semibold">HAMPER & CORPORATE ORDER ENQUIRIES <a href="tel:+603 7882 6161">+603 7882 6161</a> or <a href="mailto:enquiry@famousamos.com.my">EMAIL</a> </span></span>
 			</div>
 		</div>
 	</div>

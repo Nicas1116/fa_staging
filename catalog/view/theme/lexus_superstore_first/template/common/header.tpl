@@ -135,8 +135,8 @@ $logoType = $helper->getConfig('logo_type','logo-theme');
 <?php echo $analytic; ?>
 <?php } ?>
 
-<script type="text/javascript" src="/fa/staging/catalog/view/javascript/jquery.bxslider.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/fa/staging/catalog/view/javascript/jquery.bxslider.css">
+<script type="text/javascript" src="/catalog/view/javascript/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/catalog/view/javascript/jquery.bxslider.css">
 </head>
 <body class="<?php echo $class; ?> <?php echo $helper->getPageClass();?> layout-<?php echo $template_layout; ?>">
 

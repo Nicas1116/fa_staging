@@ -9,7 +9,6 @@
 			            	<div class="box-heading">
 				            	<div class="heading">
 					            	<p class="title_newletter">Don’t miss a cookie. Get our latest updates!</p>
-					            	<div class="description">Pstt! Do you know new subs get 10% off? Don’t say we bojio!</div>
 				            	</div>
 				            </div>
 			                <input type="text" placeholder="Your Email Here" class="inputNew form-control email" <?php if(!isset($customer_email)): ?> <?php endif; ?> size="18" name="email">

@@ -9,10 +9,10 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/fa/staging/image/banner_wishlist.png"/></div>
+      <div class="category_image_small" style="padding:0px;background-image: none;"><img src="/image/banner_wishlist.png"/></div>
       <?php if ($products) { ?>
             <div>
-              <p class="purchased_topco"><label><input class="producheckboxall form-control" type="checkbox" name="product-id-all">Select All</label> | <a onclick="onclickreorder();"><img src="/fa/staging/image/others/icon_snackbag.png"/>Re-Order</a></p>
+              <p class="purchased_topco"><label><input class="producheckboxall form-control" type="checkbox" name="product-id-all">Select All</label> | <a onclick="onclickreorder();"><img src="/image/others/icon_snackbag.png"/>Re-Order</a></p>
             </div>
             <div class="purchased_container">
             <?php $m=0;foreach ($products as $product) { ?>

@@ -63,7 +63,7 @@
           <span>Only available with purchase of 1 product in multiple quantities</span></a></li>
       </ul>
       <div class="row">
-        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/fa/staging/image/others/delivery.png">Delivery Charges</a></div>
+        <div class="col-xs-12"><a class="opendeliverycharge"><img class="button_icon" src="/image/others/delivery.png">Delivery Charges</a></div>
      </div>
       <h2>My Bag <span class="itemsbag"><?php echo sizeof($products) ?> items</span></h2>
           <div class="cart_products_list">

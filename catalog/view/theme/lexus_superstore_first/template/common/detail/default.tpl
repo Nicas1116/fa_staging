@@ -74,12 +74,12 @@
         <?php } ?> 
     </div>
     <div class="delivery_container" style="display: none">
-        <p class="delivery"><img src="/fa/staging/image/others/delivery.png"/>FREE DELIVERY ABOVE RM100</p>  
+        <p class="delivery"><img src="/image/others/delivery.png"/>FREE DELIVERY ABOVE RM100</p>  
     </div>
      <div class="share_container">
         <p>Share this</p>
     <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook"><img src="/fa/staging/image/others/product_facebook.png" width="40" height="40" border="0" alt="Share to Facebook"></a><a class="addthis_button_email"><img src="/fa/staging/image/others/product_email.png" width="40" height="40" border="0" alt="Share Email"></a></div>
+    <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook"><img src="/image/others/product_facebook.png" width="40" height="40" border="0" alt="Share to Facebook"></a><a class="addthis_button_email"><img src="/image/others/product_email.png" width="40" height="40" border="0" alt="Share Email"></a></div>
     </div>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
         <!-- AddThis Button END --> 

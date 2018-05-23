@@ -7,22 +7,22 @@
     switch ( $category_parent_id ) {
       case 25:
         ?>
-        <img src="/fa/staging/image/others/By-Occassion.jpg">
+        <img src="/image/others/By-Occassion.jpg">
         <?php
         break;
        case 33:
         ?>
-        <img src="/fa/staging/image/others/By-Products.jpg">
+        <img src="/image/others/By-Products.jpg">
         <?php
         break;
        case 34:
         ?>
-        <img src="/fa/staging/image/others/Corporate.jpg">
+        <img src="/image/others/Corporate.jpg">
         <?php
         break;
       default:
          ?>
-        <img src="/fa/staging/image/others/By-Price.jpg">
+        <img src="/image/others/By-Price.jpg">
         <?php
         break;
     }
@@ -39,6 +39,20 @@
       <div class="row">
         <div class="col-lg-3 col-md-3 col-xs-12 hidden-xs">
         <?php if ($categories) { ?>
+	  
+      <?php if(!isset($category_t)) { ?>
+      <div class="refine-search">
+          <p>REFINE BY</p>
+          <p>Price</p>
+          <ul>
+            <li><a href="/index.php?route=product/category/all&amp;path=33&amp;price=1">Under RM20</a></li>
+            <li><a href="/index.php?route=product/category/all&amp;path=33&amp;price=2">RM21 — RM50</a></li>
+            <li><a href="/index.php?route=product/category/all&amp;path=33&amp;price=3">RM51 - RM100</a></li>
+            <li><a href="/index.php?route=product/category/all&amp;path=33&amp;price=4">RM100 and Above</a></li>
+          </ul>
+      </div>
+
+      <?php }else{ ?>
 	   <div class="subcategories refine-search panel panel-default box white">
 			  <div class="panel-body category-list clearfix box-content">  
  
@@ -57,17 +71,6 @@
           
         </div>
       </div> 
-      <?php if(isset($category_t)) { ?>
-      <div class="refine-search">
-          <p>REFINE BY</p>
-          <p>Price</p>
-          <ul>
-            <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=1">Under RM20</a></li>
-            <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=2">RM21 — RM50</a></li>
-            <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=3">RM51 - RM100</a></li>
-            <li><a href="/fa/staging/index.php?route=product/category/all&amp;path=33&amp;price=4">RM100 and Above</a></li>
-          </ul>
-      </div>
       <?php } ?>
          <?php } ?>
          </div><div class="col-lg-9 col-md-9 col-xs-12 ">

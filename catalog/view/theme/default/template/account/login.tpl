@@ -46,7 +46,6 @@
     <input type="hidden" name="account" value="register" checked="checked" />
     
     <a href="<?php echo $register; ?>" class="btn btn-primary btn-register" >SIGN UP NOW</a>
-    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi </p>
   </div>
 </div>
 

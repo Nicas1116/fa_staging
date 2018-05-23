@@ -1116,7 +1116,7 @@ height: 2px;
 * HEADER 
 */
 /* line 123, D:\xampp\htdocs\demo\lexus_superstore_demo22\catalog\view\theme\lexus_superstore_first\development\less\opencart\layout.less */
-#topbar {color: #8c8c8c;background: #fd5700;padding: 0;min-height: 80px;border-bottom: 1px solid #dcdcdc;/* background-image: url(/fa/staging/image/others/thbg.png); */background-repeat:  no-repeat;background-position:  center;background-size:  auto 100%;}
+#topbar {color: #8c8c8c;background: #fd5700;padding: 0;min-height: 80px;border-bottom: 1px solid #dcdcdc;/* background-image: url(/image/others/thbg.png); */background-repeat:  no-repeat;background-position:  center;background-size:  auto 100%;}
 /* line 129, D:\xampp\htdocs\demo\lexus_superstore_demo22\catalog\view\theme\lexus_superstore_first\development\less\opencart\layout.less */
 #topbar b,
 #topbar strong {
@@ -7568,7 +7568,7 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
 }
 
 .pav-container.home_corp {
-    background: url(/fa/staging/image/others/corp_image.jpg);
+    background: url(/image/others/corp_image.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -7948,9 +7948,9 @@ background: url('../../image/orange/icon-grid-list.png') no-repeat 0 0 #fafafa s
     display: block;
     color: #000
 }
-.deliverymethods li a span.logopayment{display: inline-block;margin-right: 10px;background: #fec70b;padding: 5px;}
-.deliverymethods li a span.logopayment img{width:120px;}
-.paymentmethods.deliverymethods li a strong{line-height: 34px;}
+.deliverymethods li a span.logopayment{display: inline-block;margin-right: 10px;background: transparent;padding: 0;}
+.deliverymethods li a span.logopayment img{width: 50px;}
+.paymentmethods.deliverymethods li a strong{line-height: 0;margin-top: -15px;display: block;margin-left: 120px;}
 .paymentmethods.deliverymethods .radio_dm{
     top:20px;
 }
@@ -8620,14 +8620,14 @@ textarea.form-control {
     font-size: 19px;
     line-height: 24px;
     font-weight: 600;
-    background: url(/fa/staging/image/others/othercontact.png) left center;
+    background: url(/image/others/othercontact.png) left center;
     padding: 20px 20px 20px 40px;
     background-repeat: no-repeat;
     margin: 0 0 10px 20px
 }
 
 .form-contactus .contactinformationbox .contact_header.sapplication {
-    background: url(/fa/staging/image/others/otherapplication.png) left center;
+    background: url(/image/others/otherapplication.png) left center;
     background-repeat: no-repeat
 }
 
@@ -8878,11 +8878,11 @@ textarea.form-control {
 }
 
 .mapstores .dphone {
-    background: url(/fa/staging/image/others/dphone.png) left center no-repeat
+    background: url(/image/others/dphone.png) left center no-repeat
 }
 
 .mapstores .optime {
-    background: url(/fa/staging/image/others/doptime.png) left center no-repeat
+    background: url(/image/others/doptime.png) left center no-repeat
 }
 
 .mapstores a.buttongetdirection {
@@ -9068,7 +9068,7 @@ textarea.form-control {
 }
 
 .category_image_small {
-    background: url(/fa/staging/image/others/account_header_banner.jpg) left center no-repeat;
+    background: url(/image/others/account_header_banner.jpg) left center no-repeat;
     padding: 16px 20px;
     margin: 30px 0 20px;
     background-size: cover
@@ -9358,7 +9358,7 @@ textarea.form-control {
 .product-info .price .text-price{font-size: 30px;line-height: 40px;}
 .product-info .price .text-price span{display: block;font-size: 15px;line-height: 20px;text-transform: capitalize;}
 .wishlist .btn.btn-theme-default,.btn.btn-shopping-cart{border-radius: 0px;font-weight: bold;}
-.form-group select.form-control {background-image: url(/fa/staging/image/others/selectinput.png);background-repeat: no-repeat;background-position: center right 20px;}
+.form-group select.form-control {background-image: url(/image/others/selectinput.png);background-repeat: no-repeat;background-position: center right 20px;}
 #product .form-group{margin-bottom: 10px;}
 #product .form-group:after{content: " ";display: table;clear: both;}
 #product .form-group .control-label{width: 25%;float: left;font-size: 15px;line-height: 22px;color:#4a4a4a;}
@@ -9513,8 +9513,8 @@ textarea.form-control {
 .product-filter{margin-top: 10px;}
 .homepage_sidemenu  {display: none;}
 .dtitle1{width: auto!important;height: auto!important;}
-.homemainbanner .rev_slider{height:500px!important;}
-.homemainbanner .tp-simpleresponsive >ul >li{background-color: #ffd600;background-size: 100%!important;background-position: bottom center!important;background-repeat: no-repeat!important;}
+.homemainbanner .rev_slider{height: auto;}
+.homemainbanner .tp-simpleresponsive >ul >li{background-color: transparent;background-size: 98%!important;background-position: bottom center!important;background-repeat: no-repeat!important;}
 .homemainbanner .rev_slider .slotholder >div{margin-top: 30%;height: 70%!important;background-position: bottom center!important;background: none!important;display: none;}
 .homemainbanner .rev_slider .button_ordernow{margin-top:130px!important;width: 150px;text-align: center;font-size: 15px;line-height: 20px;}
 .tp-simpleresponsive .tp-caption.dbutton .orangebtn{margin-top:20px!important;}
@@ -9587,6 +9587,7 @@ textarea.form-control {
     #header-bottom .container .inner > span span.semiimage{width: 20%;margin:  10px 0;text-align: center;display:  block;}
     #header-bottom .container .inner > span span.semibold{width: 80%;margin: 15px 0;}
     #header-bottom .container .inner > span:after{clear: both;display: table;content: " ";}
+    .category_image img{width: 100%;}
 }
 @media screen and (max-width: 400px) {
 	#header-bottom .container .inner > span.hasborderleft span.semibold,#header-bottom .container .inner > span.hasborderright span.semibold{width: 80%;margin: 15px 0;}

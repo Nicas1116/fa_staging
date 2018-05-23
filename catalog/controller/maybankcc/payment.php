@@ -2,6 +2,7 @@
 
 class ControllerMaybankCCPayment extends Controller {
 	public function index() {
+		$this->document->setTitle("Confirm Payment");
 		$this->load->language('extension/module/themecontrol');
 		$data['objlang'] = $this->registry->get('language');
 		$data['ourl'] = $this->registry->get('url');
@@ -28,7 +29,6 @@ class ControllerMaybankCCPayment extends Controller {
 				$totalamount = number_format($order_info["total"], 2, '.', ',');
 
 				//$tphash = "J9jqR8Fh"."02700701128175000698".$mer_id.number_format($totalamount,2);
-				
 				//$data["paymentlink"] = "https://ebpgcards.maybank.com/BPG/admin/payment/PaymentWindowSimulator.jsp";
 				$data["paymentlink"] = "https://cards.maybank.com/BPG/admin/payment/PaymentWindow.jsp";
 				$tphash = "Ia4Vfs3M"."02700701128175000698".$mer_id.number_format($totalamount,2);
@@ -82,7 +82,7 @@ class ControllerMaybankCCPayment extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
-
+	
 	public function confirmpayment(){
 		if (isset($this->session->data['order_id'])) {
 			$order_id = $this->session->data['order_id'];
@@ -96,6 +96,7 @@ class ControllerMaybankCCPayment extends Controller {
 		}
 		//echo json_encode($_POST);
 		$this->load->model('maybankcc/payment');
+		$this->load->model('checkout/order');
 		if (!empty($_POST))
 		{
 			$totalamount = number_format($this->session->data['total_amount'], 2, '.', ',');
@@ -110,13 +111,14 @@ class ControllerMaybankCCPayment extends Controller {
 			$this->load->model('account/order');
 			if(strtoupper(hash("sha512",$tphash,false)) == $txn_sign2){
 				if($res_code==0){
-					$this->model_maybankcc_payment->updateCompleteStatus($order_id);
+					$this->model_checkout_order->addOrderHistory($order_id, 1,"",true,true);
+					//$this->model_maybankcc_payment->updateCompleteStatus($order_id);
 				}
 			}
 			
 		}
 		$this->model_maybankcc_payment->addMaybankCC($order_id,$_POST);
-		echo "<script>window.close();</script>";
+		echo '<html><head></head><body><script>window.close();</script><!-- Google Code for Ramadan 2018 Conversion Page --><script type="text/javascript">/* <![CDATA[ */var google_conversion_id = 880328971;var google_conversion_label = "8S0iCP7F-YIBEIuC46MD";var google_remarketing_only = false;/* ]]> */</script><script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script><noscript><div style="display:inline;"><img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880328971/?label=8S0iCP7F-YIBEIuC46MD&amp;guid=ON&amp;script=0"/></div></noscript></body></html>';
 	}
 }
 

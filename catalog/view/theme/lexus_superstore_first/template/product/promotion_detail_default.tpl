@@ -88,7 +88,7 @@
    
     <div class="product-view col-xs-12 col-sm-12 col-md-5 col-lg-5 ?>">
         <p class="description"><?php echo $description; ?></p>
-        <a href="#" class="btn btn-primary">ORDER NOW</a>
+        
     </div>
 </div>
 

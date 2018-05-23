@@ -83,8 +83,8 @@
           <div class="col-md-3 col-sm-6 col-xs-12 right-align">
             <h5><?php echo $text_connectwithus; ?></h5>
             <div>
-              <a class="buttonfooter" href="<?php echo $facebooklink; ?>"><img src="/fa/staging/image/others/btnfacebook.png" alt="facebook"/></a>
-              <a class="buttonfooter" href="<?php echo $instagramlink; ?>"><img src="/fa/staging/image/others/btninstagram.png" alt="instagram"/></a>
+              <a class="buttonfooter" href="<?php echo $facebooklink; ?>"><img src="/image/others/btnfacebook.png" alt="facebook"/></a>
+              <a class="buttonfooter" href="<?php echo $instagramlink; ?>"><img src="/image/others/btninstagram.png" alt="instagram"/></a>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
         <div class="row">
             <div class=" col-md-12 col-sm-12 col-xs-12">
                 <h5>PAYMENT OPTIONS</h5>
-                <img src="/fa/staging/image/others/paymentoption.png"/>
+                <img src="/image/others/paymentoption.png"/>
             </div>
         </div>
       </div>
@@ -120,7 +120,7 @@
     </div>
     <?php if( $content=$helper->getLangConfig('widget_paypal_data') ) {?>
       <div class="paypal pull-right">
-        <img src="/fa/staging/image/others/dksh.png"/>
+        <img src="/image/others/dksh.png"/>
       </div>
     <?php } ?>
   </div>
@@ -170,4 +170,14 @@ echo $helper->renderAddon( 'offcanvas-category');
     
   }
 </script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119423143-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119423143-1');
+</script>
+
 </body></html>

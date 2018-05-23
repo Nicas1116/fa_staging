@@ -7,6 +7,7 @@ class Mail {
 	protected $subject;
 	protected $text;
 	protected $html;
+	protected $bcc;
 	protected $attachments = array();
 	public $protocol = 'mail';
 	public $smtp_hostname;
@@ -22,7 +23,11 @@ class Mail {
 			$this->$key = $value;
 		}
 	}
-
+	
+	public function setBcc($bcc) {
+		$this->bcc = $bcc;
+	}
+	
 	public function setTo($to) {
 		$this->to = $to;
 	}
@@ -81,7 +86,13 @@ class Mail {
 		} else {
 			$to = $this->to;
 		}
-
+		
+		if (is_array($this->bcc)) {
+			$bcc = implode(',', $this->bcc);
+		} else {
+			$bcc = $this->bcc;
+		}
+		
 		$boundary = '----=_NextPart_' . md5(time());
 
 		$header = 'MIME-Version: 1.0' . PHP_EOL;
@@ -93,7 +104,9 @@ class Mail {
 
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . PHP_EOL;
 		$header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . PHP_EOL;
-		
+		if ($this->bcc) {
+			$header .= 'Bcc: '.$bcc.'' . PHP_EOL;
+		}
 		if (!$this->reply_to) {
 			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . PHP_EOL;
 		} else {
